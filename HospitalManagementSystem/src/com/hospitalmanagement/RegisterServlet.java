@@ -1,6 +1,8 @@
 package com.hospitalmanagement;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,23 +21,32 @@ public class RegisterServlet extends HttpServlet {
      */
     public RegisterServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		// accept request from user
+		String name = request.getParameter("name");			// here is the user's name
+		String user = request.getParameter("username");		// user's username
+		String pass1 = request.getParameter("pass1");		// first password entry
+		String pass2 = request.getParameter("pass2");		// password confirmation entry
+		
+		// "process" the info in some way
+		PrintWriter out = response.getWriter();
+		if(!pass1.equals(pass2)) {
+			out.println("Passwords do not match.");
+		} else {
+			out.println("Succesfully registered. Thank you for registering, " + name +"!");
+		}
 	}
 
 }

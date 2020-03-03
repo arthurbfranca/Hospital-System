@@ -3,7 +3,6 @@ package com.hospitalmanagement;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,28 +21,26 @@ public class LoginServlet extends HttpServlet {
      */
     public LoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//doGet(request, response);
 		// accept request from user
-				String user = request.getParameter("user");
-				String pass = request.getParameter("pass");
+		String user = request.getParameter("user");		// here is the user's username
+		String pass = request.getParameter("pass");		// and password
 				
-				// complete some task
-				PrintWriter out = response.getWriter();
-				out.println("Succesfully logged in. Welcome, " + user +"!");
+		// "process" the information
+		PrintWriter out = response.getWriter();
+		out.println("Succesfully logged in. Welcome, " + user +"!");
 	}
 
 }
