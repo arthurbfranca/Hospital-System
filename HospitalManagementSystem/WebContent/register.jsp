@@ -15,6 +15,15 @@
 				<td></td>
 			</tr>
 			<tr>
+				<td>Account Type:</td>
+				<td><select name="accountType">
+					<option value ="patient">Patient</option>
+					<option value ="doctor">Doctor</option>
+					<option value ="nurse">Nurse</option>
+					<option value ="admin">Administration</option>
+				</select></td>
+			</tr>
+			<tr>
 				<td>Name:</td>
 				<td><input type="text" name="name"></td>
 			</tr>

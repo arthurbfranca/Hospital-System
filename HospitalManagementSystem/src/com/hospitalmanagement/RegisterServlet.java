@@ -35,17 +35,18 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// accept request from user
-		String name = request.getParameter("name");			// here is the user's name
-		String user = request.getParameter("username");		// user's username
-		String pass1 = request.getParameter("pass1");		// first password entry
-		String pass2 = request.getParameter("pass2");		// password confirmation entry
+		String accountType = request.getParameter("accountType");	// here is the user's account type
+		String name = request.getParameter("name");					// here is the user's name
+		String user = request.getParameter("username");				// user's username
+		String pass1 = request.getParameter("pass1");				// first password entry
+		String pass2 = request.getParameter("pass2");				// password confirmation entry
 		
 		// "process" the info in some way
 		PrintWriter out = response.getWriter();
 		if(!pass1.equals(pass2)) {
 			out.println("Passwords do not match.");
 		} else {
-			out.println("Succesfully registered. Thank you for registering, " + name +"!");
+			out.println("Succesfully registered as " + accountType + ". Thank you for registering, " + name +"!");
 		}
 	}
 
