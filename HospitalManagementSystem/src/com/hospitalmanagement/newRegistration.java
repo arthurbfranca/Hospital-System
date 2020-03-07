@@ -25,7 +25,7 @@ public class newRegistration {
 	   */
    }
    public static void addInfo(String id, String FirstName, String LastName, String Password, String fp) {
-		  jcreator.createFile(id, fp);
+		  createJSONFile.createFile(id, fp);
 	      //Creating a JSONObject object
 	      JsonObject jObject = new JsonObject();
 	      //Inserting key-value pairs into the json object
