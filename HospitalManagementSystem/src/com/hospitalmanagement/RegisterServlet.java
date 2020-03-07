@@ -1,5 +1,6 @@
 package com.hospitalmanagement;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
+	
+	File file = new File("users");
+	private static newRegistration newUser = new newRegistration();
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -36,7 +40,9 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// accept request from user
 		String accountType = request.getParameter("accountType");	// here is the user's account type
-		String name = request.getParameter("name");					// here is the user's name
+		String id = request.getParameter("id");
+		String firstName = request.getParameter("firstName");		// here is the user's first name
+		String lastName = request.getParameter("lastName");
 		String user = request.getParameter("username");				// user's username
 		String pass1 = request.getParameter("pass1");				// first password entry
 		String pass2 = request.getParameter("pass2");				// password confirmation entry
@@ -46,8 +52,16 @@ public class RegisterServlet extends HttpServlet {
 		if(!pass1.equals(pass2)) {
 			out.println("Passwords do not match.");
 		} else {
-			out.println("Succesfully registered as " + accountType + ". Thank you for registering, " + name +"!");
+			out.println("Succesfully registered as " + accountType + ". Thank you for registering, " + firstName +"!");
 		}
+		
+		String contextPath = getServletContext().getRealPath("/");
+		String xmlFilePath=contextPath+"\\users";
+		System.out.println(xmlFilePath);
+		File myfile = new File(xmlFilePath);
+		myfile.createNewFile();
+		
+		newUser.addInfo(id, firstName, lastName, pass1, xmlFilePath);
 	}
 
 }
