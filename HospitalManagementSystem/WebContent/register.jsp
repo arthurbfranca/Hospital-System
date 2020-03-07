@@ -24,8 +24,16 @@
 				</select></td>
 			</tr>
 			<tr>
-				<td>Name:</td>
-				<td><input type="text" name="name"></td>
+				<td>Health ID Number:</td>
+				<td><input type="text" name="id"></td>
+			</tr>
+			<tr>
+				<td>First Name:</td>
+				<td><input type="text" name="firstName"></td>
+			</tr>
+			<tr>
+				<td>Last Name:</td>
+				<td><input type="text" name="lastName"></td>
 			</tr>
 			<tr>
 				<td>Username:</td>

@@ -7,9 +7,9 @@ public class createJSONFile {
 	  public static void main(String[] args) {
 
 	  }
-	  public static void createFile(String userID){
+	  public static void createFile(String userID, String fp){
 		    try {
-			      File myObj = new File("src/hospitalSystem/" + userID + ".json");
+			      File myObj = new File(fp + userID + ".json");	//"src/com/hospitalmanagement/"
 			      if (myObj.createNewFile()) {
 			        System.out.println("File created: " + myObj.getName());
 			      } else {
