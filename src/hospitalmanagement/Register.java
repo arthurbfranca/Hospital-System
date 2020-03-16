@@ -19,6 +19,9 @@ import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.Font;
 
+/**
+* Class for registering to a new account
+*/
 public class Register extends JFrame {
 
 	private JPanel contentPane;
@@ -68,7 +71,7 @@ public class Register extends JFrame {
 					Login lframe = new Login();
 					JOptionPane.showMessageDialog(lframe, "Passwords do not match");
 				}
-				else if (username.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
+				else if (username.isEmpty() || password.isEmpty() || confirm.isEmpty()) {	//if any fields are empty, display failed login message
 					Login lframe1 = new Login();
 					JOptionPane.showMessageDialog(lframe1, "Invalid username and password");
 				}
