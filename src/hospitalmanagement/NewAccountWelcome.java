@@ -10,15 +10,16 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextArea;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class NewAccountWelcome extends JFrame {
-
-	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -29,12 +30,12 @@ public class NewAccountWelcome extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public NewAccountWelcome() {
+	public NewAccountWelcome(JPanel contentPane) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 997, 586);
 		contentPane = new JPanel();
@@ -47,5 +48,15 @@ public class NewAccountWelcome extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
 		lblNewLabel.setBounds(183, 140, 732, 238);
 		contentPane.add(lblNewLabel);
+		
+		JButton btnReturn = new JButton("Return");
+		btnReturn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				dispose();
+			}
+		});
+		btnReturn.setBounds(407, 434, 97, 25);
+		contentPane.add(btnReturn);
 	}
 }

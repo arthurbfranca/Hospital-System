@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Welcome extends JFrame {
 
@@ -17,7 +20,7 @@ public class Welcome extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -28,7 +31,7 @@ public class Welcome extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
@@ -47,6 +50,18 @@ public class Welcome extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 40));
 		lblNewLabel.setBounds(324, 95, 545, 231);
 		contentPane.add(lblNewLabel);
+		
+		JButton btnReturn = new JButton("Return");
+		btnReturn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				DoctorPerspective doctorPane = new DoctorPerspective();
+				doctorPane.setVisible(true);
+				dispose();
+			}
+		});
+		btnReturn.setBounds(434, 464, 97, 25);
+		contentPane.add(btnReturn);
 	}
 
 }

@@ -51,12 +51,12 @@ public class Login extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(1000, 600, 1000, 600);
 		contentPane = new JPanel();
-		contentPane.addMouseListener(new MouseAdapter() {
+		/*contentPane.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				dispose();
 			}
-		});
+		}); */
 		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -84,6 +84,7 @@ public class Login extends JFrame {
 				else {
 					Welcome hframe = new Welcome();
 					hframe.setVisible(true);
+					dispose();
 				}
 			}
 		});
@@ -91,10 +92,17 @@ public class Login extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Register");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		/*btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Register registerPage = new Register();
 				registerPage.setVisible(true);
+			}
+		});*/
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				Register registerPage = new Register();
+				registerPage.setVisible(true);
+				contentPane.revalidate();
 			}
 		});
 		btnNewButton_1.setBounds(516, 388, 171, 41);
@@ -126,7 +134,8 @@ public class Login extends JFrame {
 		comboBox.addItem("Nurse");
 		comboBox.addItem("Patient");
 		
-		comboBox.setBounds(478, 152, 42, 39);
+		//comboBox.setBounds(478, 152, 42, 39);
+		comboBox.setBounds(400, 150, 155, 39);
 		contentPane.add(comboBox);
 	}
 }

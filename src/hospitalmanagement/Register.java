@@ -32,7 +32,7 @@ public class Register extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -43,7 +43,7 @@ public class Register extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
@@ -76,12 +76,14 @@ public class Register extends JFrame {
 					JOptionPane.showMessageDialog(lframe1, "Invalid username and password");
 				}
 				else if ((password.equals(confirm)) && (username!=null) && (password!=null) && (confirm!=null)) {	//if passwords are equal, go to new account welcome page
-					NewAccountWelcome welcome = new NewAccountWelcome();
+					NewAccountWelcome welcome = new NewAccountWelcome(contentPane);
 					welcome.setVisible(true);
+					dispose();
 				}
 			}
 		});
-		btnNewButton.setBounds(401, 383, 171, 41);
+		//btnNewButton.setBounds(401, 383, 171, 41);
+		btnNewButton.setBounds(300, 383, 171, 41);
 		contentPane.add(btnNewButton);
 		
 		enterUser = new JTextField();
@@ -119,6 +121,15 @@ public class Register extends JFrame {
 		lblNewLabel_3.setBounds(217, 11, 733, 41);
 		contentPane.add(lblNewLabel_3);
 		
+		JButton btnNewButton_1 = new JButton("Cancel");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				dispose();
+			}
+		});
+		btnNewButton_1.setBounds(483, 383, 171, 41);
+		contentPane.add(btnNewButton_1);
 	}
 
 }

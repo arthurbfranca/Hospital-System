@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class DoctorPerspective extends JFrame {
 
@@ -16,7 +18,7 @@ public class DoctorPerspective extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -27,7 +29,7 @@ public class DoctorPerspective extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
@@ -44,7 +46,14 @@ public class DoctorPerspective extends JFrame {
 		menuLabel.setBounds(239, 11, 119, 14);
 		contentPane.add(menuLabel);
 		
-		JButton ViewAppointmentsButton = new JButton("View Appontments");
+		JButton ViewAppointmentsButton = new JButton("View Appointments");
+		ViewAppointmentsButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DoctorAppointmentView appointmentPane = new DoctorAppointmentView();
+				appointmentPane.setVisible(true);
+			}
+		});
 		ViewAppointmentsButton.setBounds(115, 73, 148, 53);
 		contentPane.add(ViewAppointmentsButton);
 		
@@ -57,6 +66,13 @@ public class DoctorPerspective extends JFrame {
 		contentPane.add(ViewAvailabilityButton);
 		
 		JButton BookAppointmentButton = new JButton("Book Appointment");
+		BookAppointmentButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DoctorBookAppointment patientsPane = new DoctorBookAppointment();
+				patientsPane.setVisible(true);
+			}
+		});
 		BookAppointmentButton.setBounds(289, 73, 148, 53);
 		contentPane.add(BookAppointmentButton);
 		
