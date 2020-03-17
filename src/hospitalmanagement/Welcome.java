@@ -13,6 +13,9 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/*
+* Class that displays the welcome page for users who have logged back into their accounts
+*/
 public class Welcome extends JFrame {
 
 	private JPanel contentPane;
