@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/*
+* Class that displays the panel for the patient's perspective after logging in as a patient user
+*/
 public class PatientPerspective extends JFrame {
 
 	private JPanel contentPane;
@@ -58,6 +61,13 @@ public class PatientPerspective extends JFrame {
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("View personal info");
+		btnNewButton_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				PatientInfoView personalInfo = new PatientInfoView();
+				personalInfo.setVisible(true);
+			}
+		});
 		btnNewButton_4.setBounds(68, 166, 199, 41);
 		contentPane.add(btnNewButton_4);
 	}
