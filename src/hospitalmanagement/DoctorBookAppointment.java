@@ -12,6 +12,9 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/*
+* Class that displays the panel where the doctor can book appointments
+*/
 public class DoctorBookAppointment extends JFrame {
 
 	private JPanel contentPane;
@@ -47,6 +50,7 @@ public class DoctorBookAppointment extends JFrame {
 		MainLabel.setBounds(239, 11, 128, 14);
 		contentPane.add(MainLabel);
 		
+		//Create drop down menu for appointment booking details
 		JComboBox DepartmentDropdown = new JComboBox();
 		DepartmentDropdown.setBounds(292, 58, 75, 22);
 		contentPane.add(DepartmentDropdown);
