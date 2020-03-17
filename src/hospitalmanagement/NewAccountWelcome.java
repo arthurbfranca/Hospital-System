@@ -14,6 +14,9 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/*
+* Class that displays the welcome page for new users who just registered for an account 
+*/
 public class NewAccountWelcome extends JFrame {
 
 	/**
