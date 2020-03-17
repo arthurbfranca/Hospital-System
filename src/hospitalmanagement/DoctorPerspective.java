@@ -11,6 +11,9 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/*
+* Class that displays the options the doctor can choose from upon logging in to their account; includes viewing appointments, patients, booking appointments, etc.
+*/
 public class DoctorPerspective extends JFrame {
 
 	private JPanel contentPane;
