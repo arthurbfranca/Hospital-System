@@ -10,6 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
+/*
+* Class that displays the panel for patients to book an appointment
+*/
 public class PatientBookAppointment extends JFrame {
 
 	private JPanel contentPane;
