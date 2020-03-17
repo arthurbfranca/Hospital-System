@@ -50,7 +50,6 @@ public class Account {
 		return username;
 	}
 
-	
 	/*
 	* This is a setter method for the username
 	* @param username: the username for the account

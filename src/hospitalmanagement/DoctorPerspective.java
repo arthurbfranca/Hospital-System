@@ -40,6 +40,7 @@ public class DoctorPerspective extends JFrame {
 	public DoctorPerspective() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 626, 436);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -86,5 +87,17 @@ public class DoctorPerspective extends JFrame {
 		JButton SetAvailabilityButton = new JButton("Set Availability");
 		SetAvailabilityButton.setBounds(289, 201, 148, 53);
 		contentPane.add(SetAvailabilityButton);
+		
+		JButton btnReturn = new JButton("Return");
+		btnReturn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Login loginPane = new Login();
+				loginPane.setVisible(true);
+				dispose();
+			}
+		});
+		btnReturn.setBounds(239, 280, 119, 14);
+		contentPane.add(btnReturn);
 	}
 }
