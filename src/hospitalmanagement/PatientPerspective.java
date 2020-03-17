@@ -38,27 +38,27 @@ public class PatientPerspective extends JFrame {
 				dispose();
 			}
 		});
-		btnReturn.setBounds(446, 296, 139, 41);
+		btnReturn.setBounds(217, 279, 139, 41);
 		contentPane.add(btnReturn);
 		
 		JButton btnNewButton = new JButton(" View appointments");
-		btnNewButton.setBounds(131, 105, 303, 46);
+		btnNewButton.setBounds(68, 113, 199, 41);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Book an appointment");
-		btnNewButton_1.setBounds(131, 205, 303, 41);
+		btnNewButton_1.setBounds(320, 55, 199, 46);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("View test results");
-		btnNewButton_2.setBounds(131, 254, 303, 35);
+		btnNewButton_2.setBounds(320, 111, 199, 44);
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("View records");
-		btnNewButton_3.setBounds(131, 55, 303, 41);
+		btnNewButton_3.setBounds(68, 58, 199, 41);
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("View personal info");
-		btnNewButton_4.setBounds(131, 161, 303, 41);
+		btnNewButton_4.setBounds(68, 166, 199, 41);
 		contentPane.add(btnNewButton_4);
 	}
 }
