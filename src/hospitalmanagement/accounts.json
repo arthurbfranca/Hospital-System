@@ -1,0 +1,49 @@
+{"accounts": [
+  {
+    "id": 1,
+    "first_name": "Erin",
+    "last_name": "Paslawski",
+    "email": "edpaslaw@ucalgary.ca",
+    "gender": "Female",
+    "password": "password12345",
+    "appointments": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": 2,
+    "first_name": "Arthur",
+    "last_name": "F",
+    "email": "gfrediani1@senate.gov",
+    "gender": "Male",
+    "password": "password12345",
+    "appointments": [
+      3,
+      4
+    ]
+  },
+  {
+    "id": 3,
+    "first_name": "Noell",
+    "last_name": "Bea",
+    "email": "nbea2@imageshack.us",
+    "gender": "Female",
+    "password": "password12345",
+    "appointments": [
+      5,
+      6
+    ]
+  },
+  {
+    "id": 4,
+    "first_name": "Willard",
+    "last_name": "Valek",
+    "email": "wvalek3@vk.com",
+    "gender": "Male",
+    "password": "password12345",
+    "appointments": [
+      7
+    ]
+  }
+]}
