@@ -10,6 +10,9 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 
+/*
+* Class that displays the Homepage of the system
+*/
 public class Home extends JFrame {
 
 	private JPanel contentPane;
@@ -31,8 +34,8 @@ public class Home extends JFrame {
 	}*/
 
 	/**
-	 * Create the frame.
-	 */
+	* Create the frame.
+	*/
 	public Home() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 998, 587);
@@ -42,7 +45,7 @@ public class Home extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		
+		//Displays Welcome back message for users that logged in successfully to their account
 		JLabel lblNewLabel = new JLabel("Welcome back!");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 40));
 		lblNewLabel.setBounds(324, 95, 545, 231);
