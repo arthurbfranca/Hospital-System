@@ -12,6 +12,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 
+/*
+* Class that displays the panel for the doctors appointments 
+*/
 public class DoctorAppointmentView extends JFrame {
 
 	private JPanel contentPane;
