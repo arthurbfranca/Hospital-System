@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/*
+* Class that displays the panel for the nurse when logged in as a nurse user type
+*/
 public class NursePerspective extends JFrame {
 
 	private JPanel contentPane;
@@ -38,7 +41,15 @@ public class NursePerspective extends JFrame {
 				dispose();
 			}
 		});
-		btnReturn.setBounds(239, 110, 119, 14);
+		btnReturn.setBounds(225, 259, 119, 14);
 		contentPane.add(btnReturn);
+		
+		JButton btnNewButton = new JButton("Upload Test Results");
+		btnNewButton.setBounds(206, 151, 171, 41);
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("View Schedule");
+		btnNewButton_1.setBounds(206, 89, 171, 41);
+		contentPane.add(btnNewButton_1);
 	}
 }
