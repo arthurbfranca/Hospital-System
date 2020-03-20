@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/*
+* Class that displays the panel for the assistant after logging in
+*/
 public class AssistantPerspective extends JFrame {
 	
 	private JPanel contentPane;
@@ -38,7 +41,15 @@ public class AssistantPerspective extends JFrame {
 				dispose();
 			}
 		});
-		btnReturn.setBounds(239, 110, 119, 14);
+		btnReturn.setBounds(239, 306, 119, 14);
 		contentPane.add(btnReturn);
+		
+		JButton btnNewButton = new JButton("Approve Appointments");
+		btnNewButton.setBounds(207, 82, 171, 41);
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Approve Referrals");
+		btnNewButton_1.setBounds(207, 151, 171, 41);
+		contentPane.add(btnNewButton_1);
 	}
 }
