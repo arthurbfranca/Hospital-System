@@ -1,87 +1,127 @@
 {
-  "accounts": [
-    {
-      "users": [
-        {
-          "id": 1,
-          "first_name": "Erin",
-          "last_name": "Paslawski",
-          "email": "edpaslaw@ucalgary.ca",
-          "gender": "Female",
-          "password": "password12345",
-          "appointments": [
-            1,
-            2
-          ],
-          "prescriptions": [
-            "drug2",
-            "drug2"
-          ]
-        },
-        {
-          "id": 2,
-          "first_name": "Arthur",
-          "last_name": "F",
-          "email": "gfrediani1@senate.gov",
-          "gender": "Male",
-          "password": "password12345",
-          "appointments": [
-            3,
-            4
-          ],
-          "prescriptions": [
-            "drug2",
-            "drug2"
-          ]
-        },
-        {
-          "id": 3,
-          "first_name": "Noell",
-          "last_name": "Bea",
-          "email": "nbea2@imageshack.us",
-          "gender": "Female",
-          "password": "password12345",
-          "appointments": [
-            5,
-            6
-          ],
-          "prescriptions": [
-            "drug2",
-            "drug2"
-          ]
-        },
-        {
-          "id": 4,
-          "first_name": "Willard",
-          "last_name": "Valek",
-          "email": "wvalek3@vk.com",
-          "gender": "Male",
-          "password": "password12345",
-          "appointments": [
-            7
-          ],
-          "prescriptions": [
-            "drug2",
-            "drug2"
-          ]
-        }
-      ]
-    },
-    {
-      "doctors": [
-        {
-          "id": 1,
-          "first_name": "Dr",
-          "last_name": "Sohaib",
-          "email": "bajwa@ucalgary.ca",
-          "gender": "Male",
-          "password": "docPassword",
-          "appointments": [
-            1,
-            2
-          ]
-        }
-      ]
-    }
-  ]
+	"accounts": [
+		{
+			"patient": [
+				{
+					"id": 1,
+					"first_name": "Erin",
+					"last_name": "Paslawski",
+					"age": 25,
+					"email": "edpaslaw@ucalgary.ca",
+					"gender": "Female",
+					"password": "password12345",
+ 					"appointments": [
+						1,
+						2
+					],
+					"prescriptions": [
+						"drug2",
+						"drug2"
+					]
+				},
+				{
+					"id": 2,
+					"first_name": "Arthur",
+					"last_name": "F",
+					"age": 25,
+					"email": "gfrediani1@senate.gov",
+					"gender": "Male",
+					"password": "password12345",
+					"appointments": [
+						3,
+						4
+					],
+					"prescriptions": [
+						"drug2",
+						"drug2"
+					]
+				},
+				{
+					"id": 3,
+					"first_name": "Noell",
+					"last_name": "Bea",
+					"age": 25,
+					"email": "nbea2@imageshack.us",
+					"gender": "Female",
+					"password": "password12345",
+					"appointments": [
+						5,
+						6
+					],
+					"prescriptions": [
+						"drug2",
+						"drug2"
+					]
+				},
+				{
+					"id": 4,
+					"first_name": "Willard",
+					"last_name": "Valek",
+					"age": 25,
+					"email": "wvalek3@vk.com",
+					"gender": "Male",
+					"password": "password12345",
+					"appointments": [
+						7
+					],
+					"prescriptions": [
+						"drug2",
+						"drug2"
+					]
+				}
+			]
+		},
+		{
+			"doctor": [
+				{
+					"id": 1,
+					"first_name": "Dr",
+					"last_name": "Sohaib",
+					"email": "bajwa@ucalgary.ca",
+					"gender": "Male",
+					"password": "docPassword",
+					"appointments": [
+						1,
+						2
+					]
+				}
+			]
+		},
+		{
+			"nurse": [
+				{
+					"id": 1,
+					"first_name": "Nurse",
+					"last_name": "Jacky",
+					"email": "nurse@ucalgary.ca",
+					"gender": "Female",
+					"password": "nursePassword"
+				}
+			]
+		},
+		{
+			"assistant": [
+				{
+					"id": 1,
+					"first_name": "Assistant",
+					"last_name": "Person",
+					"email": "assistant@ucalgary.ca",
+					"gender": "Female",
+					"password": "assistantPassword"
+				}
+			]
+		},
+		{
+			"administrator": [
+				{
+					"id": 1,
+					"first_name": "Big",
+					"last_name": "Boss",
+					"email": "admin@ucalgary.ca",
+					"gender": "Female",
+					"password": "adminPassword"
+				}
+			]
+		}
+	]
 }
