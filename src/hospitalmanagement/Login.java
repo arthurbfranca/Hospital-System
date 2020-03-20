@@ -22,15 +22,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 
+/*
+* Class that displays the home page for users to log into their accounts or register for a new account
+* Currently is the main class used to launch the program
+*/
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField username;
 	private JTextField password;
 
-	/**
-	 * Launch the application.
-	 */
+	/*
+	* Launch the application.
+	*/
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -44,9 +48,9 @@ public class Login extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	/*
+	* Create the frame.
+	*/
 	public Login() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(1000, 600, 1000, 600);
@@ -72,7 +76,7 @@ public class Login extends JFrame {
 		contentPane.add(password);
 		password.setColumns(10);
 
-		// Create an empty combo box with items of type String
+		// Create an empty combo box with items of type String for users to select the account type
 		JComboBox<String> comboBox = new JComboBox<String>();
 
 		// add items to the combo box
@@ -82,7 +86,6 @@ public class Login extends JFrame {
 		comboBox.addItem("Nurse");
 		comboBox.addItem("Patient");
 
-		// comboBox.setBounds(478, 152, 42, 39);
 		comboBox.setBounds(400, 150, 155, 39);
 		contentPane.add(comboBox);
 
@@ -91,9 +94,9 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String uname = username.getText();
 				String pass = password.getText();
-				if (uname == null & pass == null) {
+				if (uname.isEmpty() || pass.isEmpty()) {	//Check if username and password fields are empty
 					Login lframe = new Login();
-					JOptionPane.showMessageDialog(lframe, "Invalid login");
+					JOptionPane.showMessageDialog(lframe, "Invalid username and password");	//Display error message
 				} else {
 					/************ TO DO: check JSON to verify user BEFORE instantiating the new perspective!! ***************/
 				    String userType = comboBox.getSelectedItem().toString();
