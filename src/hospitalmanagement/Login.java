@@ -95,6 +95,7 @@ public class Login extends JFrame {
 					Login lframe = new Login();
 					JOptionPane.showMessageDialog(lframe, "Invalid login");
 				} else {
+					/************ TO DO: check JSON to verify user BEFORE instantiating the new perspective!! ***************/
 				    String userType = comboBox.getSelectedItem().toString();
 				    if (userType.equals("Administrator")) {
 				    	AdminPerspective adminPane = new AdminPerspective();

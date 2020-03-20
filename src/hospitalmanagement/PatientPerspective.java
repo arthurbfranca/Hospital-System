@@ -45,14 +45,35 @@ public class PatientPerspective extends JFrame {
 		contentPane.add(btnReturn);
 		
 		JButton btnNewButton = new JButton(" View appointments");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				PatientAppointmentView appointmentPane = new PatientAppointmentView();
+				appointmentPane.setVisible(true);
+			}
+		});
 		btnNewButton.setBounds(68, 113, 199, 41);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Book an appointment");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				PatientBookAppointment bookApp = new PatientBookAppointment();
+				bookApp.setVisible(true);
+			}
+		});
 		btnNewButton_1.setBounds(320, 55, 199, 46);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("View test results");
+		btnNewButton_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				PatientTestResultView appointmentPane = new PatientTestResultView();
+				appointmentPane.setVisible(true);
+			}
+		});
 		btnNewButton_2.setBounds(320, 111, 199, 44);
 		contentPane.add(btnNewButton_2);
 		

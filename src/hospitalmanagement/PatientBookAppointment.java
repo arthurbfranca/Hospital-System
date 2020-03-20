@@ -2,11 +2,14 @@ package hospitalmanagement;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
@@ -37,7 +40,7 @@ public class PatientBookAppointment extends JFrame {
 	 * Create the frame.
 	 */
 	public PatientBookAppointment() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 590, 444);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -45,47 +48,78 @@ public class PatientBookAppointment extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel MainLabel = new JLabel("Book Appointment");
-		MainLabel.setBounds(239, 11, 128, 14);
+		MainLabel.setBounds(230, 66, 128, 14);
 		contentPane.add(MainLabel);
 		
-		JComboBox DepartmentDropdown = new JComboBox();
-		DepartmentDropdown.setBounds(292, 58, 75, 22);
-		contentPane.add(DepartmentDropdown);
-		
 		JLabel DepartmentLabel = new JLabel("Department:");
-		DepartmentLabel.setBounds(215, 62, 75, 14);
+		DepartmentLabel.setBounds(173, 115, 75, 14);
 		contentPane.add(DepartmentLabel);
 		
+		JComboBox<String> departmentDropdown = new JComboBox<String>();
+		departmentDropdown.addItem("Cardiology");
+		departmentDropdown.addItem("Nephrology");
+		departmentDropdown.addItem("Neurology");
+		departmentDropdown.setBounds(292, 111, 141, 22);
+		contentPane.add(departmentDropdown);
+		
 		JLabel DoctorNameLabel = new JLabel("Doctor:");
-		DoctorNameLabel.setBounds(215, 91, 75, 14);
+		DoctorNameLabel.setBounds(173, 158, 75, 14);
 		contentPane.add(DoctorNameLabel);
 		
-		JComboBox PatientNameDropdown = new JComboBox();
-		PatientNameDropdown.setBounds(292, 87, 75, 22);
-		contentPane.add(PatientNameDropdown);
+		/************ TO DO: go into account JSON and display all doctors as options here ***************/
+		// I have just put placeholder doctor names for now lol
+		JComboBox<String> docDropdown = new JComboBox<String>();
+		docDropdown.addItem("Dr. Bajwa");
+		docDropdown.addItem("Dr. Doctor");
+		docDropdown.addItem("Dr. Hartman");
+		docDropdown.setBounds(292, 154, 141, 22);
+		contentPane.add(docDropdown);
 		
 		JLabel TimeslotLabel = new JLabel("Timeslot:");
-		TimeslotLabel.setBounds(215, 120, 75, 14);
+		TimeslotLabel.setBounds(173, 203, 75, 14);
 		contentPane.add(TimeslotLabel);
 		
-		JComboBox PatientNameDropdown_1 = new JComboBox();
-		PatientNameDropdown_1.setBounds(292, 116, 75, 22);
-		contentPane.add(PatientNameDropdown_1);
-		
-		JButton BookButton = new JButton("Book");
-		BookButton.setBounds(292, 210, 89, 23);
-		contentPane.add(BookButton);
-		
-		JButton CancelButton = new JButton("Cancel");
-		CancelButton.setBounds(193, 210, 89, 23);
-		contentPane.add(CancelButton);
+		/************ TO DO:
+		 * go into account or appointment? JSON and
+		 * some how display available timeslots for the chosen doctor
+		 ****************/
+		// I have just put placeholder times for now
+		JComboBox<String> timeDropdown = new JComboBox<String>();
+		timeDropdown.addItem("09:00");
+		timeDropdown.addItem("11:00");
+		timeDropdown.addItem("14:00");
+		timeDropdown.setBounds(292, 199, 141, 22);
+		contentPane.add(timeDropdown);
 		
 		JLabel AppointmentTypeLabel = new JLabel("Apt. Type:");
-		AppointmentTypeLabel.setBounds(215, 149, 75, 14);
+		AppointmentTypeLabel.setBounds(173, 248, 75, 14);
 		contentPane.add(AppointmentTypeLabel);
 		
-		JComboBox AppointmentTypeDropdown = new JComboBox();
-		AppointmentTypeDropdown.setBounds(292, 145, 75, 22);
-		contentPane.add(AppointmentTypeDropdown);
+		JComboBox<String> aptTypeDropdown = new JComboBox<String>();
+		aptTypeDropdown.addItem("Consultation");
+		aptTypeDropdown.addItem("Surgery");
+		aptTypeDropdown.addItem("Test/Scans");
+		aptTypeDropdown.setBounds(292, 240, 141, 22);
+		contentPane.add(aptTypeDropdown);
+		
+		/************ TO DO: when the patient books the appointment,
+		 * add this account information to the appointments JSON file
+		 * add this appointment as an appointment for the doctor in the accounts JSON
+		 ****************/
+		JButton BookButton = new JButton("Book");
+		BookButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.out.println(departmentDropdown.getSelectedItem().toString());
+				System.out.println(docDropdown.getSelectedItem().toString());
+				System.out.println(timeDropdown.getSelectedItem().toString());
+				System.out.println(aptTypeDropdown.getSelectedItem().toString());
+				Login lframe = new Login();
+				JOptionPane.showMessageDialog(lframe, "Your appointment has been booked!");
+			}
+		});
+		BookButton.setBounds(250, 297, 89, 23);
+		contentPane.add(BookButton);
+		
 	}
 }

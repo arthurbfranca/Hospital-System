@@ -36,17 +36,17 @@ public class PatientInfoView extends JFrame {
 	 * Create the frame.
 	 */
 	public PatientInfoView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1014, 581);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		/*
 		JButton btnNewButton = new JButton("Return");
 		btnNewButton.setBounds(401, 427, 171, 41);
 		contentPane.add(btnNewButton);
-		
+		*/
 		JLabel lblNewLabel = new JLabel("Patient Name:");
 		lblNewLabel.setBounds(59, 28, 115, 33);
 		contentPane.add(lblNewLabel);
