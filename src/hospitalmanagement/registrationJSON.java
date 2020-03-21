@@ -28,7 +28,7 @@ public class registrationJSON {
 	    messages.add("Hey!");
 	    messages.add("What's up?!");
 
-	    sampleObject.put("messages", messages);
-	    Files.write(Paths.get(filename), sampleObject.toJSONString().getBytes());
+	    //sampleObject.put("messages", messages);
+	    //Files.write(Paths.get(filename), sampleObject.toJSONString().getBytes());
 	}
 }
