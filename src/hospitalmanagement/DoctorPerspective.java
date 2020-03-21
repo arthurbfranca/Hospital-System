@@ -62,6 +62,13 @@ public class DoctorPerspective extends JFrame {
 		contentPane.add(ViewAppointmentsButton);
 		
 		JButton ViewPatientsButton = new JButton("View Patients");
+		ViewPatientsButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				DoctorPatientsView viewPatientsPane = new DoctorPatientsView();
+				viewPatientsPane.setVisible(true);
+			}
+		});
 		ViewPatientsButton.setBounds(115, 137, 148, 53);
 		contentPane.add(ViewPatientsButton);
 		
@@ -81,6 +88,13 @@ public class DoctorPerspective extends JFrame {
 		contentPane.add(BookAppointmentButton);
 		
 		JButton AddPatientButton = new JButton("Add Patient");
+		AddPatientButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				DoctorAddPatient addPatientPane = new DoctorAddPatient();
+				addPatientPane.setVisible(true);
+			}
+		});
 		AddPatientButton.setBounds(289, 137, 148, 53);
 		contentPane.add(AddPatientButton);
 		
