@@ -1,6 +1,5 @@
 package hospitalmanagement;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,13 +7,17 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /*
 * Class that displays panel for the personal information of the patient
 */
 public class PatientInfoView extends JFrame {
 
-	private JPanel contentPane;
+	private JPanel infoView;
 
 	/**
 	* Launch the application.
@@ -38,85 +41,158 @@ public class PatientInfoView extends JFrame {
 	public PatientInfoView() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1014, 581);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		/*
-		JButton btnNewButton = new JButton("Return");
-		btnNewButton.setBounds(401, 427, 171, 41);
-		contentPane.add(btnNewButton);
-		*/
-		JLabel lblNewLabel = new JLabel("Patient Name:");
-		lblNewLabel.setBounds(59, 28, 115, 33);
-		contentPane.add(lblNewLabel);
+		infoView = new JPanel();
+		infoView.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(infoView);
+		infoView.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Phone Number:");
-		lblNewLabel_1.setBounds(59, 305, 115, 33);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblFirstName = new JLabel("First Name:");
+		lblFirstName.setBounds(166, 118, 115, 33);
+		infoView.add(lblFirstName);
 		
-		JLabel lblNewLabel_2 = new JLabel("Email:");
-		lblNewLabel_2.setBounds(59, 366, 115, 33);
-		contentPane.add(lblNewLabel_2);
+		JLabel lblLastName = new JLabel("Last Name:");
+		lblLastName.setBounds(166, 172, 115, 33);
+		infoView.add(lblLastName);
 		
-		JLabel lblNewLabel_3 = new JLabel("Address:");
-		lblNewLabel_3.setBounds(59, 244, 115, 33);
-		contentPane.add(lblNewLabel_3);
+		JLabel lblAge = new JLabel("Age:");
+		lblAge.setBounds(166, 231, 115, 33);
+		infoView.add(lblAge);
 		
-		JButton btnNewButton_1 = new JButton("Edit");
-		btnNewButton_1.setBounds(698, 93, 171, 41);
-		contentPane.add(btnNewButton_1);
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setBounds(166, 285, 115, 33);
+		infoView.add(lblEmail);
 		
-		JButton btnNewButton_2 = new JButton("Edit");
-		btnNewButton_2.setBounds(698, 24, 171, 41);
-		contentPane.add(btnNewButton_2);
+		JLabel lblGender = new JLabel("Gender:");
+		lblGender.setBounds(166, 339, 115, 33);
+		infoView.add(lblGender);
 		
-		JLabel lblNewLabel_4 = new JLabel("Birthday:");
-		lblNewLabel_4.setBounds(59, 172, 115, 33);
-		contentPane.add(lblNewLabel_4);
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setBounds(166, 397, 115, 33);
+		infoView.add(lblPassword);
 		
-		JLabel lblNewLabel_5 = new JLabel("Gender:");
-		lblNewLabel_5.setBounds(59, 97, 115, 33);
-		contentPane.add(lblNewLabel_5);
+		JLabel lblStoredFirstName = new JLabel("Bob");
+		lblStoredFirstName.setBounds(401, 118, 115, 33);
+		infoView.add(lblStoredFirstName);
 		
-		JLabel lblNewLabel_6 = new JLabel("Bob Smith");
-		lblNewLabel_6.setBounds(401, 28, 115, 33);
-		contentPane.add(lblNewLabel_6);
+		JLabel lblStoredLastName = new JLabel("Smith");
+		lblStoredLastName.setBounds(401, 172, 115, 33);
+		infoView.add(lblStoredLastName);
 		
-		JLabel lblNewLabel_7 = new JLabel("Male");
-		lblNewLabel_7.setBounds(401, 97, 115, 33);
-		contentPane.add(lblNewLabel_7);
+		JLabel lblStoredAge = new JLabel("35");
+		lblStoredAge.setBounds(401, 231, 115, 33);
+		infoView.add(lblStoredAge);
 		
-		JLabel lblNewLabel_8 = new JLabel("January 10, 1985");
-		lblNewLabel_8.setBounds(401, 172, 115, 33);
-		contentPane.add(lblNewLabel_8);
+		JLabel lblStoredEmail = new JLabel("bobsmith6@gmail.com");
+		lblStoredEmail.setBounds(401, 285, 195, 33);
+		infoView.add(lblStoredEmail);
 		
-		JButton btnNewButton_3 = new JButton("Edit");
-		btnNewButton_3.setBounds(698, 162, 171, 41);
-		contentPane.add(btnNewButton_3);
+		JLabel lblStoredGender = new JLabel("Male");
+		lblStoredGender.setBounds(401, 339, 115, 33);
+		infoView.add(lblStoredGender);
 		
-		JButton btnNewButton_4 = new JButton("Edit");
-		btnNewButton_4.setBounds(698, 231, 171, 41);
-		contentPane.add(btnNewButton_4);
+		JLabel lblStoredPass = new JLabel("passw0rd");
+		lblStoredPass.setBounds(401, 397, 195, 33);
+		infoView.add(lblStoredPass);
 		
-		JLabel lblNewLabel_9 = new JLabel("Maple Street 207 SE");
-		lblNewLabel_9.setBounds(401, 244, 115, 33);
-		contentPane.add(lblNewLabel_9);
+		JButton btnLastNameEdit = new JButton("Edit");
+		btnLastNameEdit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login lframe = new Login();
+				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
+				lblStoredLastName.setText(newVal);
+				infoView.repaint();
+			}
+		});
+		btnLastNameEdit.setBounds(672, 168, 171, 41);
+		infoView.add(btnLastNameEdit);
 		
-		JLabel lblNewLabel_10 = new JLabel("403-010-5000");
-		lblNewLabel_10.setBounds(401, 305, 115, 33);
-		contentPane.add(lblNewLabel_10);
+		JButton btnFirstNameEdit = new JButton("Edit");
+		btnFirstNameEdit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Login lframe = new Login();
+				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
+				lblStoredFirstName.setText(newVal);
+				infoView.repaint();
+			}
+		});
+		btnFirstNameEdit.setBounds(672, 114, 171, 41);
+		infoView.add(btnFirstNameEdit);
 		
-		JLabel lblNewLabel_11 = new JLabel("bobSmith6@gmail.com");
-		lblNewLabel_11.setBounds(401, 366, 115, 33);
-		contentPane.add(lblNewLabel_11);
+		JButton btnAgeEdit = new JButton("Edit");
+		btnAgeEdit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login lframe = new Login();
+				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
+				lblStoredAge.setText(newVal);
+				infoView.repaint();
+			}
+		});
+		btnAgeEdit.setBounds(672, 227, 171, 41);
+		infoView.add(btnAgeEdit);
 		
-		JButton btnNewButton_5 = new JButton("Edit");
-		btnNewButton_5.setBounds(698, 301, 171, 41);
-		contentPane.add(btnNewButton_5);
+		JButton btnEmailEdit = new JButton("Edit");
+		btnEmailEdit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login lframe = new Login();
+				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
+				lblStoredEmail.setText(newVal);
+				infoView.repaint();
+			}
+		});
+		btnEmailEdit.setBounds(672, 281, 171, 41);
+		infoView.add(btnEmailEdit);
 		
-		JButton btnNewButton_6 = new JButton("Edit");
-		btnNewButton_6.setBounds(698, 362, 171, 41);
-		contentPane.add(btnNewButton_6);
+		JButton btnGenderEdit = new JButton("Edit");
+		btnGenderEdit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login lframe = new Login();
+				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
+				lblStoredGender.setText(newVal);
+				infoView.repaint();
+			}
+		});
+		btnGenderEdit.setBounds(672, 335, 171, 41);
+		infoView.add(btnGenderEdit);
+		
+		JButton btnPasswordEdit = new JButton("Edit");
+		btnPasswordEdit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login lframe = new Login();
+				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
+				lblStoredPass.setText(newVal);
+				infoView.repaint();
+			}
+		});
+		btnPasswordEdit.setBounds(672, 389, 171, 41);
+		infoView.add(btnPasswordEdit);
+		
+		JButton btnSaveChanges = new JButton("Save Changes");
+		btnSaveChanges.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login lframe = new Login();
+				JOptionPane.showMessageDialog(lframe, "Changes saved! Updates will be made to your file.");
+				
+				/******* TO DO: Update the user's JSON data with this data *********/
+				String firstName = lblStoredFirstName.getText();
+				String lastName = lblStoredLastName.getText();
+				String age = lblStoredAge.getText();
+				String email = lblStoredEmail.getText();
+				String gender = lblStoredGender.getText();
+				String password = lblStoredPass.getText();
+			}
+		});
+		btnSaveChanges.setBounds(414, 464, 131, 25);
+		infoView.add(btnSaveChanges);
+		
+		JLabel lblYourInformation = new JLabel("Your Information");
+		lblYourInformation.setBounds(401, 57, 115, 16);
+		infoView.add(lblYourInformation);
 	}
 }

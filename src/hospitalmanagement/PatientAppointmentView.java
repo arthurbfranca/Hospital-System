@@ -33,12 +33,12 @@ public class PatientAppointmentView extends JFrame {
 		 * display all of their appointments
 		 *  ***************/
 		
-		JLabel MainLabel = new JLabel("View Appointments");
-		MainLabel.setBounds(252, 11, 154, 14);
+		JLabel MainLabel = new JLabel("My Appointments");
+		MainLabel.setBounds(229, 41, 154, 14);
 		contentPane.add(MainLabel);
 		
 		JPanel Appointment1 = new JPanel();
-		Appointment1.setBounds(123, 36, 347, 172);
+		Appointment1.setBounds(142, 87, 347, 172);
 		contentPane.add(Appointment1);
 		GridBagLayout gbl_Appointment1 = new GridBagLayout();
 		gbl_Appointment1.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -125,7 +125,7 @@ public class PatientAppointmentView extends JFrame {
 		Appointment1.add(CancelButton, gbc_CancelButton);
 		
 		JPanel Appointment1_1 = new JPanel();
-		Appointment1_1.setBounds(123, 219, 347, 172);
+		Appointment1_1.setBounds(142, 256, 347, 172);
 		contentPane.add(Appointment1_1);
 		GridBagLayout gbl_Appointment1_1 = new GridBagLayout();
 		gbl_Appointment1_1.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

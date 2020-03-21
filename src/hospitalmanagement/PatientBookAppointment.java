@@ -110,12 +110,12 @@ public class PatientBookAppointment extends JFrame {
 		BookButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				System.out.println(departmentDropdown.getSelectedItem().toString());
-				System.out.println(docDropdown.getSelectedItem().toString());
-				System.out.println(timeDropdown.getSelectedItem().toString());
-				System.out.println(aptTypeDropdown.getSelectedItem().toString());
+				String selectedDep = departmentDropdown.getSelectedItem().toString();
+				String selectedDoc = docDropdown.getSelectedItem().toString();
+				String selectedTime = timeDropdown.getSelectedItem().toString();
+				String aptType = aptTypeDropdown.getSelectedItem().toString();
 				Login lframe = new Login();
-				JOptionPane.showMessageDialog(lframe, "Your appointment has been booked!");
+				JOptionPane.showMessageDialog(lframe, "Your appointment request has been made!");
 			}
 		});
 		BookButton.setBounds(250, 297, 89, 23);

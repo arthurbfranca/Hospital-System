@@ -102,6 +102,11 @@ public class Register extends JFrame {
 		comboBox.addItem("Other");
 		comboBox.setBounds(489, 272, 75, 22);
 		contentPane.add(comboBox);
+		
+		JLabel lbl_email_1 = new JLabel("Enter Gender");
+		lbl_email_1.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lbl_email_1.setBounds(138, 269, 285, 36);
+		contentPane.add(lbl_email_1);
 
 		enterPass = new JTextField();
 		enterPass.setBounds(489, 307, 236, 39);
@@ -211,10 +216,5 @@ public class Register extends JFrame {
 		JLabel label = new JLabel("");
 		label.setBounds(115, 71, 56, 16);
 		contentPane.add(label);
-
-		JLabel lbl_email_1 = new JLabel("Enter Gender");
-		lbl_email_1.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lbl_email_1.setBounds(138, 269, 285, 36);
-		contentPane.add(lbl_email_1);
 	}
 }
