@@ -29,7 +29,7 @@ public class AssistantPerspective extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel menuLabel = new JLabel("Welcome, Assistant!");
-		menuLabel.setBounds(239, 11, 119, 14);
+		menuLabel.setBounds(239, 62, 119, 14);
 		contentPane.add(menuLabel);
 		
 		JButton btnReturn = new JButton("Return");
@@ -41,15 +41,15 @@ public class AssistantPerspective extends JFrame {
 				dispose();
 			}
 		});
-		btnReturn.setBounds(239, 306, 119, 14);
+		btnReturn.setBounds(239, 295, 119, 14);
 		contentPane.add(btnReturn);
 		
 		JButton btnNewButton = new JButton("Approve Appointments");
-		btnNewButton.setBounds(207, 82, 171, 41);
+		btnNewButton.setBounds(207, 119, 171, 41);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Approve Referrals");
-		btnNewButton_1.setBounds(207, 151, 171, 41);
+		btnNewButton_1.setBounds(207, 202, 171, 41);
 		contentPane.add(btnNewButton_1);
 	}
 }

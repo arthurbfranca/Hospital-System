@@ -26,7 +26,7 @@ public class AdminPerspective extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel menuLabel = new JLabel("Welcome, Admin!");
-		menuLabel.setBounds(239, 11, 119, 14);
+		menuLabel.setBounds(237, 70, 119, 14);
 		contentPane.add(menuLabel);
 		
 		JButton btnReturn = new JButton("Return");
@@ -38,7 +38,22 @@ public class AdminPerspective extends JFrame {
 				dispose();
 			}
 		});
-		btnReturn.setBounds(239, 110, 119, 14);
+		btnReturn.setBounds(225, 294, 119, 14);
 		contentPane.add(btnReturn);
+		
+		JButton btnNewButton = new JButton("Assign Doctor to Department");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				AdminAssignDocDepView assignDocDep = new AdminAssignDocDepView();
+				assignDocDep.setVisible(true);
+			}
+		});
+		btnNewButton.setBounds(178, 199, 219, 41);
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("View Statistics");
+		btnNewButton_1.setBounds(178, 125, 219, 41);
+		contentPane.add(btnNewButton_1);
 	}
 }
