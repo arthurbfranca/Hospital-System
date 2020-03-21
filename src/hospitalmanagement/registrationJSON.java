@@ -13,6 +13,10 @@ import com.github.cliftonlabs.json_simple.JsonObject;
  */
 public class registrationJSON {
 
+	public static void addNewAccount(Account newAccount) throws Exception {
+		
+	}
+	
 	public static void addNewPatient(Patient newPatient) throws Exception {
 	    JsonObject newObject = new JsonObject();
 	    newObject.put("id", newPatient.getId());

@@ -19,7 +19,7 @@ public class Authenticate {
 		boolean correctpass = Account.checkPassword(password);
 		boolean notsameuser = !accounts.containsKey(username);
 		if(correctuser && correctpass && notsameuser) {
-			accounts.put(username, new Account(username, password));
+			//accounts.put(username, new Account(username, password));
 			return "Works";
 		}
 		if(!correctuser) {
