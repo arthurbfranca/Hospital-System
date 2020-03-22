@@ -9,6 +9,7 @@
 					"age": 25,
 					"email": "edpaslaw@ucalgary.ca",
 					"gender": "Female",
+					"username": "edpaslaw",
 					"password": "password12345",
  					"appointments": [
 						1,
@@ -26,6 +27,7 @@
 					"age": 25,
 					"email": "gfrediani1@senate.gov",
 					"gender": "Male",
+					"username": "gfrediani1",
 					"password": "password12345",
 					"appointments": [
 						3,
@@ -43,6 +45,7 @@
 					"age": 25,
 					"email": "nbea2@imageshack.us",
 					"gender": "Female",
+					"username": "nbea2",
 					"password": "password12345",
 					"appointments": [
 						5,
@@ -60,6 +63,7 @@
 					"age": 25,
 					"email": "wvalek3@vk.com",
 					"gender": "Male",
+					"username": "wvalek3",
 					"password": "password12345",
 					"appointments": [
 						7
@@ -79,6 +83,7 @@
 					"last_name": "Sohaib",
 					"email": "bajwa@ucalgary.ca",
 					"gender": "Male",
+					"username": "bajwa",
 					"password": "docPassword",
 					"appointments": [
 						1,
@@ -95,6 +100,7 @@
 					"last_name": "Jacky",
 					"email": "nurse@ucalgary.ca",
 					"gender": "Female",
+					"username": "nurse",
 					"password": "nursePassword"
 				}
 			]
@@ -107,6 +113,7 @@
 					"last_name": "Person",
 					"email": "assistant@ucalgary.ca",
 					"gender": "Female",
+					"username": "assistant",
 					"password": "assistantPassword"
 				}
 			]
@@ -119,6 +126,7 @@
 					"last_name": "Boss",
 					"email": "admin@ucalgary.ca",
 					"gender": "Female",
+					"username": "admin",
 					"password": "adminPassword"
 				}
 			]
