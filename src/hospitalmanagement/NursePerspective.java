@@ -9,17 +9,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-/*
-* Class that displays the panel for the nurse when logged in as a nurse user type
-* Includes uploading test results and viewing schedules
+/**
+* Class that displays the options the nurse can choose from upon logging in to their account
+* Includes options like: uploading test results and viewing schedules
 * @author sydneykwok, shavonnetran
 */
 public class NursePerspective extends JFrame {
 
 	private JPanel contentPane;
 	
-	/*
-	* Create the frame for the nurse's panel upon logging in
+	/**
+	* Create the frame for the panel with the nurse options upon logging in
+	* Nurses will be directed to this frame and can do various tasks by clicking the appropriate buttons
 	*/
 	public NursePerspective() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

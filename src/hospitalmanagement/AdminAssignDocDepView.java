@@ -12,13 +12,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+* Class that displays the panel for the adminstrator to assign a department to a doctor
+* @author sydneykwok
+*/
 public class AdminAssignDocDepView extends JFrame {
 
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
+	* Launch the application
+	*/
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -33,8 +37,8 @@ public class AdminAssignDocDepView extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
-	 */
+	* Create the frame for the panel to assign departments to doctors
+	*/
 	public AdminAssignDocDepView() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 590, 444);
@@ -51,6 +55,7 @@ public class AdminAssignDocDepView extends JFrame {
 		DepartmentLabel.setBounds(173, 203, 75, 14);
 		contentPane.add(DepartmentLabel);
 		
+		//Create a drop down menu for adminstrator to select a department: cardiology, nephrology, or neurology
 		JComboBox<String> departmentDropdown = new JComboBox<String>();
 		departmentDropdown.addItem("Cardiology");
 		departmentDropdown.addItem("Nephrology");
@@ -87,7 +92,5 @@ public class AdminAssignDocDepView extends JFrame {
 		});
 		BookButton.setBounds(230, 273, 89, 23);
 		contentPane.add(BookButton);
-		
 	}
-	
 }

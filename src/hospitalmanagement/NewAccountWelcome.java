@@ -14,8 +14,9 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/*
+/**
 * Class that displays the welcome page for new users who just registered for an account 
+* @author shavonnetran, sydneykwok
 */
 public class NewAccountWelcome extends JFrame {
 
@@ -36,8 +37,9 @@ public class NewAccountWelcome extends JFrame {
 	}*/
 
 	/**
-	 * Create the frame.
-	 */
+	* Create the frame for the new account welcome page
+	* It shows a welcome message and return button
+	*/
 	public NewAccountWelcome(JPanel contentPane) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 997, 586);
@@ -47,12 +49,15 @@ public class NewAccountWelcome extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		//Add welcome message
 		JLabel lblNewLabel = new JLabel("Welcome to your new account!");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
 		lblNewLabel.setBounds(183, 87, 732, 238);
 		contentPane.add(lblNewLabel);
 		
+		//Adding button for returning to login home page
 		JButton btnReturn = new JButton("Return");
+		//Add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {

@@ -9,15 +9,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-/*
-* Class that displays the panel for the patient's perspective after logging in as a patient user
+/**
+* Class that displays the options the patient can choose from upon logging in to their account
+* Includes options like: viewing and booking appointments, viewing test results, personal information, and records
+* @author sydneykwok, shavonnetran
 */
 public class PatientPerspective extends JFrame {
 
 	private JPanel contentPane;
 	
-	/*
-	* Create the frame.
+	/**
+	* Create the frame for the panel with the patient options upon logging in
+	* Patients will be directed to this frame and can do various tasks by clicking the appropriate buttons
 	*/
 	public PatientPerspective() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,14 +31,18 @@ public class PatientPerspective extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		//Display welcome message for patient
 		JLabel menuLabel = new JLabel("Welcome, Patient!");
 		menuLabel.setBounds(239, 51, 119, 14);
 		contentPane.add(menuLabel);
 		
+		//Adding button for returning to login home page
 		JButton btnReturn = new JButton("Return");
+		//Add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				//Return back to the login page after clicking return button
 				Login loginPane = new Login();
 				loginPane.setVisible(true);
 				dispose();
@@ -44,52 +51,65 @@ public class PatientPerspective extends JFrame {
 		btnReturn.setBounds(219, 296, 139, 41);
 		contentPane.add(btnReturn);
 		
-		JButton btnNewButton = new JButton(" View appointments");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		//Adding button for viewing appointments
+		JButton viewAppointButton = new JButton(" View appointments");
+		//Add event handler for view appointments button
+		viewAppointButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				//Switch to panel that displays appointments for patients to view
 				PatientAppointmentView appointmentPane = new PatientAppointmentView();
 				appointmentPane.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(68, 168, 199, 41);
-		contentPane.add(btnNewButton);
+		viewAppointButton.setBounds(68, 168, 199, 41);
+		contentPane.add(viewAppointButton);
 		
-		JButton btnNewButton_1 = new JButton("Book an appointment");
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
+		//Adding button for booking appointments
+		JButton bookAppointButton = new JButton("Book an appointment");
+		//Add event handler for book appointments button
+		bookAppointButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				//Switch to panel where patients can book an appointment
 				PatientBookAppointment bookApp = new PatientBookAppointment();
 				bookApp.setVisible(true);
 			}
 		});
-		btnNewButton_1.setBounds(320, 107, 199, 46);
-		contentPane.add(btnNewButton_1);
+		bookAppointButton.setBounds(320, 107, 199, 46);
+		contentPane.add(bookAppointButton);
 		
-		JButton btnNewButton_2 = new JButton("View test results");
-		btnNewButton_2.addMouseListener(new MouseAdapter() {
+		//Adding button for viewing test results
+		JButton viewResultButton = new JButton("View test results");
+		//Add event handler for view test results button
+		viewResultButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				//Switch to panel that displays the test results for patients to view
 				PatientTestResultView appointmentPane = new PatientTestResultView();
 				appointmentPane.setVisible(true);
 			}
 		});
-		btnNewButton_2.setBounds(320, 166, 199, 44);
-		contentPane.add(btnNewButton_2);
+		viewResultButton.setBounds(320, 166, 199, 44);
+		contentPane.add(viewResultButton);
 		
-		JButton btnNewButton_3 = new JButton("View records");
-		btnNewButton_3.setBounds(68, 114, 199, 41);
-		contentPane.add(btnNewButton_3);
+		//Adding button for viewing medical records
+		JButton viewRecordButton = new JButton("View records");
+		viewRecordButton.setBounds(68, 114, 199, 41);
+		contentPane.add(viewRecordButton);
 		
-		JButton btnNewButton_4 = new JButton("View personal info");
-		btnNewButton_4.addMouseListener(new MouseAdapter() {
+		//Adding button for viewing personal information
+		JButton viewInfoButton = new JButton("View personal info");
+		//Add event handler for view personal info button
+		viewInfoButton .addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				//Switch to panel that displays the patient's personal info 
 				PatientInfoView personalInfo = new PatientInfoView();
 				personalInfo.setVisible(true);
 			}
 		});
-		btnNewButton_4.setBounds(68, 222, 199, 41);
-		contentPane.add(btnNewButton_4);
+		viewInfoButton .setBounds(68, 222, 199, 41);
+		contentPane.add(viewInfoButton );
 	}
 }
