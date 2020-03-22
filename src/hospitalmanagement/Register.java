@@ -26,7 +26,6 @@ import java.awt.Font;
 public class Register extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField enterID;
 	private JTextField enterFirstName;
 	private JTextField enterLastName;
 	private JTextField enterAge;
@@ -46,15 +45,19 @@ public class Register extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		enterID = new JTextField();
-		enterID.setBounds(489, 76, 236, 39);
-		contentPane.add(enterID);
-		enterID.setColumns(10);
+		JComboBox<String> accountTypeCombo = new JComboBox<String>();
+		accountTypeCombo.addItem("Administrator");
+		accountTypeCombo.addItem("Assistant");
+		accountTypeCombo.addItem("Doctor");
+		accountTypeCombo.addItem("Nurse");
+		accountTypeCombo.addItem("Patient");
+		accountTypeCombo.setBounds(489, 79, 180, 22);
+		contentPane.add(accountTypeCombo);
 
-		JLabel lbl_id = new JLabel("Enter ID #");
-		lbl_id.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lbl_id.setBounds(138, 79, 285, 36);
-		contentPane.add(lbl_id);
+		JLabel lbl_accountType = new JLabel("Account Type");
+		lbl_accountType.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lbl_accountType.setBounds(138, 79, 285, 36);
+		contentPane.add(lbl_accountType);
 
 		enterFirstName = new JTextField();
 		enterFirstName.setBounds(489, 113, 236, 39);
@@ -96,13 +99,13 @@ public class Register extends JFrame {
 		lbl_email.setBounds(138, 230, 285, 36);
 		contentPane.add(lbl_email);
 
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.addItem("Male");
-		comboBox.addItem("Female");
-		comboBox.addItem("Other");
-		comboBox.setBounds(489, 272, 75, 22);
-		contentPane.add(comboBox);
-		
+		JComboBox<String> genderCombo = new JComboBox<String>();
+		genderCombo.addItem("Male");
+		genderCombo.addItem("Female");
+		genderCombo.addItem("Other");
+		genderCombo.setBounds(489, 272, 75, 22);
+		contentPane.add(genderCombo);
+
 		JLabel lbl_email_1 = new JLabel("Enter Gender");
 		lbl_email_1.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lbl_email_1.setBounds(138, 269, 285, 36);
@@ -146,7 +149,7 @@ public class Register extends JFrame {
 				// and then make sure both our registration page and json files reflect that!!
 
 				// get inputs from textfields
-				int id;
+				String accountType;
 				String firstName;
 				String lastName;
 				int age;
@@ -154,14 +157,8 @@ public class Register extends JFrame {
 				String gender;
 				String password;
 				String confirm;
-				
-				try {
-					id = Integer.parseInt(enterID.getText());
-				} catch (NumberFormatException n) {
-					Login lframe0 = new Login();
-					JOptionPane.showMessageDialog(lframe0, enterID.getText() + " is not a valid ID number.");
-					return;
-				}
+
+				accountType = accountTypeCombo.getSelectedItem().toString();
 
 				firstName = enterFirstName.getText();
 				lastName = enterLastName.getText();
@@ -175,25 +172,41 @@ public class Register extends JFrame {
 				}
 
 				email = enterEmail.getText();
-				gender = comboBox.getSelectedItem().toString();
+				gender = genderCombo.getSelectedItem().toString();
 				password = enterPass.getText();
 				confirm = confirmPass.getText();
 
 				if (!password.equals(confirm)) { // if passwords not equal, display error message
 					Login lframe = new Login();
 					JOptionPane.showMessageDialog(lframe, "Passwords do not match");
-				} else if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || confirm.isEmpty()) { // if any fields are empty, display failed login message
+				} else if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()
+						|| confirm.isEmpty()) { // if any fields are empty, display failed login message
 					Login lframe1 = new Login();
 					JOptionPane.showMessageDialog(lframe1, "Please make sure to fill in all fields.");
 				} else {
-					
+
 					/************
-					 * TO DO:
-					 * somehow identify user type
-					 * create an instance of that user type
-					 * pass the above fields (user id, name, etc) to it and write to json
+					 * TO DO: identify user type create an instance of that user type pass the above
+					 * fields (user id, name, etc) to it and write to json
 					 ***************/
-					
+
+					if (accountType.equals("Patient")) {
+						try {
+							registrationJSON
+									.addNewAccount(new Account(firstName, lastName, age, email, gender, password));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} else {
+						try {
+							registrationJSON.addNewAccount(new Account(firstName, lastName, email, gender, password));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+
 					NewAccountWelcome welcome = new NewAccountWelcome(contentPane);
 					welcome.setVisible(true);
 					dispose();
