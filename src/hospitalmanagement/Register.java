@@ -172,6 +172,12 @@ public class Register extends JFrame {
 				}
 
 				email = enterEmail.getText();
+				if (!email.contains("@")) {
+					Login lframe = new Login();
+					JOptionPane.showMessageDialog(lframe, "Please make sure your email contains an @ symbol.");
+					return;
+				}
+				
 				gender = genderCombo.getSelectedItem().toString();
 				password = enterPass.getText();
 				confirm = confirmPass.getText();
