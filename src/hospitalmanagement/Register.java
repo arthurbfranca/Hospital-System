@@ -199,14 +199,14 @@ public class Register extends JFrame {
 					if (accountType.equals("Patient")) {
 						try {
 							registrationJSON
-									.addNewAccount(new Account(firstName, lastName, age, email, gender, password));
+									.addNewAccount(new Account(accountType, firstName, lastName, age, email, gender, password));
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					} else {
 						try {
-							registrationJSON.addNewAccount(new Account(firstName, lastName, email, gender, password));
+							registrationJSON.addNewAccount(new Account(accountType, firstName, lastName, email, gender, password));
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

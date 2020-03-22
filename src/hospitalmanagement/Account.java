@@ -6,6 +6,7 @@ package hospitalmanagement;
 */
 public class Account {
 
+	private String accountType;
 	private String firstName;
 	private String lastName;
 	private int age;
@@ -23,8 +24,8 @@ public class Account {
 	 * @param gender: the user's gender
 	 * @param password: the user's password
 	 */
-	public Account(String first, String last, int age, String email, String gender, String password) {
-		this(first, last, email, gender, password);
+	public Account(String accountType, String first, String last, int age, String email, String gender, String password) {
+		this(accountType, first, last, email, gender, password);
 		this.age = age;
 	}
 	
@@ -36,7 +37,8 @@ public class Account {
 	 * @param gender: the user's gender
 	 * @param password: the user's password
 	 */
-	public Account(String first, String last, String email, String gender, String password) {
+	public Account(String accountType, String first, String last, String email, String gender, String password) {
+		this.accountType = accountType;
 		this.firstName = first;
 		this.lastName = last;
 		this.email = email;
@@ -189,5 +191,21 @@ public class Account {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	/**
+	 * This is a getter method for the user's account type.
+	 * @return accountType: the user's account type.
+	 */
+	public String getAccountType() {
+		return accountType;
+	}
+
+	/**
+	 * This is a setter method for the user's account type.
+	 * @param accountType: the account type to be set
+	 */
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
 	}
 }
