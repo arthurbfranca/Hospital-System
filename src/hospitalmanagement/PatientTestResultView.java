@@ -10,13 +10,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+* Class that displays the panel for the patients to view their test results
+* @author sydneykwok
+*/
 public class PatientTestResultView extends JFrame {
 
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
-	 */
+	* Create the frame for the patient's test results
+	* Test results includes information such as: the date of the test, department, and the test type
+	*/
 	public PatientTestResultView() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 587, 514);
@@ -44,6 +49,7 @@ public class PatientTestResultView extends JFrame {
 		gbl_Appointment1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		Appointment1.setLayout(gbl_Appointment1);
 		
+		//Add label for test type
 		JLabel PatientNameLabel = new JLabel("Test Type:");
 		GridBagConstraints gbc_PatientNameLabel = new GridBagConstraints();
 		gbc_PatientNameLabel.insets = new Insets(0, 0, 5, 5);
@@ -58,6 +64,7 @@ public class PatientTestResultView extends JFrame {
 		gbc_PatientName.gridy = 1;
 		Appointment1.add(PatientName, gbc_PatientName);
 		
+		//Add label for date of the test
 		JLabel AppointmentDateLabel = new JLabel("Date:");
 		GridBagConstraints gbc_AppointmentDateLabel = new GridBagConstraints();
 		gbc_AppointmentDateLabel.insets = new Insets(0, 0, 5, 5);
@@ -86,6 +93,7 @@ public class PatientTestResultView extends JFrame {
 		gbc_AppointmentTime.gridy = 3;
 		Appointment1.add(AppointmentTime, gbc_AppointmentTime);
 		
+		//Add label for department 
 		JLabel DepartmentLabel = new JLabel("Department:");
 		GridBagConstraints gbc_DepartmentLabel = new GridBagConstraints();
 		gbc_DepartmentLabel.insets = new Insets(0, 0, 5, 5);
