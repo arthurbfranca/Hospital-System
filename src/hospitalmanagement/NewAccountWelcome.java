@@ -52,7 +52,7 @@ public class NewAccountWelcome extends JFrame {
 		//Add welcome message
 		JLabel lblNewLabel = new JLabel("Welcome to your new account!");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
-		lblNewLabel.setBounds(183, 140, 732, 238);
+		lblNewLabel.setBounds(183, 87, 732, 238);
 		contentPane.add(lblNewLabel);
 		
 		//Adding button for returning to login home page
@@ -66,5 +66,9 @@ public class NewAccountWelcome extends JFrame {
 		});
 		btnReturn.setBounds(407, 434, 97, 25);
 		contentPane.add(btnReturn);
+		
+		JLabel lblPleaseRememberYour = new JLabel("Please remember your username (your email before the @ symbol) and password!");
+		lblPleaseRememberYour.setBounds(209, 279, 514, 16);
+		contentPane.add(lblPleaseRememberYour);
 	}
 }
