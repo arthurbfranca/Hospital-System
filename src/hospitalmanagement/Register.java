@@ -37,7 +37,7 @@ public class Register extends JFrame {
 	 * Create the frame.
 	 */
 	public Register() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 968, 540);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(135, 206, 235));
@@ -190,11 +190,6 @@ public class Register extends JFrame {
 					Login lframe1 = new Login();
 					JOptionPane.showMessageDialog(lframe1, "Please make sure to fill in all fields.");
 				} else {
-
-					/************
-					 * TO DO: identify user type create an instance of that user type pass the above
-					 * fields (user id, name, etc) to it and write to json
-					 ***************/
 
 					if (accountType.equals("Patient")) {
 						try {

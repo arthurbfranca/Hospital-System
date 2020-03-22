@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
@@ -90,6 +91,10 @@ public class registrationJSON {
 			newPatient.put("gender", gender);
 			newPatient.put("username", user);
 			newPatient.put("password", pass);
+			JsonArray appointments = new JsonArray();
+			newPatient.put("appointments", appointments);
+			JsonArray prescriptions = new JsonArray();
+			newPatient.put("prescriptions", prescriptions);
 			
 			// append new patient to patient list
 			patientArr.add(newPatient);
@@ -180,6 +185,10 @@ public class registrationJSON {
 			newAccount.put("gender", gender);
 			newAccount.put("username", user);
 			newAccount.put("password", pass);
+			if(userType.equals("Doctor")) {
+				JsonArray appointments = new JsonArray();
+				newAccount.put("appointments", appointments);
+			}
 			
 			// append new patient to patient list
 			accountTypeArr.add(newAccount);
