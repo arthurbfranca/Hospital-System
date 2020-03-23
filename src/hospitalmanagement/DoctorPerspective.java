@@ -8,9 +8,10 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/*
+/**
 * Class that displays the options the doctor can choose from upon logging in to their account;
-* includes viewing appointments, patients, booking appointments, etc.
+* Includes options like: viewing appointments, patients, booking appointments, etc.
+* @author arthurbfranca, ggdizon, sydneykwok
 */
 public class DoctorPerspective extends JFrame {
 
@@ -18,10 +19,10 @@ public class DoctorPerspective extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
-	 * This is for when a Doctor logs into the system. They will be greeted with this Frame.
-	 * Doctor can do various tasks by pressing the appropriate buttons.
-	 */
+	* Create the frame.
+	* This is for when a Doctor logs into the system. They will be greeted with this Frame
+	* Doctor can do various tasks by pressing the appropriate buttons
+	*/
 	public DoctorPerspective() {
 		
 		// set frame properties
