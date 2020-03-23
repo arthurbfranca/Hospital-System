@@ -12,13 +12,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /*
-* Class that displays the panel for the doctors appointments 
+* Class that displays the panel for the doctor's appointments.
 */
 public class DoctorAppointmentView extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -29,17 +26,23 @@ public class DoctorAppointmentView extends JFrame {
 	 * such as patient and date.
 	 */
 	public DoctorAppointmentView() {
+		
+		// set the frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 587, 514);
+		
+		// create the panel for the frame
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		// add the title label for the panel
 		JLabel MainLabel = new JLabel("View Appointments");
 		MainLabel.setBounds(252, 11, 154, 14);
 		contentPane.add(MainLabel);
 		
+		// create another panel to display the first appointment
 		JPanel Appointment1 = new JPanel();
 		Appointment1.setBounds(123, 36, 347, 172);
 		contentPane.add(Appointment1);
@@ -138,6 +141,7 @@ public class DoctorAppointmentView extends JFrame {
 		gbc_CancelButton.gridy = 6;
 		Appointment1.add(CancelButton, gbc_CancelButton);
 		
+		// create another panel for another appointment
 		JPanel Appointment1_1 = new JPanel();
 		Appointment1_1.setBounds(123, 219, 347, 172);
 		contentPane.add(Appointment1_1);

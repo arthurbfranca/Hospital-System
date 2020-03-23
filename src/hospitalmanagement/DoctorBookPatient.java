@@ -15,32 +15,15 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This frame allows the doctor to book an appointment with a patient.
+ */
 public class DoctorBookPatient extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private String selectedName;
 	private int ID;
-
-	/**
-	 * Launch the application.
-	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DoctorAddPatient frame = new DoctorAddPatient();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	 * Create the frame.
@@ -48,13 +31,18 @@ public class DoctorBookPatient extends JFrame {
 	 * It will list patients for the Doctor to choose from and make an appointment with.
 	 */
 	public DoctorBookPatient() {
+		
+		// set the frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		
+		// create the panel for the frame
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		// add the title label for the panel
 		JLabel lblPleaseSelectPatient = new JLabel("Please Select Patient");
 		lblPleaseSelectPatient.setBounds(146, 13, 125, 16);
 		contentPane.add(lblPleaseSelectPatient);
@@ -69,7 +57,10 @@ public class DoctorBookPatient extends JFrame {
 		 * that will be able to add them? And they will be in multiple departments if they have
 		 * more than 1 type, like kidney appointment and heart surgery?) ASK THEM
 		 */
-		String[] names = new String[] {"LastName, FirstName Patient1", "LastName, FirstName Patient2", "LastName, FirstName Patient3", "LastName, FirstName Patient4", "LastName, FirstName Patient5", "LastName, FirstName Patient6", "LastName, FirstName Patient7", "LastName, FirstName Patient8", "LastName, FirstName Patient9", "LastName, FirstName Patient10", "LastName, FirstName Patient11", "LastName, FirstName Patient12"};
+		String[] names = new String[] {"LastName, FirstName Patient1", "LastName, FirstName Patient2", "LastName, FirstName Patient3",
+				"LastName, FirstName Patient4", "LastName, FirstName Patient5", "LastName, FirstName Patient6", "LastName, FirstName Patient7",
+				"LastName, FirstName Patient8", "LastName, FirstName Patient9", "LastName, FirstName Patient10", "LastName, FirstName Patient11",
+				"LastName, FirstName Patient12"};
 		
 		/******** TODO: Make string array that lists patient ID using accounts JSON. Below is a
 		 * placeholder for now. If you have a different idea, let me (Gerard) know so I can properly

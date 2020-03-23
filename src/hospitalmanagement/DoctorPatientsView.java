@@ -15,11 +15,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This frame displays the list of patients the doctor has an appointment with.
+ */
 public class DoctorPatientsView extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -29,8 +29,12 @@ public class DoctorPatientsView extends JFrame {
 	 * Here, the Doctor will be able to see a list of patients they have an appointment with.
 	 */
 	public DoctorPatientsView() {
+		
+		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		
+		// create panel for the frame
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -54,6 +58,7 @@ public class DoctorPatientsView extends JFrame {
 			values.add(names[i]);
 		}
 		
+		// create a list of patients
 		JList<Object> patientList = new JList<Object>(values.toArray(new String[values.size()]));
 		patientList.setValueIsAdjusting(true);
 		patientList.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -66,10 +71,12 @@ public class DoctorPatientsView extends JFrame {
 		patientList.setLayoutOrientation(JList.VERTICAL);
 		contentPane.add(patientListScroller);
 		
+		// add a label to the panel to prompt the user to select a patient
 		JLabel lblPleaseSelectPatient = new JLabel("Please Select Patient");
 		lblPleaseSelectPatient.setBounds(146, 13, 125, 16);
 		contentPane.add(lblPleaseSelectPatient);
 		
+		// add a button to the panel to allow the user to confirm their actions
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
@@ -84,6 +91,7 @@ public class DoctorPatientsView extends JFrame {
 		btnConfirm.setBounds(104, 215, 97, 25);
 		contentPane.add(btnConfirm);
 		
+		// add a button to the panel to allow the user to return to the previous view
 		JButton btnCancel = new JButton("Return");
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override

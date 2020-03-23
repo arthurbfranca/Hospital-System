@@ -20,11 +20,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.border.EtchedBorder;
 
+/**
+ * This frame displays the selected patient's information.
+ */
 public class DoctorPatientsViewInformation extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -36,8 +36,12 @@ public class DoctorPatientsViewInformation extends JFrame {
 	 * @param ID ID of the patient chosen by the Doctor that was passed from the previous pane.
 	 */
 	public DoctorPatientsViewInformation(String name, int ID) {
+		
+		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		
+		// create the panel for the frame
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

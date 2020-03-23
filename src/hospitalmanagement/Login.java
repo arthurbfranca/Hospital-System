@@ -1,6 +1,5 @@
 package hospitalmanagement;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -10,8 +9,6 @@ import javax.swing.border.EmptyBorder;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-
-import hospitalmanagement.Account;
 
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -50,7 +47,7 @@ public class Login extends JFrame {
 					Login frame = new Login();	// create the login frame
 					frame.setVisible(true);		// make the frame visible
 				} catch (Exception e) {
-					e.printStackTrace();		// if there's an issue, print the error to stdout
+					e.printStackTrace();		// if there's an issue, print the error
 				}
 			}
 		});
@@ -60,12 +57,13 @@ public class Login extends JFrame {
 	* Create the frame.
 	*/
 	public Login() {
+		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(1000, 600, 1000, 600);
 		setLocationRelativeTo(null);
 		
-		// create the frame for the pane
+		// create the panel for the frame
 		contentPane = new JPanel();
 		// set properties of the pane
 		contentPane.setBackground(new Color(135, 206, 235));
@@ -125,17 +123,23 @@ public class Login extends JFrame {
 			 * if the user clicks the login button, error check their inputs
 			 */
 			public void actionPerformed(ActionEvent arg0) {
-				String uname = username.getText();	// grab their username input from the username textfield
-				String pass = password.getText();	// grab their password input from the password textfield
+				
+				String uname = username.getText();							// grab their username input from the username textfield
+				String pass = password.getText();							// grab their password input from the password textfield
 				String userType = comboBox.getSelectedItem().toString();	// grab their account type from the user type combo box
+				
 				if (uname.isEmpty() || pass.isEmpty()) {	// check if username and password fields are empty
+					
 					Login lframe = new Login();
 					JOptionPane.showMessageDialog(lframe, "Invalid username and password inputs.");	// if empty, display error message
-				} else if (!validLoginCredentials(uname, pass, userType)) {
-					// check JSON to verify user BEFORE instantiating the new perspective!!
+					
+				} else if (!validLoginCredentials(uname, pass, userType)) {	// check JSON to verify user's login credentials
+					
 					Login lframe1 = new Login();		// if the credentials are not in the database, show an error message
 					JOptionPane.showMessageDialog(lframe1, "The login credentials you provided are not in our system.");
+					
 				} else {	// if the credentials are valid, log the user into their account type view
+					
 				    if (userType.equals("Administrator")) {
 				    	AdminPerspective adminPane = new AdminPerspective();
 				    	adminPane.setVisible(true);
@@ -224,9 +228,11 @@ public class Login extends JFrame {
 		    
 		    // iterate through all pairs of usernames and passwords in the user type array
 		    while (i.hasNext()) {
+		    	
 		        JsonObject account = (JsonObject) i.next();
 		        String username = (String) account.get("username");
 		        String password = (String) account.get("password");
+		        
 		        // if the login credentials match a pair in the database, the input is valid!
 		        if(user.equals(username) && pass.equals(password)) {
 		        	isValid = true;

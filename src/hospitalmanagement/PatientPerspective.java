@@ -23,9 +23,13 @@ public class PatientPerspective extends JFrame {
 	* Patients will be directed to this frame and can do various tasks by clicking the appropriate buttons
 	*/
 	public PatientPerspective() {
+		
+		// set frame properties
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 626, 436);
 		setLocationRelativeTo(null);
+		
+		// create panel for the frame
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

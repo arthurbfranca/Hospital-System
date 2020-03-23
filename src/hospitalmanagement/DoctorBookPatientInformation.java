@@ -22,11 +22,12 @@ import javax.swing.JList;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JComboBox;
 
+/**
+ * This frame shows patient/appointment information.
+ *
+ */
 public class DoctorBookPatientInformation extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -39,8 +40,12 @@ public class DoctorBookPatientInformation extends JFrame {
 	 * @param ID ID of patients passed from previous window.
 	 */
 	public DoctorBookPatientInformation(String name, int ID) {
+		
+		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 473);
+		
+		// create panel for the frame
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -70,6 +75,7 @@ public class DoctorBookPatientInformation extends JFrame {
 			}
 		});
 		
+		// create panel for patient info
 		JPanel PatientInfo = new JPanel();
 		GridBagLayout gbl_PatientInfo = new GridBagLayout();
 		gbl_PatientInfo.columnWidths = new int[] {50, 50};
@@ -307,7 +313,7 @@ public class DoctorBookPatientInformation extends JFrame {
 					dispose();
 					DoctorBookPatient addPatientPane = new DoctorBookPatient();
 					addPatientPane.setVisible(true);
-				} else {		//If "NO" or "CACNEL" was clicked, don't make appointment and give a dialogue saying so.
+				} else {		//If "NO" or "CANCEL" was clicked, don't make appointment and give a dialogue saying so.
 					JOptionPane.showMessageDialog(contentPane, "Patient has NOT been added.");
 				}
 			}

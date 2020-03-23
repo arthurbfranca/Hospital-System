@@ -1,6 +1,3 @@
-/**
- * 
- */
 package hospitalmanagement;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
@@ -18,7 +14,7 @@ import com.github.cliftonlabs.json_simple.Jsoner;
  * This class is used in registration. When the user registers themself into the system,
  * a new account will be made for them and then this class will write all their account
  * info to our "accounts2" JSON file.
- * @author erinpaslawski
+ * @author erinpaslawski, sydneykwok
  *
  */
 public class registrationJSON {

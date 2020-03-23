@@ -1,13 +1,8 @@
 package hospitalmanagement;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-//import hospital.Login;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,7 +16,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 /**
- * Class for registering to a new account
+ * Class for allowing user to register for a new account.
  */
 public class Register extends JFrame {
 
@@ -37,14 +32,19 @@ public class Register extends JFrame {
 	 * Create the frame.
 	 */
 	public Register() {
+		
+		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 968, 540);
+		
+		// create panel for the frame
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		// add combo box for account types
 		JComboBox<String> accountTypeCombo = new JComboBox<String>();
 		accountTypeCombo.addItem("Administrator");
 		accountTypeCombo.addItem("Assistant");
@@ -54,51 +54,61 @@ public class Register extends JFrame {
 		accountTypeCombo.setBounds(489, 79, 180, 22);
 		contentPane.add(accountTypeCombo);
 
+		// add account type label
 		JLabel lbl_accountType = new JLabel("Account Type");
 		lbl_accountType.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lbl_accountType.setBounds(138, 79, 285, 36);
 		contentPane.add(lbl_accountType);
 
+		// add text field for user to enter their first name
 		enterFirstName = new JTextField();
 		enterFirstName.setBounds(489, 113, 236, 39);
 		contentPane.add(enterFirstName);
 		enterFirstName.setColumns(10);
 
+		// label for first name
 		JLabel lbl_firstName = new JLabel("Enter First Name");
 		lbl_firstName.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lbl_firstName.setBounds(138, 116, 285, 36);
 		contentPane.add(lbl_firstName);
 
+		// textfield for the user to enter their last name
 		enterLastName = new JTextField();
 		enterLastName.setBounds(489, 151, 236, 39);
 		contentPane.add(enterLastName);
 		enterLastName.setColumns(10);
 
+		// label for last name
 		JLabel lbl_lastName = new JLabel("Enter Last Name");
 		lbl_lastName.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lbl_lastName.setBounds(138, 154, 285, 36);
 		contentPane.add(lbl_lastName);
 
+		// textfield for the user to enter their age
 		enterAge = new JTextField();
 		enterAge.setBounds(489, 190, 236, 39);
 		contentPane.add(enterAge);
 		enterAge.setColumns(10);
 
+		// label for age
 		JLabel lblNewLabel = new JLabel("Enter Age");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblNewLabel.setBounds(138, 193, 265, 36);
 		contentPane.add(lblNewLabel);
 
+		// texfield for user to enter their email
 		enterEmail = new JTextField();
 		enterEmail.setBounds(489, 227, 236, 39);
 		contentPane.add(enterEmail);
 		enterEmail.setColumns(10);
 
+		// label for email
 		JLabel lbl_email = new JLabel("Enter Email");
 		lbl_email.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lbl_email.setBounds(138, 230, 285, 36);
 		contentPane.add(lbl_email);
 
+		// drop down for gender options
 		JComboBox<String> genderCombo = new JComboBox<String>();
 		genderCombo.addItem("Male");
 		genderCombo.addItem("Female");
@@ -106,31 +116,37 @@ public class Register extends JFrame {
 		genderCombo.setBounds(489, 272, 75, 22);
 		contentPane.add(genderCombo);
 
+		// label for gender
 		JLabel lbl_email_1 = new JLabel("Enter Gender");
 		lbl_email_1.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lbl_email_1.setBounds(138, 269, 285, 36);
 		contentPane.add(lbl_email_1);
 
+		// textfield to enter password
 		enterPass = new JTextField();
 		enterPass.setBounds(489, 307, 236, 39);
 		contentPane.add(enterPass);
 		enterPass.setColumns(10);
 
+		// label for password
 		JLabel lblNewLabel_1 = new JLabel("Enter Password");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblNewLabel_1.setBounds(138, 318, 265, 28);
 		contentPane.add(lblNewLabel_1);
 
+		// textfield to get password confirmation
 		confirmPass = new JTextField();
 		confirmPass.setBounds(489, 343, 236, 39);
 		contentPane.add(confirmPass);
 		confirmPass.setColumns(10);
 
+		// label for password confirmation
 		JLabel lblNewLabel_2 = new JLabel("Confirm Password");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblNewLabel_2.setBounds(138, 349, 285, 33);
 		contentPane.add(lblNewLabel_2);
 
+		// add title to panel
 		JLabel lblNewLabel_3 = new JLabel("Register For a New Account Below");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblNewLabel_3.setBounds(217, 22, 733, 41);
@@ -142,28 +158,17 @@ public class Register extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 
-				/************
-				 * TO DO: decide what account info we want from users for registration/JSON
-				 * storage
-				 ***************/
-				// and then make sure both our registration page and json files reflect that!!
-
-				// get inputs from textfields
-				String accountType;
-				String firstName;
-				String lastName;
+				// get inputs from fields
+				String accountType = accountTypeCombo.getSelectedItem().toString();
+				String firstName = enterFirstName.getText();
+				String lastName = enterLastName.getText();
 				int age;
 				String email;
 				String gender;
 				String password;
 				String confirm;
 
-				accountType = accountTypeCombo.getSelectedItem().toString();
-
-				firstName = enterFirstName.getText();
-				lastName = enterLastName.getText();
-
-				try {
+				try {	// error checking that age input is an integer
 					age = Integer.parseInt(enterAge.getText());
 				} catch (NumberFormatException n) {
 					Login lframe2 = new Login();
@@ -172,7 +177,7 @@ public class Register extends JFrame {
 				}
 
 				email = enterEmail.getText();
-				if (!email.contains("@")) {
+				if (!email.contains("@")) {		// error checking that email contains @ symbol
 					Login lframe = new Login();
 					JOptionPane.showMessageDialog(lframe, "Please make sure your email contains an @ symbol.");
 					return;
@@ -182,25 +187,29 @@ public class Register extends JFrame {
 				password = enterPass.getText();
 				confirm = confirmPass.getText();
 
-				if (!password.equals(confirm)) { // if passwords not equal, display error message
+				// password error checking
+				if (!password.equals(confirm)) { 	// if passwords not equal, display error message
+					
 					Login lframe = new Login();
 					JOptionPane.showMessageDialog(lframe, "Passwords do not match");
-				} else if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()
-						|| confirm.isEmpty()) { // if any fields are empty, display failed login message
+					
+				} else if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
+					
+					// if any fields are empty, display failed login message
 					Login lframe1 = new Login();
 					JOptionPane.showMessageDialog(lframe1, "Please make sure to fill in all fields.");
+					
 				} else {
 
-					if (accountType.equals("Patient")) {
-						try {
-							registrationJSON
-									.addNewAccount(new Account(accountType, firstName, lastName, age, email, gender, password));
+					if (accountType.equals("Patient")) {	// if the user is a patient
+						try {	// create a new patient account for them
+							registrationJSON.addNewAccount(new Account(accountType, firstName, lastName, age, email, gender, password));
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					} else {
-						try {
+						try {	// otherwise, they are a staff member and we will add them as a staff
 							registrationJSON.addNewAccount(new Account(accountType, firstName, lastName, email, gender, password));
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
@@ -208,6 +217,7 @@ public class Register extends JFrame {
 						}
 					}
 
+					// show the welcome view
 					NewAccountWelcome welcome = new NewAccountWelcome(contentPane);
 					welcome.setVisible(true);
 					dispose();
@@ -217,6 +227,7 @@ public class Register extends JFrame {
 		btnNewButton.setBounds(300, 416, 171, 41);
 		contentPane.add(btnNewButton);
 
+		// add button to cancel
 		JButton btnNewButton_1 = new JButton("Cancel");
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override

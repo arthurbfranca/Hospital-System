@@ -23,9 +23,13 @@ public class NursePerspective extends JFrame {
 	* Nurses will be directed to this frame and can do various tasks by clicking the appropriate buttons
 	*/
 	public NursePerspective() {
+		
+		// set frame properties
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 626, 436);
 		setLocationRelativeTo(null);
+		
+		// create pane for the frame
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

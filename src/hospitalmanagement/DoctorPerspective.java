@@ -9,13 +9,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /*
-* Class that displays the options the doctor can choose from upon logging in to their account; includes viewing appointments, patients, booking appointments, etc.
+* Class that displays the options the doctor can choose from upon logging in to their account;
+* includes viewing appointments, patients, booking appointments, etc.
 */
 public class DoctorPerspective extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -25,14 +23,19 @@ public class DoctorPerspective extends JFrame {
 	 * Doctor can do various tasks by pressing the appropriate buttons.
 	 */
 	public DoctorPerspective() {
+		
+		// set frame properties
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 580, 430);
 		setLocationRelativeTo(null);
+		
+		// create panel for the frame
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		// add title label of the panel
 		JLabel menuLabel = new JLabel("Alberta Health");
 		menuLabel.setBounds(239, 11, 119, 14);
 		contentPane.add(menuLabel);
