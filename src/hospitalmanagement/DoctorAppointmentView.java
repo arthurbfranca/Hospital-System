@@ -11,8 +11,9 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/*
-* Class that displays the panel for the doctor's appointments.
+/**
+* Class that displays the panel for the doctor's appointments
+* @author arthurbfranca, ggdizon, sydneykwok
 */
 public class DoctorAppointmentView extends JFrame {
 
@@ -20,11 +21,11 @@ public class DoctorAppointmentView extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
-	 * This is for when Doctor clicks "View Appointments" button.
-	 * It shows a list of appointments for the Doctor, including the basic appointment information
-	 * such as patient and date.
-	 */
+	* Create the frame.
+	* This is for when Doctor clicks "View Appointments" button.
+	* It shows a list of appointments for the Doctor, including the basic appointment information
+	* such as patient and date.
+	*/
 	public DoctorAppointmentView() {
 		
 		// set the frame properties
