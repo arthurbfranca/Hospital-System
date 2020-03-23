@@ -23,22 +23,22 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JComboBox;
 
 /**
- * This frame shows patient/appointment information.
- *
- */
+* Class that displays the panel for patient/appointment booking information 
+* @author arthurbfranca, ggdizon, sydneykwok
+*/
 public class DoctorBookPatientInformation extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
-	 * This frame is the frame for when the Doctor selects the patient in the DoctorBookPatient pane.
-	 * This frame will show important information about the patient as well as give options for the 
-	 * appointments, such as time and date.
-	 * @param name Name of patient passed from previous window.
-	 * @param ID ID of patients passed from previous window.
-	 */
+	* Create the frame.
+	* This frame is the frame for when the Doctor selects the patient in the DoctorBookPatient pane.
+	* This frame will show important information about the patient as well as give options for the 
+	* appointments, such as time and date.
+	* @param name Name of patient passed from previous window.
+	* @param ID ID of patients passed from previous window.
+	*/
 	public DoctorBookPatientInformation(String name, int ID) {
 		
 		// set frame properties
