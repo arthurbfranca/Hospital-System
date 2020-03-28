@@ -20,11 +20,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.border.EtchedBorder;
 
+/**
+ * This frame displays the selected patient's information.
+ */
 public class DoctorPatientsViewInformation extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -32,12 +32,17 @@ public class DoctorPatientsViewInformation extends JFrame {
 	 * Create the frame.
 	 * This frame is the frame for when the Doctor selects the patient in the View Patient pane.
 	 * The Doctor will be shown information about the specific patient that was chosen in the previous pane.
+	 * @param email The email of the doctor (used as an identifier for reading/writing to JSON).
 	 * @param name Name of the patient chosen by the Doctor that was passed from the previous pane.
 	 * @param ID ID of the patient chosen by the Doctor that was passed from the previous pane.
 	 */
-	public DoctorPatientsViewInformation(String name, int ID) {
+	public DoctorPatientsViewInformation(String email, String name, int ID) {
+		
+		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		
+		// create the panel for the frame
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -56,9 +61,9 @@ public class DoctorPatientsViewInformation extends JFrame {
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				dispose();
-				DoctorPatientsView viewPatientPane = new DoctorPatientsView();
+				DoctorPatientsView viewPatientPane = new DoctorPatientsView(email);
 				viewPatientPane.setVisible(true);
+				dispose();
 			}
 		});
 		

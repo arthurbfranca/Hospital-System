@@ -21,11 +21,16 @@ public class PatientPerspective extends JFrame {
 	/**
 	* Create the frame for the panel with the patient options upon logging in
 	* Patients will be directed to this frame and can do various tasks by clicking the appropriate buttons
+	* @param email The email of the patient. Used to uniquely identify the user so we can easily access their info.
 	*/
-	public PatientPerspective() {
+	public PatientPerspective(String email) {
+		
+		// set frame properties
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 626, 436);
 		setLocationRelativeTo(null);
+		
+		// create panel for the frame
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,7 +63,7 @@ public class PatientPerspective extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//Switch to panel that displays appointments for patients to view
-				PatientAppointmentView appointmentPane = new PatientAppointmentView();
+				PatientAppointmentView appointmentPane = new PatientAppointmentView(email);
 				appointmentPane.setVisible(true);
 			}
 		});
@@ -72,7 +77,7 @@ public class PatientPerspective extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				//Switch to panel where patients can book an appointment
-				PatientBookAppointment bookApp = new PatientBookAppointment();
+				PatientBookAppointment bookApp = new PatientBookAppointment(email);
 				bookApp.setVisible(true);
 			}
 		});
@@ -86,7 +91,7 @@ public class PatientPerspective extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//Switch to panel that displays the test results for patients to view
-				PatientTestResultView appointmentPane = new PatientTestResultView();
+				PatientTestResultView appointmentPane = new PatientTestResultView(email);
 				appointmentPane.setVisible(true);
 			}
 		});
@@ -105,7 +110,7 @@ public class PatientPerspective extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				//Switch to panel that displays the patient's personal info 
-				PatientInfoView personalInfo = new PatientInfoView();
+				PatientInfoView personalInfo = new PatientInfoView(email);
 				personalInfo.setVisible(true);
 			}
 		});

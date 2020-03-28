@@ -3,6 +3,10 @@ package hospitalmanagement;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,6 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
 
 /**
 * Class that displays the panel for the adminstrator to assign a department to a doctor
@@ -23,7 +31,7 @@ public class AdminAssignDocDepView extends JFrame {
 	/**
 	* Launch the application
 	*/
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -34,28 +42,35 @@ public class AdminAssignDocDepView extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	* Create the frame for the panel to assign departments to doctors
+	* @param email The email of the admin. Used to uniquely identify the user so we can easily access their info.
 	*/
-	public AdminAssignDocDepView() {
+	public AdminAssignDocDepView(String email) {
+		
+		// set properties of the frame
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 590, 444);
+		
+		// create a new panel
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		// add the main title label to the panel
 		JLabel MainLabel = new JLabel("Assign a Doctor to a Department");
 		MainLabel.setBounds(189, 73, 203, 14);
 		contentPane.add(MainLabel);
 		
+		// add the department label to the panel
 		JLabel DepartmentLabel = new JLabel("Department:");
 		DepartmentLabel.setBounds(173, 203, 75, 14);
 		contentPane.add(DepartmentLabel);
 		
-		//Create a drop down menu for adminstrator to select a department: cardiology, nephrology, or neurology
+		// create a drop down for admin to select a department
 		JComboBox<String> departmentDropdown = new JComboBox<String>();
 		departmentDropdown.addItem("Cardiology");
 		departmentDropdown.addItem("Nephrology");
@@ -63,26 +78,51 @@ public class AdminAssignDocDepView extends JFrame {
 		departmentDropdown.setBounds(292, 199, 141, 22);
 		contentPane.add(departmentDropdown);
 		
+		// add the doctor label to the panel
 		JLabel DoctorNameLabel = new JLabel("Doctor:");
 		DoctorNameLabel.setBounds(173, 138, 75, 14);
 		contentPane.add(DoctorNameLabel);
 		
-		/************ TO DO: go into account JSON and display all doctors as options here ***************/
-		// I have just put placeholder doctor names for now
+		// create a drop down for admin to select a doctor
 		JComboBox<String> docDropdown = new JComboBox<String>();
-		docDropdown.addItem("Dr. Bajwa");
-		docDropdown.addItem("Dr. Doctor");
-		docDropdown.addItem("Dr. Hartman");
+		// go into the account JSON and display all doctors as options here
+		try {
+			
+		    // create reader
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+		    // create parser
+		    JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+		    // read accounts array from json
+		    JsonArray accounts = (JsonArray) parser.get("accounts");
+		    // extract the object representation of doctor from the accounts array
+		    JsonObject doctors = (JsonObject) accounts.get(1);
+		    // then get the array representation of doctor 
+	    	JsonArray doctorArr = (JsonArray) doctors.get("doctor");
+	    	
+	    	// then create an iterator to iterate through that array
+	    	Iterator i = doctorArr.iterator();
+		    // iterate through all doctors in the doctor array
+		    while (i.hasNext()) {
+		        JsonObject doctor = (JsonObject) i.next();
+		        docDropdown.addItem("Dr. " + (String) doctor.get("last_name"));
+		    }
+		    
+		    //close reader
+		    reader.close();
+
+		} catch (Exception ex) {
+		    ex.printStackTrace();
+		}
 		docDropdown.setBounds(292, 134, 141, 22);
 		contentPane.add(docDropdown);
 		
-		/************ TO DO: when the admin goes through with the assignment,
-		 * navigate to the chosen doctor's info in the accounts JSON
-		 * write the selected department as the doctor's department
-		 ****************/
-		JButton BookButton = new JButton("Assign");
-		BookButton.addMouseListener(new MouseAdapter() {
-			@Override
+		// add the "assign" button for the admin to confirm their assignment
+		JButton assignButton = new JButton("Assign");
+		assignButton.addMouseListener(new MouseAdapter() {
+			/************ TO DO: when the admin goes through with the assignment,
+			 * add the selected doctor to the selected department in the departments.json file
+			 * write the selected department as the doctor's department? (if we want the doctor to store a department attribute)
+			 ****************/
 			public void mousePressed(MouseEvent e) {
 				String selectedDoc = docDropdown.getSelectedItem().toString();
 				String selectedDep = departmentDropdown.getSelectedItem().toString();
@@ -90,7 +130,7 @@ public class AdminAssignDocDepView extends JFrame {
 				JOptionPane.showMessageDialog(lframe, "Your assignment has been successfully processed!");
 			}
 		});
-		BookButton.setBounds(230, 273, 89, 23);
-		contentPane.add(BookButton);
+		assignButton.setBounds(230, 273, 89, 23);
+		contentPane.add(assignButton);
 	}
 }
