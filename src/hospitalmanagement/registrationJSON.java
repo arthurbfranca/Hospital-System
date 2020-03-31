@@ -31,15 +31,14 @@ public class registrationJSON {
 		String lastName = newAccount.getLastName();
 		String email = newAccount.getEmail();
 		String gender = newAccount.getGender();
-		String username = newAccount.getUsername();
 		String password = newAccount.getPassword();
 		
 		if (userType.equals("Administrator") || userType.equals("Assistant") || userType.equals("Doctor") || userType.equals("Nurse")) {
 			// if the user is a staff member, add them to the json as such
-			writeStaffAccountToJSON(userType, firstName, lastName, email, gender, username, password);
+			writeStaffAccountToJSON(userType, firstName, lastName, email, gender, password);
 	    } else {
 	    	// otherwise the user is a patient and we will add them as a patient
-	    	writePatientAccountToJSON(firstName, lastName, newAccount.getAge(), email, gender, username, password);
+	    	writePatientAccountToJSON(firstName, lastName, newAccount.getAge(), email, gender, password);
 	    }
 	}
 	
@@ -53,7 +52,7 @@ public class registrationJSON {
 	 * @param user: the user's username
 	 * @param pass: the user's password
 	 */
-	public static void writePatientAccountToJSON(String first, String last, int age, String email, String gender, String user, String pass) {
+	public static void writePatientAccountToJSON(String first, String last, int age, String email, String gender, String pass) {
 		try {
 		    // create reader
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
@@ -85,7 +84,6 @@ public class registrationJSON {
 			newPatient.put("age", age);
 			newPatient.put("email", email);
 			newPatient.put("gender", gender);
-			newPatient.put("username", user);
 			newPatient.put("password", pass);
 			JsonArray appointments = new JsonArray();
 			newPatient.put("appointments", appointments);
@@ -125,7 +123,7 @@ public class registrationJSON {
 	 * @param user: the user's username
 	 * @param pass: the user's password
 	 */
-	public static void writeStaffAccountToJSON(String userType, String first, String last, String email, String gender, String user, String pass) {
+	public static void writeStaffAccountToJSON(String userType, String first, String last, String email, String gender, String pass) {
 		try {
 		    // create reader
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
@@ -179,7 +177,6 @@ public class registrationJSON {
 			newAccount.put("last_name", last);
 			newAccount.put("email", email);
 			newAccount.put("gender", gender);
-			newAccount.put("username", user);
 			newAccount.put("password", pass);
 			if(userType.equals("Doctor")) {
 				JsonArray appointments = new JsonArray();
