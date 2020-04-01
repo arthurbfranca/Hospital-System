@@ -203,14 +203,14 @@ public class Register extends JFrame {
 
 					if (accountType.equals("Patient")) {	// if the user is a patient
 						try {	// create a new patient account for them
-							registrationJSON.addNewAccount(new Account(accountType, firstName, lastName, age, email, gender, password));
+							WriteToJSON.addNewAccount(new Account(accountType, firstName, lastName, age, email, gender, password));
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					} else {
 						try {	// otherwise, they are a staff member and we will add them as a staff
-							registrationJSON.addNewAccount(new Account(accountType, firstName, lastName, email, gender, password));
+							WriteToJSON.addNewAccount(new Account(accountType, firstName, lastName, email, gender, password));
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

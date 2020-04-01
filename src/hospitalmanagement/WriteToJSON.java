@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
@@ -17,7 +19,7 @@ import com.github.cliftonlabs.json_simple.Jsoner;
  * @author erinpaslawski, sydneykwok
  *
  */
-public class registrationJSON {
+public class WriteToJSON {
 
 	/**
 	 * This method adds the new account to our database.
@@ -206,6 +208,71 @@ public class registrationJSON {
 
 		} catch (Exception ex) {
 		    ex.printStackTrace();
+		}
+	}
+	
+	/**
+	 * This method writes the doctor to the assigned department in the JSON.
+	 * @param username: the doctor's username
+	 * @param department: the department that is to be written to
+	 * @author erinpaslawski
+	 * @return false if failed, true otherwise
+	 */
+	public static boolean addDocToDepartment(String username, String department) {
+		try
+		{
+		    // create reader
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/departments.json")));
+
+		    // create parser
+		    JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+
+		    // read departments array from json
+		    JsonArray departments = (JsonArray) parser.get("departments");
+
+		    //close reader
+		    reader.close();
+
+		    // extract the object representation of the specified department type section of the departments array
+		    // then get the array representation of that object
+		    JsonObject departmentTypeObj ;
+		    JsonArray departmentTypeArr;
+		    int arrayIndex;
+		    
+		    if (department.equals("Neurology")) {
+		    	departmentTypeObj = (JsonObject) departments.get(0);
+		    	arrayIndex = 0;
+		    } else if (department.equals("Cardiology")) {
+		    	departmentTypeObj = (JsonObject) departments.get(1);
+		    	arrayIndex = 1;
+		    } else {
+		    	departmentTypeObj = (JsonObject) departments.get(2);
+		    	arrayIndex = 2;
+		    } 
+		    
+		    departmentTypeArr = (JsonArray) departmentTypeObj.get("doctors");
+		    departmentTypeArr.add(username);
+		    
+		    
+			// put this updated patient array as the patient object
+			departmentTypeObj.put(department, departmentTypeArr);
+			// put this updated patient object at index of the accounts array
+			departments.set(arrayIndex, departmentTypeObj);
+			// put the updated accounts array as the account entry in the JSON
+			parser.put("departments", departments);
+
+			// Create a writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/departments.json"));
+
+			// Write updates to JSON file
+			Jsoner.serialize(parser, writer);
+
+			// Close the writer
+			writer.close();
+			return true;		
+		} catch (Exception ex) {
+		    ex.printStackTrace();
+		    return false;
 		}
 	}
 }
