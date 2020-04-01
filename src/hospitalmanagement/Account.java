@@ -61,7 +61,7 @@ public class Account {
 	* This is a getter method for the password
 	* @return String: the password
 	*/
-	protected String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 

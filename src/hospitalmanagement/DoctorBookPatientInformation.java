@@ -309,7 +309,7 @@ public class DoctorBookPatientInformation extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				int timeListIndex = timeList.getSelectedIndex();
-				if (timeListIndex < 0) {
+				if (timeListIndex < 0) {  //If no timeslot was chosen, give a message saying so and don't book appointment
 					JOptionPane.showMessageDialog(contentPane, "Please select a timeslot.");
 				} else {
 					int add = JOptionPane.showConfirmDialog(contentPane, "Add " + name + "?");		//Confirmation dialogue shown to doctor
