@@ -17,34 +17,43 @@ import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 import java.util.Iterator;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.Iterator;
 /**
 * Class that displays the panel for the doctor's appointments
 * @author arthurbfranca, ggdizon, sydneykwok
 */
-public class DoctorAppointmentView extends JFrame {
+public class DoctorAppointmentView2 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	
+	//This variable is used to tell which appointments should be displayed when either the previous or next buttons are pressed.
+	//eg:
+	//the NextButton is pressed for the first time., viewAppointment(counter += 1), viewAppointment(counter += 1)
+	//appointments of index 1 and 2 are now displayed
+	private int counter = 0;
 	
 	
 	
 	//This method parses through account2.json and looks for the doctor whose email corresponds to the email passed in the class constructor
 	//If no such doctor is found, this method will not throw an exception or notify the user, this should be checked in calling code.
 	public JsonObject getDoctor(String email) {
-		//reader to read accounts2.json
+		try {
+			//reader to read accounts2.json
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
 			//parser to parse the reader
 			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
 		   //we look for the JsonArray within accounts2.json, for that is where the JsonObject of our doctor is
-			JsonArray accounts = (JsonArray) parser.get("accounts")
+			JsonArray accounts = (JsonArray) parser.get("accounts");
 			JsonObject doctorsObj = (JsonObject) accounts.get(1);	//this is the object that has the list of all doctors
 			JsonArray doctorsArr = (JsonArray) doctorsObj.get("doctor");
 			Iterator i;
 			//Now we find the JsonObject for the doctor in particular we are dealing with, whom is identified by the passed email
 			i = doctorsArr.iterator(); 
 			int flag = 0; //flag used to stop the iteration when we've found the correct object
-			JsonObject doctor;
+			JsonObject doctor = null;
 			//go through all doctors to find the one we're dealing with. A constant time search could be implemented, but that would conflict with the 
 			//json format we are going with, which simplifies the syntax. This is a tradeoff in terms of writing code more easily, but we have lesser efficiency
 			//had we more time to troubleshoot, we'd opt for the optimal setup.
@@ -57,6 +66,11 @@ public class DoctorAppointmentView extends JFrame {
 			}
 			reader.close();
 			return doctor;
+		}
+		catch(Exception e) {
+			System.out.println("Something went wrong, presumably file couldn't be opened");
+			return null;
+		}
 	}
 	
 	//this method takes the doctor's JsonObject and returns the qth appointment in the doctor's list of appointments, where q is an index (a valid q: 0 <=q < arraySize)
@@ -64,34 +78,39 @@ public class DoctorAppointmentView extends JFrame {
 	public JsonObject getAppointment(JsonObject doctor, int q) {
 		JsonArray appointmentIDs = (JsonArray) doctor.get("appointments");
 		if(q < appointmentIDs.size()) {	//if the index is valid
-			//parse the JSON file appointments.json to get the array of all appointments
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/appointments.json")));
-			parser = (JsonObject) Jsoner.deserialize(reader);
-			//the array of appointments
-			JsonArray appointments = (JsonArray) parser.get("appointments");
-			
-			
-			//FIXME Potential Error: the entries of a JsonArray are JsonObjects, and since we don't have a label for the number, the line below doesnt run
-			//get the id of the appointment to be displayed from doctor's object
-			String aptID = (String) appointmentIDs.get(q);
-			//find the appointment information within the appointments2.json
-			Iterator i = appointments.iterator();
-			//flag used to signal the loop below should stop iterating
-			int flag = 0;
-			//the object to be returned
-			JsonObject apt;
-			//go through all appointments and check if the id matches.
-			while(i.hasNext() && flag == 0) {
-				apt = (JsonObject) i.next();
-				String currentID = (String) apt.get("number");
-				if(currentID.equals(aptID)) {
-					flag = 1;
+			try{	
+				//parse the JSON file appointments.json to get the array of all appointments
+				BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/appointments.json")));
+				JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+				//the array of appointments
+				JsonArray appointments = (JsonArray) parser.get("appointments");
+				
+				
+				//FIXME Potential Error: the entries of a JsonArray are JsonObjects, and since we don't have a label for the number, the line below doesnt run
+				//get the id of the appointment to be displayed from doctor's object
+				String aptID = (String) appointmentIDs.get(q);
+				//find the appointment information within the appointments2.json
+				Iterator i = appointments.iterator();
+				//flag used to signal the loop below should stop iterating
+				int flag = 0;
+				//the object to be returned
+				JsonObject apt = null;
+				//go through all appointments and check if the id matches.
+				while(i.hasNext() && flag == 0) {
+					apt = (JsonObject) i.next();
+					String currentID = (String) apt.get("number");
+					if(currentID.equals(aptID)) {
+						flag = 1;
+					}
 				}
+				if(!apt.get("number").equals(aptID)) {
+					System.out.println("Error: " + aptID + " could not be found under appointments in appointments.json");
+				}
+				return apt;
+			} catch(Exception e) {
+				System.out.println("Something went wrong, presumably file couldn't be opened");
+				return null;
 			}
-			if(!apt.get("number").equals(aptID)) {
-				System.out.println("Error: " + aptID + " could not be found under appointments in appointments.json");
-			}
-			return apt;
 		}else { //notify tester in the console
 			System.out.println("Index out of bounds (Appointment array in doctor's at accounts2.son)");
 			return null;
@@ -133,7 +152,7 @@ public class DoctorAppointmentView extends JFrame {
 	* such as patient and date.
 	* @param email The email of the doctor. Used to uniquely identify the user so we can easily access their info.
 	*/
-	public DoctorAppointmentView(String email){
+	public DoctorAppointmentView2(String email){
 		
 		//the doctor's json object
 		JsonObject doctor = getDoctor(email);
