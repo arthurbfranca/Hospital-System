@@ -22,7 +22,7 @@ public class PatientInfoView extends JFrame {
 	/**
 	* Launch the application.
 	*/
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -33,12 +33,13 @@ public class PatientInfoView extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
+	 * @param email The email of the patient. Used to uniquely identify the user so we can easily access their info.
 	 */
-	public PatientInfoView() {
+	public PatientInfoView(String email) {
 		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -218,7 +218,7 @@ public class Register extends JFrame {
 					}
 
 					// show the welcome view
-					NewAccountWelcome welcome = new NewAccountWelcome(contentPane);
+					NewAccountWelcome welcome = new NewAccountWelcome(contentPane, email);
 					welcome.setVisible(true);
 					dispose();
 				}

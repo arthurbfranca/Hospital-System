@@ -20,7 +20,7 @@ public class NewAccountWelcome extends JFrame {
 	* Create the frame for the new account welcome page
 	* It shows a welcome message and return button
 	*/
-	public NewAccountWelcome(JPanel contentPane) {
+	public NewAccountWelcome(JPanel contentPane, String email) {
 		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

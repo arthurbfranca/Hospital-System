@@ -21,8 +21,9 @@ public class NursePerspective extends JFrame {
 	/**
 	* Create the frame for the panel with the nurse options upon logging in
 	* Nurses will be directed to this frame and can do various tasks by clicking the appropriate buttons
+	* @param email The email of the nurse. Used to uniquely identify the user so we can easily access their info.
 	*/
-	public NursePerspective() {
+	public NursePerspective(String email) {
 		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

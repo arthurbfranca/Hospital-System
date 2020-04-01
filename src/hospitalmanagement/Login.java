@@ -123,17 +123,17 @@ public class Login extends JFrame {
 			 * if the user clicks the login button, error check their inputs
 			 */
 			public void actionPerformed(ActionEvent arg0) {
-				
-				String uname = username.getText();							// grab their username input from the username textfield
+
+				String email = username.getText();							// grab their username input from the username textfield
 				String pass = password.getText();							// grab their password input from the password textfield
 				String userType = comboBox.getSelectedItem().toString();	// grab their account type from the user type combo box
 				
-				if (uname.isEmpty() || pass.isEmpty()) {	// check if username and password fields are empty
+				if (email.isEmpty() || pass.isEmpty()) {	// check if username and password fields are empty
 					
 					Login lframe = new Login();
 					JOptionPane.showMessageDialog(lframe, "Invalid username and password inputs.");	// if empty, display error message
-					
-				} else if (!validLoginCredentials(uname, pass, userType)) {	// check JSON to verify user's login credentials
+
+				} else if (!validLoginCredentials(email, pass, userType)) {	// check JSON to verify user's login credentials
 					
 					Login lframe1 = new Login();		// if the credentials are not in the database, show an error message
 					JOptionPane.showMessageDialog(lframe1, "The login credentials you provided are not in our system.");
@@ -141,19 +141,19 @@ public class Login extends JFrame {
 				} else {	// if the credentials are valid, log the user into their account type view
 					
 				    if (userType.equals("Administrator")) {
-				    	AdminPerspective adminPane = new AdminPerspective();
+				    	AdminPerspective adminPane = new AdminPerspective(email);
 				    	adminPane.setVisible(true);
 				    } else if (userType.equals("Assistant")) {
-				    	AssistantPerspective assistantPane = new AssistantPerspective();
+				    	AssistantPerspective assistantPane = new AssistantPerspective(email);
 				    	assistantPane.setVisible(true);
 				    } else if (userType.equals("Doctor")) {
-				    	DoctorPerspective docPane = new DoctorPerspective();
+				    	DoctorPerspective docPane = new DoctorPerspective(email);
 				    	docPane.setVisible(true);
 				    } else if (userType.equals("Nurse")) {
-				    	NursePerspective nursePane = new NursePerspective();
+				    	NursePerspective nursePane = new NursePerspective(email);
 				    	nursePane.setVisible(true);
 				    } else if (userType.equals("Patient")) {
-				    	PatientPerspective patientPane = new PatientPerspective();
+				    	PatientPerspective patientPane = new PatientPerspective(email);
 				    	patientPane.setVisible(true);
 				    }
 					dispose();	// dispose of the log in pane

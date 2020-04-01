@@ -21,9 +21,10 @@ public class DoctorPerspective extends JFrame {
 	/**
 	* Create the frame.
 	* This is for when a Doctor logs into the system. They will be greeted with this Frame
-	* Doctor can do various tasks by pressing the appropriate buttons
+	* Doctor can do various tasks by pressing the appropriate buttons.
+	* @param email The email of the doctor. Used to uniquely identify the user so we can easily access their info.
 	*/
-	public DoctorPerspective() {
+	public DoctorPerspective(String email) {
 		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,7 +49,7 @@ public class DoctorPerspective extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//Switch to panel that displays the appointments to view
-				DoctorAppointmentView appointmentPane = new DoctorAppointmentView();
+				DoctorAppointmentView appointmentPane = new DoctorAppointmentView(email);
 				appointmentPane.setVisible(true);
 			}
 		});
@@ -62,7 +63,7 @@ public class DoctorPerspective extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				//Switch to panel that displays the patients that the doctor can view 
-				DoctorPatientsView viewPatientsPane = new DoctorPatientsView();
+				DoctorPatientsView viewPatientsPane = new DoctorPatientsView(email);
 				viewPatientsPane.setVisible(true);
 			}
 		});
@@ -81,7 +82,7 @@ public class DoctorPerspective extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//Switch to panel where the doctor can book an appointment
-				DoctorBookPatient patientsPane = new DoctorBookPatient();
+				DoctorBookPatient patientsPane = new DoctorBookPatient(email);
 				patientsPane.setVisible(true);
 			}
 		});

@@ -19,10 +19,11 @@ public class AdminPerspective extends JFrame {
 	private JPanel contentPane;
 	
 	/**
-	* Create the frame for the panel with the administrator options upon logging in.
-	* Administrators will be directed to this frame and can do various tasks by clicking the appropriate buttons.
-	*/
-	public AdminPerspective() {
+	 * Create the frame for the panel with the administrator options upon logging in.
+	 * Administrators will be directed to this frame and can do various tasks by clicking the appropriate buttons.
+	 * @param email The email of the admin. Used to uniquely identify the user so we can easily access their info.
+	 */
+	public AdminPerspective(String email) {
 		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,7 +63,7 @@ public class AdminPerspective extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				//Switch to panel that displays the frame for assigning doctors to department
-				AdminAssignDocDepView assignDocDep = new AdminAssignDocDepView();
+				AdminAssignDocDepView assignDocDep = new AdminAssignDocDepView(email);
 				assignDocDep.setVisible(true);
 			}
 		});

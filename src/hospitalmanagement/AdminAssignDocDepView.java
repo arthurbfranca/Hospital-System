@@ -31,7 +31,7 @@ public class AdminAssignDocDepView extends JFrame {
 	/**
 	* Launch the application
 	*/
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -42,12 +42,13 @@ public class AdminAssignDocDepView extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	* Create the frame for the panel to assign departments to doctors
+	* @param email The email of the admin. Used to uniquely identify the user so we can easily access their info.
 	*/
-	public AdminAssignDocDepView() {
+	public AdminAssignDocDepView(String email) {
 		
 		// set properties of the frame
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

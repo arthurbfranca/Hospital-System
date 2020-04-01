@@ -25,8 +25,9 @@ public class DoctorAppointmentView extends JFrame {
 	* This is for when Doctor clicks "View Appointments" button.
 	* It shows a list of appointments for the Doctor, including the basic appointment information
 	* such as patient and date.
+	* @param email The email of the doctor. Used to uniquely identify the user so we can easily access their info.
 	*/
-	public DoctorAppointmentView() {
+	public DoctorAppointmentView(String email) {
 		
 		// set the frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -33,7 +33,7 @@ public class PatientBookAppointment extends JFrame {
 	/**
 	 * Launch the application
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -44,14 +44,15 @@ public class PatientBookAppointment extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame for when the patient clicks on the "book appointment" button
 	 * Shows drop down menus for patients to book an appointment by selecting the
-	 * department, doctor name, timeslot and appointment type
+	 * department, doctor name, timeslot and appointment type.
+	 * @param email The email of the patient. Used to uniquely identify the user so we can easily access their info.
 	 */
-	public PatientBookAppointment() {
+	public PatientBookAppointment(String email) {
 
 		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

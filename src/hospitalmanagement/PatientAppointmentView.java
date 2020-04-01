@@ -19,8 +19,9 @@ public class PatientAppointmentView extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param email The email of the patient. Used to uniquely identify the user so we can easily access their info.
 	 */
-	public PatientAppointmentView() {
+	public PatientAppointmentView(String email) {
 		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

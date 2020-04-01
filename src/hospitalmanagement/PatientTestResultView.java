@@ -20,9 +20,10 @@ public class PatientTestResultView extends JFrame {
 
 	/**
 	* Create the frame for the patient's test results
-	* Test results includes information such as: the date of the test, department, and the test type
+	* Test results includes information such as: the date of the test, department, and the test type.
+	* @param email The email of the patient. Used to uniquely identify the user so we can easily access their info.
 	*/
-	public PatientTestResultView() {
+	public PatientTestResultView(String email) {
 		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

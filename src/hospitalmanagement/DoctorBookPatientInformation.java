@@ -36,10 +36,11 @@ public class DoctorBookPatientInformation extends JFrame {
 	* This frame is the frame for when the Doctor selects the patient in the DoctorBookPatient pane.
 	* This frame will show important information about the patient as well as give options for the 
 	* appointments, such as time and date.
+	* @param email The email of the doctor (used as an identifier for the user so we can get patients of this doctor only).
 	* @param name Name of patient passed from previous window.
 	* @param ID ID of patients passed from previous window.
 	*/
-	public DoctorBookPatientInformation(String name, int ID) {
+	public DoctorBookPatientInformation(String email, String name, int ID) {
 		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -70,7 +71,7 @@ public class DoctorBookPatientInformation extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				JOptionPane.showMessageDialog(contentPane, "Patient has NOT been added.");
 				dispose();
-				DoctorBookPatient addPatientPane = new DoctorBookPatient();
+				DoctorBookPatient addPatientPane = new DoctorBookPatient(email);
 				addPatientPane.setVisible(true);
 			}
 		});
@@ -308,10 +309,10 @@ public class DoctorBookPatientInformation extends JFrame {
 					 * The time for appointment is a string called timeSelected, defined above.
 					 * Also need to create an appointment ID.
 					 */
-					JOptionPane.showMessageDialog(contentPane, name + "has been added to your patients.\n" + 
+					JOptionPane.showMessageDialog(contentPane, name + " has been added to your patients.\n" + 
 					 "Time of appointment: " + timeSelected);
 					dispose();
-					DoctorBookPatient addPatientPane = new DoctorBookPatient();
+					DoctorBookPatient addPatientPane = new DoctorBookPatient(email);
 					addPatientPane.setVisible(true);
 				} else {		//If "NO" or "CANCEL" was clicked, don't make appointment and give a dialogue saying so.
 					JOptionPane.showMessageDialog(contentPane, "Patient has NOT been added.");
