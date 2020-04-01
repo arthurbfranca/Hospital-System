@@ -12,7 +12,6 @@ public class Account {
 	private int age;
 	private String email;
 	private String gender;
-	private String username;
 	private String password;
 	
 	/**
@@ -43,22 +42,9 @@ public class Account {
 		this.lastName = last;
 		this.email = email;
 		this.gender = gender;
-		this.username = email.substring(0, email.indexOf("@"));
 		this.password = password;
 	}
 
-	/*
-	* This method is used to check the length of the username of an account
-	* @param username: the username for the account
-	* @return boolean: returns whether the username length is less than or equal to 16 characters
-	*/
-	public static boolean checkUsername(String username) {
-		if(username.length() <= 16) {
-			return true;
-		}
-		return false; 
-	}
-	
 	/*
 	* This method is used to check the length of the password of an account
 	* @param pass: the password for the account
@@ -69,27 +55,6 @@ public class Account {
 			return true;
 		}
 		return false; 
-	}
-
-	/*
-	* This is a getter method for the username 
-	* @return String: the username 
-	*/
-	protected String getUsername() {
-		return username;
-	}
-
-	/*
-	* This is a setter method for the username
-	* @param username: the username for the account
-	* @return boolean: returns true/false on whether the username length has been checked
-	*/
-	protected boolean setUsername(String username) {
-		if(Account.checkUsername(username)) {
-			this.username = username;
-			return true;
-		}
-		return false;
 	}
 
 	/*
