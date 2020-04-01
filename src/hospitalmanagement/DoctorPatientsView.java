@@ -110,7 +110,7 @@ public class DoctorPatientsView extends JFrame {
 		for (int i = 0; names.size() > i; i++) {
 			values.add(names.get(i));
 		}
-
+    
 		// create a list of patients
 		JList<Object> patientList = new JList<Object>(values.toArray(new String[values.size()]));
 		patientList.setValueIsAdjusting(true);

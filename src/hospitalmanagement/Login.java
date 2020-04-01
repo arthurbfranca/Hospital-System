@@ -123,7 +123,7 @@ public class Login extends JFrame {
 			 * if the user clicks the login button, error check their inputs
 			 */
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				String email = username.getText();							// grab their username input from the username textfield
 				String pass = password.getText();							// grab their password input from the password textfield
 				String userType = comboBox.getSelectedItem().toString();	// grab their account type from the user type combo box
@@ -132,7 +132,7 @@ public class Login extends JFrame {
 					
 					Login lframe = new Login();
 					JOptionPane.showMessageDialog(lframe, "Invalid username and password inputs.");	// if empty, display error message
-					
+
 				} else if (!validLoginCredentials(email, pass, userType)) {	// check JSON to verify user's login credentials
 					
 					Login lframe1 = new Login();		// if the credentials are not in the database, show an error message
