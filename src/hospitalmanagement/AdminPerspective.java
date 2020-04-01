@@ -61,7 +61,7 @@ public class AdminPerspective extends JFrame {
 		//Add event handler for assigning doctor to department button
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent e) {				
 				//Switch to panel that displays the frame for assigning doctors to department
 				AdminAssignDocDepView assignDocDep = new AdminAssignDocDepView(email);
 				assignDocDep.setVisible(true);
