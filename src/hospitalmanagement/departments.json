@@ -1,13 +1,9 @@
 {
 	"departments": [
 		{
-			"Neurology": [
-				"doc"
-			],
 			"appointments": [
 			],
 			"doctors": [
-				"doc"
 			],
 			"type": "Neurology",
 			"nurses": [
@@ -17,24 +13,17 @@
 			"appointments": [
 			],
 			"doctors": [
-				"bajwa"
+				"bajwa",
+				"doc"
 			],
 			"type": "Cardiology",
-			"Cardiology": [
-				"bajwa"
-			],
 			"nurses": [
 			]
 		},
 		{
 			"appointments": [
 			],
-			"Nephrology": [
-				"doc.martens",
-				"bajwa"
-			],
 			"doctors": [
-				"doc.martens",
 				"bajwa"
 			],
 			"type": "Nephrology",

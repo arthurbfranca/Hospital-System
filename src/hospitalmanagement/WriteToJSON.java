@@ -1,4 +1,5 @@
 package hospitalmanagement;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -13,9 +14,10 @@ import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 
 /**
- * This class is used in registration. When the user registers themself into the system,
- * a new account will be made for them and then this class will write all their account
- * info to our "accounts2" JSON file.
+ * This class is used in registration. When the user registers themself into the
+ * system, a new account will be made for them and then this class will write
+ * all their account info to our "accounts2" JSON file.
+ * 
  * @author erinpaslawski, sydneykwok
  *
  */
@@ -23,10 +25,11 @@ public class WriteToJSON {
 
 	/**
 	 * This method adds the new account to our database.
+	 * 
 	 * @param newAccount: the new account to be added
 	 */
 	public static void addNewAccount(Account newAccount) {
-		
+
 		// grab all the info from the new account
 		String userType = newAccount.getAccountType();
 		String firstName = newAccount.getFirstName();
@@ -35,53 +38,59 @@ public class WriteToJSON {
 		String gender = newAccount.getGender();
 		String username = newAccount.getUsername();
 		String password = newAccount.getPassword();
-		
-		if (userType.equals("Administrator") || userType.equals("Assistant") || userType.equals("Doctor") || userType.equals("Nurse")) {
+
+		if (userType.equals("Administrator") || userType.equals("Assistant") || userType.equals("Doctor")
+				|| userType.equals("Nurse")) {
 			// if the user is a staff member, add them to the json as such
 			writeStaffAccountToJSON(userType, firstName, lastName, email, gender, username, password);
-	    } else {
-	    	// otherwise the user is a patient and we will add them as a patient
-	    	writePatientAccountToJSON(firstName, lastName, newAccount.getAge(), email, gender, username, password);
-	    }
+		} else {
+			// otherwise the user is a patient and we will add them as a patient
+			writePatientAccountToJSON(firstName, lastName, newAccount.getAge(), email, gender, username, password);
+		}
 	}
-	
+
 	/**
 	 * This method writes the new account (of a user who is a patient) to the JSON.
-	 * @param first: the user's first name
-	 * @param last: the user's last name
-	 * @param age: the user's age
-	 * @param email: the user's email
+	 * 
+	 * @param first:  the user's first name
+	 * @param last:   the user's last name
+	 * @param age:    the user's age
+	 * @param email:  the user's email
 	 * @param gender: the user's gender
-	 * @param user: the user's username
-	 * @param pass: the user's password
+	 * @param user:   the user's username
+	 * @param pass:   the user's password
 	 */
-	public static void writePatientAccountToJSON(String first, String last, int age, String email, String gender, String user, String pass) {
+	public static void writePatientAccountToJSON(String first, String last, int age, String email, String gender,
+			String user, String pass) {
 		try {
-		    // create reader
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+			// create reader
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
 
-		    // create parser
-		    JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+			// create parser
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
 
-		    // read accounts array from json
-		    JsonArray accounts = (JsonArray) parser.get("accounts");
-		    
-		    // extract the object representation of the patients section of the accounts array
-		    // then get the array representation of that object
-		    JsonObject patients = (JsonObject) accounts.get(0);
-	    	JsonArray patientArr = (JsonArray) patients.get("patient");
-	    	
-	    	// Get most recent patient id
-	    	JsonObject mostRecentPatient = (JsonObject) patientArr.get(patientArr.size()-1);	// get the most recently added patient
-	    	// get id from last patient
-	    	int lastID = ((BigDecimal) mostRecentPatient.get("id")).intValue();
-	    	
-	    	//close reader
-		    reader.close();
-	    	
-	    	// Create a new patient with the given new account parameters
+			// read accounts array from json
+			JsonArray accounts = (JsonArray) parser.get("accounts");
+
+			// extract the object representation of the patients section of the accounts
+			// array
+			// then get the array representation of that object
+			JsonObject patients = (JsonObject) accounts.get(0);
+			JsonArray patientArr = (JsonArray) patients.get("patient");
+
+			// Get most recent patient id
+			JsonObject mostRecentPatient = (JsonObject) patientArr.get(patientArr.size() - 1); // get the most recently
+																								// added patient
+			// get id from last patient
+			int lastID = ((BigDecimal) mostRecentPatient.get("id")).intValue();
+
+			// close reader
+			reader.close();
+
+			// Create a new patient with the given new account parameters
 			JsonObject newPatient = new JsonObject();
-			newPatient.put("id", lastID+1);	// id is incremented from most recent patient's id
+			newPatient.put("id", lastID + 1); // id is incremented from most recent patient's id
 			newPatient.put("first_name", first);
 			newPatient.put("last_name", last);
 			newPatient.put("age", age);
@@ -93,7 +102,7 @@ public class WriteToJSON {
 			newPatient.put("appointments", appointments);
 			JsonArray prescriptions = new JsonArray();
 			newPatient.put("prescriptions", prescriptions);
-			
+
 			// append new patient to patient list
 			patientArr.add(newPatient);
 			// put this updated patient array as the patient object
@@ -102,7 +111,7 @@ public class WriteToJSON {
 			accounts.set(0, patients);
 			// put the updated accounts array as the account entry in the JSON
 			parser.put("accounts", accounts);
-		    
+
 			// Create a writer
 			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/accounts2.json"));
 
@@ -113,81 +122,86 @@ public class WriteToJSON {
 			writer.close();
 
 		} catch (Exception ex) {
-		    ex.printStackTrace();
+			ex.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * This method writes the new account (of a user who is a staff member) to the JSON.
+	 * This method writes the new account (of a user who is a staff member) to the
+	 * JSON.
+	 * 
 	 * @param userType: the user's account type (doctor, nurse, etc.)
-	 * @param first: the user's first name
-	 * @param last: the user's last name
-	 * @param email: the user's email
-	 * @param gender: the user's gender
-	 * @param user: the user's username
-	 * @param pass: the user's password
+	 * @param first:    the user's first name
+	 * @param last:     the user's last name
+	 * @param email:    the user's email
+	 * @param gender:   the user's gender
+	 * @param user:     the user's username
+	 * @param pass:     the user's password
 	 */
-	public static void writeStaffAccountToJSON(String userType, String first, String last, String email, String gender, String user, String pass) {
+	public static void writeStaffAccountToJSON(String userType, String first, String last, String email, String gender,
+			String user, String pass) {
 		try {
-		    // create reader
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+			// create reader
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
 
-		    // create parser
-		    JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+			// create parser
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
 
-		    // read accounts array from json
-		    JsonArray accounts = (JsonArray) parser.get("accounts");
-		    
-		    // extract the object representation of the specified account type section of the accounts array
-		    // then get the array representation of that object
-		    JsonObject accountTypeObj;
-		    JsonArray accountTypeArr;
-		    String lowerCaseType;	// get the user type in lower case so it matches the JSON key names
-		    int arrayIndex;
-		    if (userType.equals("Administrator")) {
-		    	accountTypeObj = (JsonObject) accounts.get(4);
-		    	accountTypeArr = (JsonArray) accountTypeObj.get("administrator");
-		    	lowerCaseType = "administrator";
-		    	arrayIndex = 4;
-		    } else if (userType.equals("Assistant")) {
-		    	accountTypeObj = (JsonObject) accounts.get(3);
-		    	accountTypeArr = (JsonArray) accountTypeObj.get("assistant");
-		    	lowerCaseType = "assistant";
-		    	arrayIndex = 3;
-		    } else if (userType.equals("Doctor")) {
-		    	accountTypeObj = (JsonObject) accounts.get(1);
-		    	accountTypeArr = (JsonArray) accountTypeObj.get("doctor");
-		    	lowerCaseType = "doctor";
-		    	arrayIndex = 1;
-		    } else {
-		    	accountTypeObj = (JsonObject) accounts.get(2);
-		    	accountTypeArr = (JsonArray) accountTypeObj.get("nurse");
-		    	lowerCaseType = "nurse";
-		    	arrayIndex = 2;
-		    }
-	    	
-		    // get the most recently added person of that account type
-	    	JsonObject mostRecentAccount = (JsonObject) accountTypeArr.get(accountTypeArr.size()-1);
-	    	// get id from that person
-	    	int lastID = ((BigDecimal) mostRecentAccount.get("id")).intValue();
-	    	
-	    	//close reader
-		    reader.close();
-	    	
-	    	// Create a new Json Object with the given new account parameters
+			// read accounts array from json
+			JsonArray accounts = (JsonArray) parser.get("accounts");
+
+			// extract the object representation of the specified account type section of
+			// the accounts array
+			// then get the array representation of that object
+			JsonObject accountTypeObj;
+			JsonArray accountTypeArr;
+			String lowerCaseType; // get the user type in lower case so it matches the JSON key names
+			int arrayIndex;
+			if (userType.equals("Administrator")) {
+				accountTypeObj = (JsonObject) accounts.get(4);
+				accountTypeArr = (JsonArray) accountTypeObj.get("administrator");
+				lowerCaseType = "administrator";
+				arrayIndex = 4;
+			} else if (userType.equals("Assistant")) {
+				accountTypeObj = (JsonObject) accounts.get(3);
+				accountTypeArr = (JsonArray) accountTypeObj.get("assistant");
+				lowerCaseType = "assistant";
+				arrayIndex = 3;
+			} else if (userType.equals("Doctor")) {
+				accountTypeObj = (JsonObject) accounts.get(1);
+				accountTypeArr = (JsonArray) accountTypeObj.get("doctor");
+				lowerCaseType = "doctor";
+				arrayIndex = 1;
+			} else {
+				accountTypeObj = (JsonObject) accounts.get(2);
+				accountTypeArr = (JsonArray) accountTypeObj.get("nurse");
+				lowerCaseType = "nurse";
+				arrayIndex = 2;
+			}
+
+			// get the most recently added person of that account type
+			JsonObject mostRecentAccount = (JsonObject) accountTypeArr.get(accountTypeArr.size() - 1);
+			// get id from that person
+			int lastID = ((BigDecimal) mostRecentAccount.get("id")).intValue();
+
+			// close reader
+			reader.close();
+
+			// Create a new Json Object with the given new account parameters
 			JsonObject newAccount = new JsonObject();
-			newAccount.put("id", lastID+1);	// id is incremented from most recent account's id
+			newAccount.put("id", lastID + 1); // id is incremented from most recent account's id
 			newAccount.put("first_name", first);
 			newAccount.put("last_name", last);
 			newAccount.put("email", email);
 			newAccount.put("gender", gender);
 			newAccount.put("username", user);
 			newAccount.put("password", pass);
-			if(userType.equals("Doctor")) {
+			if (userType.equals("Doctor")) {
 				JsonArray appointments = new JsonArray();
 				newAccount.put("appointments", appointments);
 			}
-			
+
 			// append new patient to patient list
 			accountTypeArr.add(newAccount);
 			// put this updated patient array as the patient object
@@ -196,7 +210,7 @@ public class WriteToJSON {
 			accounts.set(arrayIndex, accountTypeObj);
 			// put the updated accounts array as the account entry in the JSON
 			parser.put("accounts", accounts);
-		    
+
 			// Create a writer
 			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/accounts2.json"));
 
@@ -207,72 +221,78 @@ public class WriteToJSON {
 			writer.close();
 
 		} catch (Exception ex) {
-		    ex.printStackTrace();
+			ex.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * This method writes the doctor to the assigned department in the JSON.
-	 * @param username: the doctor's username
+	 * 
+	 * @param username:   the doctor's username
 	 * @param department: the department that is to be written to
 	 * @author erinpaslawski
 	 * @return false if failed, true otherwise
 	 */
-	public static boolean addDocToDepartment(String username, String department) {
-		try
-		{
-		    // create reader
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/departments.json")));
+	public static int addDocToDepartment(String username, String department) {
+		try {
+			// create reader
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/departments.json")));
 
-		    // create parser
-		    JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+			// create parser
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
 
-		    // read departments array from json
-		    JsonArray departments = (JsonArray) parser.get("departments");
+			// read departments array from json
+			JsonArray departments = (JsonArray) parser.get("departments");
 
-		    //close reader
-		    reader.close();
+			// close reader
+			reader.close();
 
-		    // extract the object representation of the specified department type section of the departments array
-		    // then get the array representation of that object
-		    JsonObject departmentTypeObj ;
-		    JsonArray departmentTypeArr;
-		    int arrayIndex;
-		    
-		    if (department.equals("Neurology")) {
-		    	departmentTypeObj = (JsonObject) departments.get(0);
-		    	arrayIndex = 0;
-		    } else if (department.equals("Cardiology")) {
-		    	departmentTypeObj = (JsonObject) departments.get(1);
-		    	arrayIndex = 1;
-		    } else {
-		    	departmentTypeObj = (JsonObject) departments.get(2);
-		    	arrayIndex = 2;
-		    } 
-		    
-		    departmentTypeArr = (JsonArray) departmentTypeObj.get("doctors");
-		    departmentTypeArr.add(username);
-		    
-		    
-			// put this updated patient array as the patient object
-			departmentTypeObj.put(department, departmentTypeArr);
-			// put this updated patient object at index of the accounts array
-			departments.set(arrayIndex, departmentTypeObj);
-			// put the updated accounts array as the account entry in the JSON
-			parser.put("departments", departments);
+			// extract the object representation of the specified department type section of
+			// the departments array
+			// then get the array representation of that object
+			JsonObject departmentTypeObj;
+			JsonArray docArray;
+			int arrayIndex;
 
-			// Create a writer
-			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/departments.json"));
+			if (department.equals("Neurology")) {
+				departmentTypeObj = (JsonObject) departments.get(0);
+				arrayIndex = 0;
+			} else if (department.equals("Cardiology")) {
+				departmentTypeObj = (JsonObject) departments.get(1);
+				arrayIndex = 1;
+			} else {
+				departmentTypeObj = (JsonObject) departments.get(2);
+				arrayIndex = 2;
+			}
 
-			// Write updates to JSON file
-			Jsoner.serialize(parser, writer);
+			docArray = (JsonArray) departmentTypeObj.get("doctors");
+			if (!docArray.contains(username)) {
+				docArray.add(username);
 
-			// Close the writer
-			writer.close();
-			return true;		
+				// put this updated doctor array as the doctors object
+				departmentTypeObj.put("doctors", docArray);
+				// put this updated doctors object at index of the accounts array
+				departments.set(arrayIndex, departmentTypeObj);
+				// put the updated accounts array as the account entry in the JSON
+				parser.put("departments", departments);
+
+				// Create a writer
+				BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/departments.json"));
+
+				// Write updates to JSON file
+				Jsoner.serialize(parser, writer);
+
+				// Close the writer
+				writer.close();
+				return 0;
+			}
+			else {
+				return 1;
+			}
 		} catch (Exception ex) {
-		    ex.printStackTrace();
-		    return false;
+			ex.printStackTrace();
+			return 2;
 		}
 	}
 }

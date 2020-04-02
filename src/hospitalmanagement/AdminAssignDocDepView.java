@@ -129,10 +129,18 @@ public class AdminAssignDocDepView extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				String selectedDoc = docUsername.get(docDropdown.getSelectedIndex());
 				String selectedDep = departmentDropdown.getSelectedItem().toString();
-				boolean pass = WriteToJSON.addDocToDepartment(selectedDoc, selectedDep);
-				if (pass) {
+				int pass = WriteToJSON.addDocToDepartment(selectedDoc, selectedDep);
+				if (pass == 0) {
 				Login lframe = new Login();
 				JOptionPane.showMessageDialog(lframe, "Your assignment has been successfully processed!");
+				}
+				else if (pass == 1) {
+					Login lframe = new Login();
+					JOptionPane.showMessageDialog(lframe, "This doctor is already assigned!");
+				}
+				else if (pass == 2) {
+					Login lframe = new Login();
+					JOptionPane.showMessageDialog(lframe, "The assignment was not successfull.");
 				}
 				}
 		});
