@@ -3,7 +3,7 @@
     {
       "number": 1,
       "patientID": 1,
-      "doctorID": 01,
+      "doctorID": 1,
       "department": "Neurology",
       "time": "10:00:00",
       "prescriptions": null

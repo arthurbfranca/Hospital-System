@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JButton;
@@ -86,6 +87,7 @@ public class AdminAssignDocDepView extends JFrame {
 		// create a drop down for admin to select a doctor
 		JComboBox<String> docDropdown = new JComboBox<String>();
 		// go into the account JSON and display all doctors as options here
+		ArrayList<String> docUsername = new ArrayList<String>();
 		try {
 			
 		    // create reader
@@ -105,6 +107,7 @@ public class AdminAssignDocDepView extends JFrame {
 		    while (i.hasNext()) {
 		        JsonObject doctor = (JsonObject) i.next();
 		        docDropdown.addItem("Dr. " + (String) doctor.get("last_name"));
+		        docUsername.add((String) doctor.get("username"));
 		    }
 		    
 		    //close reader
@@ -123,12 +126,23 @@ public class AdminAssignDocDepView extends JFrame {
 			 * add the selected doctor to the selected department in the departments.json file
 			 * write the selected department as the doctor's department? (if we want the doctor to store a department attribute)
 			 ****************/
-			public void mousePressed(MouseEvent e) {
-				String selectedDoc = docDropdown.getSelectedItem().toString();
+			public void mouseReleased(MouseEvent e) {
+				String selectedDoc = docUsername.get(docDropdown.getSelectedIndex());
 				String selectedDep = departmentDropdown.getSelectedItem().toString();
+				int pass = WriteToJSON.addDocToDepartment(selectedDoc, selectedDep);
+				if (pass == 0) {
 				Login lframe = new Login();
 				JOptionPane.showMessageDialog(lframe, "Your assignment has been successfully processed!");
-			}
+				}
+				else if (pass == 1) {
+					Login lframe = new Login();
+					JOptionPane.showMessageDialog(lframe, "This doctor is already assigned!");
+				}
+				else if (pass == 2) {
+					Login lframe = new Login();
+					JOptionPane.showMessageDialog(lframe, "The assignment was not successfull.");
+				}
+				}
 		});
 		assignButton.setBounds(230, 273, 89, 23);
 		contentPane.add(assignButton);

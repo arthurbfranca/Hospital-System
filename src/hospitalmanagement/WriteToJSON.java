@@ -1,26 +1,27 @@
 package hospitalmanagement;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Iterator;
-
 import javax.swing.JOptionPane;
-
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 
 /**
- * This class is used in registration. When the user registers themself into the system,
- * a new account will be made for them and then this class will write all their account
- * info to our "accounts2" JSON file.
+ * This class is used in registration. When the user registers themself into the
+ * system, a new account will be made for them and then this class will write
+ * all their account info to our "accounts2" JSON file.
+ * 
  * @author erinpaslawski, sydneykwok
  *
  */
-public class registrationJSON {
+public class WriteToJSON {
 
 	/**
 	 * This method adds the new account to our database.
@@ -49,7 +50,7 @@ public class registrationJSON {
 	    	writePatientAccountToJSON(firstName, lastName, newAccount.getAge(), email, gender, password);
 	    }
 	}
-	
+
 	/**
 	 * This method writes the new account (of a user who is a patient) to the JSON.
 	 * @param first: the user's first name
@@ -120,7 +121,7 @@ public class registrationJSON {
 		    ex.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * This method writes the new account (of a user who is a staff member) to the JSON.
 	 * @param userType: the user's account type (doctor, nurse, etc.)
@@ -213,7 +214,7 @@ public class registrationJSON {
 		    ex.printStackTrace();
 		}
 	}
-	
+
 	private static boolean invalidRegistrationCredentials(String user, String userType) {
 		boolean isInvalid = false;
 		try {
@@ -273,5 +274,77 @@ public class registrationJSON {
 		}
 		
 		return isInvalid;
+	}
+	
+	
+	/**
+	 * This method writes the doctor to the assigned department in the JSON.
+	 * 
+	 * @param username:   the doctor's username
+	 * @param department: the department that is to be written to
+	 * @author erinpaslawski
+	 * @return false if failed, true otherwise
+	 */
+	public static int addDocToDepartment(String username, String department) {
+		try {
+			// create reader
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/departments.json")));
+
+			// create parser
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+
+			// read departments array from json
+			JsonArray departments = (JsonArray) parser.get("departments");
+
+			// close reader
+			reader.close();
+
+			// extract the object representation of the specified department type section of
+			// the departments array
+			// then get the array representation of that object
+			JsonObject departmentTypeObj;
+			JsonArray docArray;
+			int arrayIndex;
+
+			if (department.equals("Neurology")) {
+				departmentTypeObj = (JsonObject) departments.get(0);
+				arrayIndex = 0;
+			} else if (department.equals("Cardiology")) {
+				departmentTypeObj = (JsonObject) departments.get(1);
+				arrayIndex = 1;
+			} else {
+				departmentTypeObj = (JsonObject) departments.get(2);
+				arrayIndex = 2;
+			}
+
+			docArray = (JsonArray) departmentTypeObj.get("doctors");
+			if (!docArray.contains(username)) {
+				docArray.add(username);
+
+				// put this updated doctor array as the doctors object
+				departmentTypeObj.put("doctors", docArray);
+				// put this updated doctors object at index of the accounts array
+				departments.set(arrayIndex, departmentTypeObj);
+				// put the updated accounts array as the account entry in the JSON
+				parser.put("departments", departments);
+
+				// Create a writer
+				BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/departments.json"));
+
+				// Write updates to JSON file
+				Jsoner.serialize(parser, writer);
+
+				// Close the writer
+				writer.close();
+				return 0;
+			}
+			else {
+				return 1;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return 2;
+		}
 	}
 }
