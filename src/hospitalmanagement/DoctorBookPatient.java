@@ -159,7 +159,7 @@ public class DoctorBookPatient extends JFrame {
 
 		// Button that will close current window, effectively returning to the previous
 		// window.
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton("Return");
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

@@ -79,9 +79,9 @@ public class Login extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		
 		// add username label to the pane
-		JLabel lblNewLabel = new JLabel("Username");
+		JLabel lblNewLabel = new JLabel("Email");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblNewLabel.setBounds(147, 219, 241, 36);
+		lblNewLabel.setBounds(177, 219, 211, 36);
 		contentPane.add(lblNewLabel);
 
 		// add password label to the pane
@@ -128,10 +128,10 @@ public class Login extends JFrame {
 				String pass = password.getText();							// grab their password input from the password textfield
 				String userType = comboBox.getSelectedItem().toString();	// grab their account type from the user type combo box
 				
-				if (email.isEmpty() || pass.isEmpty()) {	// check if username and password fields are empty
+				if (email.isEmpty() || pass.isEmpty() || !email.contains("@")) {	// check if email and password fields are empty, or proper email wasn't given
 					
 					Login lframe = new Login();
-					JOptionPane.showMessageDialog(lframe, "Invalid username and password inputs.");	// if empty, display error message
+					JOptionPane.showMessageDialog(lframe, "Invalid email or password inputs.");	// if empty or improper email, display error message
 					
 				} else if (!validLoginCredentials(email, pass, userType)) {	// check JSON to verify user's login credentials
 					
@@ -230,7 +230,7 @@ public class Login extends JFrame {
 		    while (i.hasNext()) {
 		    	
 		        JsonObject account = (JsonObject) i.next();
-		        String username = (String) account.get("username");
+		        String username = (String) account.get("email");
 		        String password = (String) account.get("password");
 		        
 		        // if the login credentials match a pair in the database, the input is valid!
