@@ -79,18 +79,21 @@ public class WriteToJSON {
 	    	
 	    	// Get most recent patient id
 	    	JsonObject mostRecentPatient = (JsonObject) patientArr.get(patientArr.size()-1);	// get the most recently added patient
-	    	// get id from last patient
-	    	int lastID = ((BigDecimal) mostRecentPatient.get("id")).intValue();
+
+	    	// id is incremented from most recent patient's id
+	    	String id = Integer.toString(Integer.parseInt((String)mostRecentPatient.get("id")) +1);
 	    	
 	    	//close reader
 		    reader.close();
 	    	
 	    	// Create a new patient with the given new account parameters
 			JsonObject newPatient = new JsonObject();
-			newPatient.put("id", lastID+1);	// id is incremented from most recent patient's id
+
+			newPatient.put("id", id);	
 			newPatient.put("first_name", first);
 			newPatient.put("last_name", last);
-			newPatient.put("age", age);
+			newPatient.put("age", Integer.toString(age));
+      
 			newPatient.put("email", email);
 			newPatient.put("gender", gender);
 			newPatient.put("password", pass);
@@ -174,14 +177,17 @@ public class WriteToJSON {
 		    // get the most recently added person of that account type
 	    	JsonObject mostRecentAccount = (JsonObject) accountTypeArr.get(accountTypeArr.size()-1);
 	    	// get id from that person
-	    	int lastID = ((BigDecimal) mostRecentAccount.get("id")).intValue();
+
+	    	String id = Integer.toString( Integer.parseInt((String) mostRecentAccount.get("id")) +1);
 	    	
 	    	//close reader
 		    reader.close();
 	    	
 	    	// Create a new Json Object with the given new account parameters
 			JsonObject newAccount = new JsonObject();
-			newAccount.put("id", lastID+1);	// id is incremented from most recent account's id
+
+			newAccount.put("id", id);	// id is incremented from most recent account's id
+
 			newAccount.put("first_name", first);
 			newAccount.put("last_name", last);
 			newAccount.put("email", email);
@@ -345,6 +351,60 @@ public class WriteToJSON {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return 2;
+		}
+	}
+	
+	public static void updatePatientInfo(String firstName,	String lastName, String age,
+			String email, String gender, String password) {
+		try {
+			// create reader
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+
+			// create parser
+		    JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+
+		    // read accounts array from json
+		    JsonArray accounts = (JsonArray) parser.get("accounts");
+		    
+		    // extract the object representation of the patients section of the accounts array
+		    // then get the array representation of that object
+		    JsonObject patients = (JsonObject) accounts.get(0);
+	    	JsonArray patientArr = (JsonArray) patients.get("patient");
+	    	
+			// close reader
+			reader.close();
+			
+			JsonObject user = Account.getAccountJSONObj("Patient", email);
+			int arrayIndex = patientArr.indexOf(user);
+			
+			user.put("first_name", firstName);
+			user.put("last_name", lastName);
+			user.put("age", age);
+			user.put("email", email);
+			user.put("gender", gender);
+			user.put("password", password);
+			
+			// update user in the patients array
+			patientArr.set(arrayIndex, user);
+			// put this updated patient array as the patient object
+			patients.put("patient", patientArr);
+			// put this updated patient object at index 0 of the accounts array
+			accounts.set(0, patients);
+			// put the updated accounts array as the account entry in the JSON
+			parser.put("accounts", accounts);
+		    
+			// Create a writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/accounts2.json"));
+
+			// Write updates to JSON file
+			Jsoner.serialize(parser, writer);
+
+			// Close the writer
+			writer.close();
+
+		} catch (Exception ex) {
+		    ex.printStackTrace();
 		}
 	}
 }
