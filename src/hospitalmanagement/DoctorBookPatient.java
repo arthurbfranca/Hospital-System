@@ -35,9 +35,9 @@ public class DoctorBookPatient extends JFrame {
 	private int ID;
 
 	/**
-	 * Create the frame.
-   * This is for when the Doctor clicks on the "Book Appointment" button.
-   * It will list patients for the Doctor to choose from and make an appointment with them.
+	 * Create the frame. This is for when the Doctor clicks on the "Book
+	 * Appointment" button. It will list patients for the Doctor to choose from and
+	 * make an appointment with.
 	 * @param email The email of the doctor. Used to uniquely identify the user so we can easily access their info.
 	 */
 	public DoctorBookPatient(String email) {
@@ -69,6 +69,13 @@ public class DoctorBookPatient extends JFrame {
 		 * add them? And they will be in multiple departments if they have more than 1
 		 * type, like kidney appointment and heart surgery?) ASK THEM
 		 */
+		// String[] names = new String[] {"LastName, FirstName Patient1", "LastName,
+		// FirstName Patient2", "LastName, FirstName Patient3",
+		// "LastName, FirstName Patient4", "LastName, FirstName Patient5", "LastName,
+		// FirstName Patient6", "LastName, FirstName Patient7",
+		// "LastName, FirstName Patient8", "LastName, FirstName Patient9", "LastName,
+		// FirstName Patient10", "LastName, FirstName Patient11",
+		// "LastName, FirstName Patient12"};
 
 		ArrayList<String> names = new ArrayList<String>();
 		try {
@@ -152,7 +159,7 @@ public class DoctorBookPatient extends JFrame {
 
 		// Button that will close current window, effectively returning to the previous
 		// window.
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton("Return");
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

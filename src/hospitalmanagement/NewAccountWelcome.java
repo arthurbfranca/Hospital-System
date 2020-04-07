@@ -24,7 +24,7 @@ public class NewAccountWelcome extends JFrame {
 		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 997, 586);
+		setBounds(100, 100, 900, 586);
 		
 		// create pane for the frame
 		contentPane = new JPanel();
@@ -36,7 +36,7 @@ public class NewAccountWelcome extends JFrame {
 		//Add welcome message
 		JLabel lblNewLabel = new JLabel("Welcome to your new account!");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
-		lblNewLabel.setBounds(183, 87, 732, 238);
+		lblNewLabel.setBounds(165, 87, 542, 238);
 		contentPane.add(lblNewLabel);
 		
 		//Adding button for returning to login home page
@@ -48,12 +48,12 @@ public class NewAccountWelcome extends JFrame {
 				dispose();
 			}
 		});
-		btnReturn.setBounds(407, 434, 97, 25);
+		btnReturn.setBounds(385, 433, 97, 25);
 		contentPane.add(btnReturn);
 		
 		// add label to inform the user that their username is derived from their email input
-		JLabel lblPleaseRememberYour = new JLabel("Please remember your username (your email before the @ symbol) and password!");
-		lblPleaseRememberYour.setBounds(209, 279, 514, 16);
+		JLabel lblPleaseRememberYour = new JLabel("Please remember your email and password!");
+		lblPleaseRememberYour.setBounds(305, 279, 260, 16);
 		contentPane.add(lblPleaseRememberYour);
 	}
 }
