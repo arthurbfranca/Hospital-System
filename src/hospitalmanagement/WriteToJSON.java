@@ -79,6 +79,7 @@ public class WriteToJSON {
 	    	
 	    	// Get most recent patient id
 	    	JsonObject mostRecentPatient = (JsonObject) patientArr.get(patientArr.size()-1);	// get the most recently added patient
+
 	    	// id is incremented from most recent patient's id
 	    	String id = Integer.toString(Integer.parseInt((String)mostRecentPatient.get("id")) +1);
 	    	
@@ -87,10 +88,12 @@ public class WriteToJSON {
 	    	
 	    	// Create a new patient with the given new account parameters
 			JsonObject newPatient = new JsonObject();
+
 			newPatient.put("id", id);	
 			newPatient.put("first_name", first);
 			newPatient.put("last_name", last);
 			newPatient.put("age", Integer.toString(age));
+      
 			newPatient.put("email", email);
 			newPatient.put("gender", gender);
 			newPatient.put("password", pass);
@@ -174,6 +177,7 @@ public class WriteToJSON {
 		    // get the most recently added person of that account type
 	    	JsonObject mostRecentAccount = (JsonObject) accountTypeArr.get(accountTypeArr.size()-1);
 	    	// get id from that person
+
 	    	String id = Integer.toString( Integer.parseInt((String) mostRecentAccount.get("id")) +1);
 	    	
 	    	//close reader
@@ -181,7 +185,9 @@ public class WriteToJSON {
 	    	
 	    	// Create a new Json Object with the given new account parameters
 			JsonObject newAccount = new JsonObject();
+
 			newAccount.put("id", id);	// id is incremented from most recent account's id
+
 			newAccount.put("first_name", first);
 			newAccount.put("last_name", last);
 			newAccount.put("email", email);
