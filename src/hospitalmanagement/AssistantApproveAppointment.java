@@ -40,13 +40,18 @@ public class AssistantApproveAppointment extends JFrame {
 	 * @param email: The email of the assistant. Used to uniquely identify the user so we can easily access their info.
 	 */
 	public AssistantApproveAppointment(String email) {
+		//Set frame properties
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 815, 514);
+		
+		//Create the panel for the frame
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		//Create label to indicate to assistants to select an appointment 
 		JLabel selectAppointLabel = new JLabel("Select an Appointment to Approve");
 		selectAppointLabel.setBounds(76, 230, 423, 33);
 		contentPane.add(selectAppointLabel);
