@@ -23,28 +23,11 @@ import javax.swing.JButton;
 
 /**
  * Class that displays the panel for patients to book an appointment
- * 
  * @author sydneykwok
  */
 public class PatientBookAppointment extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PatientBookAppointment frame = new PatientBookAppointment();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	 * Create the frame for when the patient clicks on the "book appointment" button
@@ -60,6 +43,7 @@ public class PatientBookAppointment extends JFrame {
 
 		// create panel for the frame
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
