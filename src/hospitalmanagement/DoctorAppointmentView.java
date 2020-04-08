@@ -10,6 +10,7 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 
 /**
 * Class that displays the panel for the doctor's appointments
