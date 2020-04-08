@@ -3,6 +3,7 @@ package hospitalmanagement;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
