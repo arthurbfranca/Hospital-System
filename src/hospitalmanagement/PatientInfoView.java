@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 
 /*
 * Class that displays panel for the personal information of the patient.
@@ -32,6 +33,7 @@ public class PatientInfoView extends JFrame {
 		
 		// create panel for the frame
 		infoView = new JPanel();
+		infoView.setBackground(new Color(135, 206, 235));
 		infoView.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(infoView);
 		infoView.setLayout(null);

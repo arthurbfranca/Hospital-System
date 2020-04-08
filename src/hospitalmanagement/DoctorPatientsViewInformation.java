@@ -13,6 +13,7 @@ import java.awt.Insets;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,8 @@ import javax.swing.JList;
 import javax.swing.border.EtchedBorder;
 
 /**
- * This frame displays the selected patient's information.
+ * Class that displays the selected patient's information.
+ * @author arthurbfranca, ggdizon, sydneykwok
  */
 public class DoctorPatientsViewInformation extends JFrame {
 
@@ -44,6 +46,7 @@ public class DoctorPatientsViewInformation extends JFrame {
 		
 		// create the panel for the frame
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
