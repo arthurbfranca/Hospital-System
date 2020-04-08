@@ -1,13 +1,14 @@
 {
   "appointments": [
     {
-      "date": "03/03/2020"
       "number": "1",
       "patientID": "1",
       "doctorID": "1",
       "department": "Neurology",
       "time": "10:00:00",
       "prescriptions": ""
+      "year": "2020"
+      "date" : "03/10"
     }
   ]
 }
