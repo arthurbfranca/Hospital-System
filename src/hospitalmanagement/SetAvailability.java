@@ -18,6 +18,20 @@ import java.io.FileWriter;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.awt.GridBagLayout;
+import javax.swing.JLabel;
+import java.awt.GridBagConstraints;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.Insets;
+import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 //Author: Arthur
 //This class is shared by all users. It is used to set their own availability.
 //The availability is set by date, where the user has the ability to set it in chunks. That is, he might say my availability is 10-14 on 04/01, as well as
@@ -30,9 +44,14 @@ public class SetAvailability extends JFrame {
 	private int index = -1;
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
+	private JTextField dateField;
+	private JTextField startField;
+	private JTextField finishField;
+	private JCheckBox consecutiveCheckbox;
+	private JTextField dayCount;
+	//TODO: add a checking mechanism to see if a schedule was already set for a day
+	
+	 /* Launch the application.
 	 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -45,7 +64,8 @@ public class SetAvailability extends JFrame {
 				}
 			}
 		});
-	}*/
+	}
+	*/
 
 	/**
 	 * Create the frame.
@@ -183,7 +203,8 @@ public class SetAvailability extends JFrame {
 			//get the object with latest day of each month for the current year
 			JsonObject year = (JsonObject) parser.get("2020");
 			String ms = getMonthString(month);
-			int max = (int) year.get(ms);
+			String monthSizeString = (String) year.get(ms);
+			int max = Integer.parseInt(monthSizeString);
 			if(day >  max) {
 				return false;
 			}
@@ -200,13 +221,13 @@ public class SetAvailability extends JFrame {
 	//next q days after that.
 	//d: the day of the starting day
 	//m: the month of the starting day, in numbers.
-	private String[] getDays(int d, int m, int q) {
+	private String[] getDays(int m, int d, int q) {
 		String[] arr = new String[q];
 		arr[0] = String.valueOf(d) + "/" + m;
 		
 		int day = d;
 		int month = m;
-		for(int i = 1; i <= q; i++) {
+		for(int i = 1; i < q; i++) {
 			//i should be 0 if no extra days are to be set, keep this in mind when looking at range.
 			//for the entire range of days, not including the first, which has already been added to the array, add their numerical date to the string array
 			//to be returned in the model mm/dd
@@ -229,6 +250,7 @@ public class SetAvailability extends JFrame {
 			}
 			s += day;
 			arr[i] = s;
+			
 		}
 		return arr;
 	}
@@ -285,11 +307,144 @@ public class SetAvailability extends JFrame {
 	//This constructor creates the panel
 	public SetAvailability(String email, int accountType) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 816, 564);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane.columnWidths = new int[]{215, 107, 35, 177, 0};
+		gbl_contentPane.rowHeights = new int[]{65, 22, 65, 20, 20, 20, 23, 20, 23, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		contentPane.setLayout(gbl_contentPane);
+		
+		JLabel mainLabel = new JLabel("Set Availability");
+		mainLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		GridBagConstraints gbc_mainLabel = new GridBagConstraints();
+		gbc_mainLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_mainLabel.gridx = 3;
+		gbc_mainLabel.gridy = 1;
+		contentPane.add(mainLabel, gbc_mainLabel);
+		
+		JLabel dateLabel = new JLabel("Date (MM/DD):");
+		GridBagConstraints gbc_dateLabel = new GridBagConstraints();
+		gbc_dateLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_dateLabel.gridx = 1;
+		gbc_dateLabel.gridy = 3;
+		contentPane.add(dateLabel, gbc_dateLabel);
+		
+		dateField = new JTextField();
+		GridBagConstraints gbc_dateField = new GridBagConstraints();
+		gbc_dateField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_dateField.insets = new Insets(0, 0, 5, 0);
+		gbc_dateField.gridx = 3;
+		gbc_dateField.gridy = 3;
+		contentPane.add(dateField, gbc_dateField);
+		dateField.setColumns(10);
+		
+		JLabel startLabel = new JLabel("Starting Hour:");
+		GridBagConstraints gbc_startLabel = new GridBagConstraints();
+		gbc_startLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_startLabel.gridx = 1;
+		gbc_startLabel.gridy = 4;
+		contentPane.add(startLabel, gbc_startLabel);
+		
+		startField = new JTextField();
+		startField.setColumns(10);
+		GridBagConstraints gbc_startField = new GridBagConstraints();
+		gbc_startField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_startField.insets = new Insets(0, 0, 5, 0);
+		gbc_startField.gridx = 3;
+		gbc_startField.gridy = 4;
+		contentPane.add(startField, gbc_startField);
+		
+		JLabel finishLabel = new JLabel("Finishing Hour:");
+		GridBagConstraints gbc_finishLabel = new GridBagConstraints();
+		gbc_finishLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_finishLabel.gridx = 1;
+		gbc_finishLabel.gridy = 5;
+		contentPane.add(finishLabel, gbc_finishLabel);
+		
+		finishField = new JTextField();
+		finishField.setColumns(10);
+		GridBagConstraints gbc_finishField = new GridBagConstraints();
+		gbc_finishField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_finishField.insets = new Insets(0, 0, 5, 0);
+		gbc_finishField.gridx = 3;
+		gbc_finishField.gridy = 5;
+		contentPane.add(finishField, gbc_finishField);
+	
+		
+		JLabel moreDaysLabel = new JLabel("How many more days:");
+		GridBagConstraints gbc_moreDaysLabel = new GridBagConstraints();
+		gbc_moreDaysLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_moreDaysLabel.gridx = 1;
+		gbc_moreDaysLabel.gridy = 7;
+		contentPane.add(moreDaysLabel, gbc_moreDaysLabel);
+		moreDaysLabel.setVisible(false);
+		
+		dayCount = new JTextField();
+		dayCount.setColumns(10);
+		GridBagConstraints gbc_dayCount = new GridBagConstraints();
+		gbc_dayCount.fill = GridBagConstraints.HORIZONTAL;
+		gbc_dayCount.insets = new Insets(0, 0, 5, 0);
+		gbc_dayCount.gridx = 3;
+		gbc_dayCount.gridy = 7;
+		contentPane.add(dayCount, gbc_dayCount);
+		dayCount.setVisible(false);
+		
+		consecutiveCheckbox = new JCheckBox("Set schedule for following days");
+		consecutiveCheckbox.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(consecutiveCheckbox.isSelected()) {
+					moreDaysLabel.setVisible(true);
+					dayCount.setVisible(true);
+				}
+				else {
+					moreDaysLabel.setVisible(false);
+					dayCount.setVisible(false);
+				}
+			}
+		});
+		GridBagConstraints gbc_consecutiveCheckbox = new GridBagConstraints();
+		gbc_consecutiveCheckbox.insets = new Insets(0, 0, 5, 0);
+		gbc_consecutiveCheckbox.gridx = 3;
+		gbc_consecutiveCheckbox.gridy = 6;
+		contentPane.add(consecutiveCheckbox, gbc_consecutiveCheckbox);
+
+		
+		JButton confirmButton = new JButton("Confirm");
+		confirmButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				String date = dateField.getText();
+				String start = startField.getText();
+				String finish = finishField.getText();
+				if(date.length() > 0 && start.length() > 0 && finish.length() > 0) {
+					//if all information was inputted, although not necessarily correctly
+					if(!consecutiveCheckbox.isSelected()) {
+						//if only a single day is to be set, set the availability to the given
+						String[] day = new String[] {date};
+						set(email, accountType, day, start + "/" + finish);
+					}else {
+					//if more than one days is to be set get the days to be set and add to the json
+						String[] halves = date.split("/");
+						int month = Integer.parseInt(halves[0]);
+						int day = Integer.parseInt(halves[1]);
+						int q = Integer.parseInt(dayCount.getText());
+						String[] days = getDays(month, day, q);
+						set(email, accountType, days, start + "/" + finish);
+					}
+				} else {
+					System.out.println("missing strings");
+				}
+			}
+		});
+		GridBagConstraints gbc_confirmButton = new GridBagConstraints();
+		gbc_confirmButton.gridx = 3;
+		gbc_confirmButton.gridy = 8;
+		contentPane.add(confirmButton, gbc_confirmButton);
 	}
 
 }
