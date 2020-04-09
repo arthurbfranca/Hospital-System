@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * This frame displays the list of patients the doctor has an appointment with.
  */
-public class DoctorPatientsView extends JFrame {
+public class DoctorPatientsAdd extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -40,7 +40,7 @@ public class DoctorPatientsView extends JFrame {
 	 * appointment with.
 	 * @param email The email of the doctor. Used to uniquely identify the user so we can easily access their info.
 	 */
-	public DoctorPatientsView(String email) {
+	public DoctorPatientsAdd(String email) {
 
 		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -96,9 +96,9 @@ public class DoctorPatientsView extends JFrame {
 				if (selectedIndex < 0) {
 					JOptionPane.showMessageDialog(contentPane, "Please select a patient.");
 				} else {
-				DoctorPatientsViewInformation patientInfoPane = new DoctorPatientsViewInformation(email, selectedIndex);
-				patientInfoPane.setVisible(true);
-				dispose();
+					DoctorPatientsAddInformation patientAddPane = new DoctorPatientsAddInformation(email, selectedIndex);
+					patientAddPane.setVisible(true);
+					dispose();
 				}
 			}
 		});

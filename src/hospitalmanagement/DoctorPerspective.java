@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
 * Class that displays the options the doctor can choose from upon logging in to their account;
@@ -69,7 +71,7 @@ public class DoctorPerspective extends JFrame {
 				viewPatientsPane.setVisible(true);
 			}
 		});
-		ViewPatientsButton.setBounds(203, 203, 148, 53);
+		ViewPatientsButton.setBounds(115, 203, 148, 53);
 		contentPane.add(ViewPatientsButton);
 		
 		//Adding button for viewing availability
@@ -98,6 +100,10 @@ public class DoctorPerspective extends JFrame {
 		
 		//Adding button to return back to the home page
 		JButton btnReturn = new JButton("Log out");
+		btnReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		//Add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
@@ -108,7 +114,18 @@ public class DoctorPerspective extends JFrame {
 				dispose();
 			}
 		});
-		btnReturn.setBounds(220, 269, 119, 25);
+		btnReturn.setBounds(217, 269, 119, 25);
 		contentPane.add(btnReturn);
+		
+		JButton btnAddPatients = new JButton("Add Patients");
+		btnAddPatients.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				DoctorPatientsAdd addPatientsPane = new DoctorPatientsAdd(email);
+				addPatientsPane.setVisible(true);
+			}
+		});
+		btnAddPatients.setBounds(289, 203, 148, 53);
+		contentPane.add(btnAddPatients);
 	}
 }
