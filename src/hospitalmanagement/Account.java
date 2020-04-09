@@ -3,6 +3,7 @@ package hospitalmanagement;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
@@ -239,4 +240,56 @@ public class Account {
 			return null;
 		}
 	}
+
+	/**
+	 * This method takes an account type. It returns an ArrayList of the all users' name
+	 * with the passed account type.
+	 * @param accountType: the type of account the user has
+	 * @return account: the JsonObject of the account type with the specified account type
+	 */
+	public static JsonArray getAccountJSONObj(String accountType) {
+		ArrayList<String> names = new ArrayList<String>();
+		try {
+			// create reader
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+
+			// create parser
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+
+			// read accounts array from json
+			JsonArray accounts = (JsonArray) parser.get("accounts");
+
+			// extract the object representation of the account type from the accounts array
+			// then get the array representation of that account type
+			// then create an iterator to iterate through that array
+			
+			JsonArray accountArrayReturn;
+			if (accountType.equals("Administrator")) {
+		    	JsonObject administrators = (JsonObject) accounts.get(4);
+		    	accountArrayReturn = (JsonArray) administrators.get("administrator");
+		    } else if (accountType.equals("Assistant")) {
+		    	JsonObject assistants = (JsonObject) accounts.get(3);
+		    	accountArrayReturn = (JsonArray) assistants.get("assistant");
+		    } else if (accountType.equals("Doctor")) {
+		    	JsonObject doctors = (JsonObject) accounts.get(1);
+		    	accountArrayReturn = (JsonArray) doctors.get("doctor");
+		    } else if (accountType.equals("Nurse")) {
+		    	JsonObject nurses = (JsonObject) accounts.get(2);
+		    	accountArrayReturn = (JsonArray) nurses.get("nurse");
+		    } else {
+		    	JsonObject patients = (JsonObject) accounts.get(0);
+		    	accountArrayReturn = (JsonArray) patients.get("patient");
+		    }
+
+			// close reader
+			reader.close();
+			return accountArrayReturn;
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+
 }
