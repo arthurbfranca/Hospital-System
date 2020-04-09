@@ -60,6 +60,13 @@ public class NursePerspective extends JFrame {
 		
 		//Adding button for uploading test results
 		JButton btnNewButton = new JButton("Upload Test Results");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				NurseUploadTestsView uploadTests = new NurseUploadTestsView(email);
+				uploadTests.setVisible(true);
+			}
+		});
 		btnNewButton.setBounds(206, 151, 171, 41);
 		contentPane.add(btnNewButton);
 		
