@@ -72,6 +72,13 @@ public class NursePerspective extends JFrame {
 		
 		//Adding button for viewing schedule
 		JButton btnNewButton_1 = new JButton("View Schedule");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				NurseViewSchedulePerspective seeSched = new NurseViewSchedulePerspective(email);
+				seeSched.setVisible(true);
+			}
+		});
 		btnNewButton_1.setBounds(206, 89, 171, 41);
 		contentPane.add(btnNewButton_1);
 	}
