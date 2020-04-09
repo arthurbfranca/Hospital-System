@@ -504,23 +504,7 @@ public class DoctorAppointmentView extends JFrame {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* THis here is an artifact, leave it should changes need to be made
+/* This here is an artifact, leave it should changes need to be made
   	//reader to read accounts2.json
 	BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
 	//parser to parse the reader

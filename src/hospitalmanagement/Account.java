@@ -1,5 +1,15 @@
 package hospitalmanagement;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
+
 /*
 * Class that represents a user's acccount.
 * It stores the user's information such as username and password.
@@ -173,4 +183,113 @@ public class Account {
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
+
+	/**
+	 * This method takes an account type and email. It returns the JsonObject of the user
+	 * with the passed account type and email.
+	 * @param accountType: the type of account the user has
+	 * @param email: the user's email
+	 * @return account: the JsonObject of the account with the specified account type and email
+	 */
+	public static JsonObject getAccountJSONObj(String accountType, String email) {
+		try {
+			//reader to read accounts2.json
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+			//parser to parse the reader
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+			//we look for the JsonArray within accounts2.json, for that is where the JsonObject of our user is
+			JsonArray accounts = (JsonArray) parser.get("accounts");
+			
+			Iterator i;
+			if (accountType.equals("Administrator")) {
+		    	JsonObject administrators = (JsonObject) accounts.get(4);
+		    	JsonArray adminArr = (JsonArray) administrators.get("administrator");
+		    	i = adminArr.iterator();
+		    } else if (accountType.equals("Assistant")) {
+		    	JsonObject assistants = (JsonObject) accounts.get(3);
+		    	JsonArray assistantArr = (JsonArray) assistants.get("assistant");
+		    	i = assistantArr.iterator();
+		    } else if (accountType.equals("Doctor")) {
+		    	JsonObject doctors = (JsonObject) accounts.get(1);
+		    	JsonArray doctorArr = (JsonArray) doctors.get("doctor");
+		    	i = doctorArr.iterator();
+		    } else if (accountType.equals("Nurse")) {
+		    	JsonObject nurses = (JsonObject) accounts.get(2);
+		    	JsonArray nurseArr = (JsonArray) nurses.get("nurse");
+		    	i = nurseArr.iterator();
+		    } else {
+		    	JsonObject patients = (JsonObject) accounts.get(0);
+		    	JsonArray patientArr = (JsonArray) patients.get("patient");
+		    	i = patientArr.iterator();
+		    }
+			
+			JsonObject account = null;
+			int flag = 0;
+			while(i.hasNext() && flag == 0) {
+				account = (JsonObject) i.next();
+				String currentEmail = (String) account.get("email");
+				if(currentEmail.equals(email)) {
+					flag = 1;
+				}
+			}
+			reader.close();
+			return account;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * This method takes an account type. It returns a JsonArray of the all accounts
+	 * within the passed account type.
+	 * @param accountType: the type of account the users has
+	 * @return the JsonArray of the accounts with the specified account type
+	 */
+	public static JsonArray getAccountJSONObj(String accountType) {
+		ArrayList<String> names = new ArrayList<String>();
+		try {
+			// create reader
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+
+			// create parser
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+
+			// read accounts array from json
+			JsonArray accounts = (JsonArray) parser.get("accounts");
+
+			// extract the object representation of the account type from the accounts array
+			// then get the array representation of that account type
+			// then create an iterator to iterate through that array
+			
+			JsonArray accountArrayReturn;
+			if (accountType.equals("Administrator")) {
+		    	JsonObject administrators = (JsonObject) accounts.get(4);
+		    	accountArrayReturn = (JsonArray) administrators.get("administrator");
+		    } else if (accountType.equals("Assistant")) {
+		    	JsonObject assistants = (JsonObject) accounts.get(3);
+		    	accountArrayReturn = (JsonArray) assistants.get("assistant");
+		    } else if (accountType.equals("Doctor")) {
+		    	JsonObject doctors = (JsonObject) accounts.get(1);
+		    	accountArrayReturn = (JsonArray) doctors.get("doctor");
+		    } else if (accountType.equals("Nurse")) {
+		    	JsonObject nurses = (JsonObject) accounts.get(2);
+		    	accountArrayReturn = (JsonArray) nurses.get("nurse");
+		    } else {
+		    	JsonObject patients = (JsonObject) accounts.get(0);
+		    	accountArrayReturn = (JsonArray) patients.get("patient");
+		    }
+
+			// close reader
+			reader.close();
+			return accountArrayReturn;
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+
 }

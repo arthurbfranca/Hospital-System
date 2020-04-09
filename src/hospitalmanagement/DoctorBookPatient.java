@@ -12,6 +12,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 
 import java.awt.Font;
+import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
@@ -48,6 +49,7 @@ public class DoctorBookPatient extends JFrame {
 
 		// create the panel for the frame
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

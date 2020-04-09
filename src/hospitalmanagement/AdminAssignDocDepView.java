@@ -20,30 +20,15 @@ import javax.swing.border.EmptyBorder;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
+import java.awt.Color;
 
 /**
 * Class that displays the panel for the adminstrator to assign a department to a doctor
-* @author sydneykwok
+* @author sydneykwok, epaslawski 
 */
 public class AdminAssignDocDepView extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	* Launch the application
-	*/
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AdminAssignDocDepView frame = new AdminAssignDocDepView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	* Create the frame for the panel to assign departments to doctors
@@ -57,6 +42,7 @@ public class AdminAssignDocDepView extends JFrame {
 		
 		// create a new panel
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -140,7 +126,7 @@ public class AdminAssignDocDepView extends JFrame {
 				}
 				else if (pass == 2) {
 					Login lframe = new Login();
-					JOptionPane.showMessageDialog(lframe, "The assignment was not successfull.");
+					JOptionPane.showMessageDialog(lframe, "The assignment was not successful.");
 				}
 				}
 		});
