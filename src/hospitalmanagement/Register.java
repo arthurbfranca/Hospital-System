@@ -1,3 +1,4 @@
+  
 package hospitalmanagement;
 
 import javax.swing.JFrame;
@@ -204,7 +205,7 @@ public class Register extends JFrame {
 					
 					if (accountType.equals("Patient")) {	// if the user is a patient
 						try {	// create a new patient account for them
-							registrationJSON.addNewAccount(new Account(accountType, firstName, lastName, age, email, gender, password));
+							WriteToJSON.addNewAccount(new Account(accountType, firstName, lastName, age, email, gender, password));
 							registrationSuccess = true;
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
@@ -214,7 +215,7 @@ public class Register extends JFrame {
 						}
 					} else {
 						try {	// otherwise, they are a staff member and we will add them as a staff
-							registrationJSON.addNewAccount(new Account(accountType, firstName, lastName, email, gender, password));
+							WriteToJSON.addNewAccount(new Account(accountType, firstName, lastName, email, gender, password));
 							registrationSuccess = true;
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block

@@ -10,6 +10,7 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 
 /**
 * Class that displays the panel for the doctor's appointments
@@ -35,6 +36,7 @@ public class DoctorAppointmentView extends JFrame {
 		
 		// create the panel for the frame
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

@@ -2,6 +2,7 @@ package hospitalmanagement;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,7 +13,7 @@ import javax.swing.border.EmptyBorder;
 /**
 * Class that displays the options the nurse can choose from upon logging in to their account
 * Includes options like: uploading test results and viewing schedules
-* @author sydneykwok, shavonnetran
+* @author sydneykwok, shavonnetran, epaslawski
 */
 public class NursePerspective extends JFrame {
 
@@ -32,6 +33,7 @@ public class NursePerspective extends JFrame {
 		
 		// create pane for the frame
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
