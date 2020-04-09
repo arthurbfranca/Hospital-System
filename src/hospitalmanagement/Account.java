@@ -242,10 +242,10 @@ public class Account {
 	}
 
 	/**
-	 * This method takes an account type. It returns an ArrayList of the all users' name
-	 * with the passed account type.
-	 * @param accountType: the type of account the user has
-	 * @return account: the JsonObject of the account type with the specified account type
+	 * This method takes an account type. It returns a JsonArray of the all accounts
+	 * within the passed account type.
+	 * @param accountType: the type of account the users has
+	 * @return the JsonArray of the accounts with the specified account type
 	 */
 	public static JsonArray getAccountJSONObj(String accountType) {
 		ArrayList<String> names = new ArrayList<String>();
