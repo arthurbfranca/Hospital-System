@@ -92,6 +92,7 @@ public class NurseAddTestInfoPerspective extends JFrame {
 		
 		// Add a text field for typing the test info
 		textField_1 = new JTextField();
+		textField_1.setToolTipText("Write Notes Here...");
 		textField_1.setHorizontalAlignment(SwingConstants.LEFT);
 		textField_1.setBounds(43, 169, 510, 165);
 		contentPane.add(textField_1);
@@ -114,8 +115,8 @@ public class NurseAddTestInfoPerspective extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				String textToSubmit = textField_1.getSelectedText();
-				String typeOfTest = comboBox.getName();
+				String textToSubmit = textField_1.getText();
+				String typeOfTest = comboBox.getSelectedItem().toString();;
 				boolean successful = WriteToJSON.writeTestInfo("Nurse", email, selectedPatient, typeOfTest, textToSubmit);
 				if (successful == true) {
 					Login lframe = new Login();

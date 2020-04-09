@@ -421,7 +421,48 @@ public class WriteToJSON {
 	 * @return false if failed, true otherwise
 	 */
 	public static boolean writeTestInfo(String staffType, String staffEmail, String selectedPatientEmail , String typeOfTest, String textToSubmit) {
-		return true;
+		try {
+			// create reader
+			BufferedReader reader = new BufferedReader(
+			new InputStreamReader(new FileInputStream("src/hospitalmanagement/tests.json")));
+
+			// create parser
+		    JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+
+		    // read tests array from json
+		    JsonArray testArray = (JsonArray) parser.get("tests");
+	    	
+			// close reader
+			reader.close();
+			JsonObject newTest = new JsonObject(); 
+			//add items to new JsonObject
+			newTest.put("type", typeOfTest);
+			newTest.put("staffType", staffType);
+			newTest.put("staffName", staffEmail);
+			newTest.put("patient", selectedPatientEmail);
+			newTest.put("notes", textToSubmit);
+			
+			// update tests array
+			testArray.add(newTest);
+
+			// put the updated test array as the tests entry in the JSON
+			parser.put("tests", testArray);
+		    
+			// Create a writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/tests.json"));
+
+			// Write updates to JSON file
+			Jsoner.serialize(parser, writer);
+
+			// Close the writer
+			writer.close();
+			//return true if it works
+			return true;
+
+		} catch (Exception ex) {
+			//return false if there are any exceptions thrown
+		    return false;
+		}
 	}
 }
 
