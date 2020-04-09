@@ -407,4 +407,35 @@ public class WriteToJSON {
 		    ex.printStackTrace();
 		}
 	}
+	
+	
+	/**
+	 * This method writes the test info to the assigned patient in the JSON.
+	 * 
+	 * @param staffType: either doctor or nurse in a String
+	 * @param staffEmail: the email of the staff member submitting the info
+	 * @param selectedPatientEmail: the email of the patient
+	 * @param typeOfTest: the type of test (MRI, X-Ray, etc.)
+	 * @param textToSubmit: the actual String of text to write
+	 * @author erinpaslawski
+	 * @return false if failed, true otherwise
+	 */
+	public static boolean writeTestInfo(String staffType, String staffEmail, String selectedPatientEmail , String typeOfTest, String textToSubmit) {
+		return true;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
