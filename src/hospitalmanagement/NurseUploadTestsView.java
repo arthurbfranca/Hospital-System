@@ -1,6 +1,7 @@
 package hospitalmanagement;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -17,13 +18,9 @@ import java.util.Iterator;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-import com.jgoodies.forms.layout.FormLayout;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -45,6 +42,7 @@ public class NurseUploadTestsView extends JFrame {
 		setBounds(100, 100, 590, 444);
 		// create a new panel
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

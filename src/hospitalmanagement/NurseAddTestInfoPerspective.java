@@ -1,12 +1,18 @@
 package hospitalmanagement;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -16,7 +22,15 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+/**
+ * 
+ * @author erinpaslawski
+ *
+ */
 public class NurseAddTestInfoPerspective extends JFrame {
 
 	private JPanel contentPane;
@@ -36,19 +50,49 @@ public class NurseAddTestInfoPerspective extends JFrame {
 		setBounds(100, 100, 590, 444);
 		// create a new panel
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		// add the main title label to the panel
-		JLabel MainLabel = new JLabel("Add Test Results for: "); // TODO: GET NAME
+		// Get the name of the patient
+		String name = "";
+		// create reader
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+			// create parser
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+			
+			// read accounts array from json
+			JsonArray accounts = (JsonArray) parser.get("accounts");
+			
+			// extract the object representation of the patients section of the accounts array
+			// then get the array representation of that object
+			JsonObject patients = (JsonObject) accounts.get(0);
+			JsonArray patientArr = (JsonArray) patients.get("patient");
+			
+			// close reader
+			reader.close();
+			
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+		}
+
+		JsonObject patient = Account.getAccountJSONObj("Patient", selectedPatient);
+		name = (String) patient.get("first_name") + " " + (String) patient.get("last_name");
+		
+		JLabel MainLabel = new JLabel("Add Test Results for: " + name); 
 		MainLabel.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		MainLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		MainLabel.setBounds(189, 73, 203, 22);
+		MainLabel.setBounds(43, 73, 510, 22);
 		contentPane.add(MainLabel);
 		
 		// Add a text field for typing the test info
 		textField_1 = new JTextField();
+		textField_1.setHorizontalAlignment(SwingConstants.LEFT);
 		textField_1.setBounds(43, 169, 510, 165);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
