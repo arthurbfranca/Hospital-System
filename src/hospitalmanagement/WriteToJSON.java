@@ -472,19 +472,44 @@ public class WriteToJSON {
 		    return false;
 		}
 	}
+	
+		
+	/**
+	 * This method removes the approved appointment from the req_appointments.json and writes it to the appointments.json file 
+	 * @param appointment: the appointment to be removed and write to  
+	 * @author shavonnetran
+	 */
+	public static void writeApprovedAppointment(String appointment) {
+		try {
+			// Create reader
+			BufferedReader reader = new BufferedReader(
+			new InputStreamReader(new FileInputStream("src/hospitalmanagement/req_appointments.json")));
+
+			// Create parser
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+	
+			// Read requested appointments array from JSON
+		    	JsonArray reqAppoints = (JsonArray) parser.get("requested_appointments");
+		    	
+			parser.get(appointment);
+	    		
+			// Remove JSON object from request_appointments.json
+			reqAppoints.remove(appointment);
+		    
+			// Close reader
+			reader.close();
+			
+			// Create a writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/appointments.json"));
+
+			// Write the selected appointment to JSON file containing approved appointments: appointments.json
+			Jsoner.serialize(parser, writer);
+
+			// Close the writer
+			writer.close();
+
+		} catch (Exception ex) {
+		    ex.printStackTrace();
+		}
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
