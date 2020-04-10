@@ -110,8 +110,10 @@ public class PatientInfoView extends JFrame {
 				Login lframe = new Login();
 				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
 				// display the new entered value
-				lblStoredLastName.setText(newVal);
-				infoView.repaint();
+				if(newVal != null) {
+					lblStoredLastName.setText(newVal);
+					infoView.repaint();
+				}
 			}
 		});
 		btnLastNameEdit.setBounds(672, 168, 171, 41);
@@ -125,8 +127,10 @@ public class PatientInfoView extends JFrame {
 				Login lframe = new Login();
 				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
 				// display the new entered value
-				lblStoredFirstName.setText(newVal);
-				infoView.repaint();
+				if(newVal != null) {
+					lblStoredFirstName.setText(newVal);
+					infoView.repaint();
+				}
 			}
 		});
 		btnFirstNameEdit.setBounds(672, 114, 171, 41);
@@ -139,8 +143,10 @@ public class PatientInfoView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				Login lframe = new Login();
 				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
-				lblStoredAge.setText(newVal);
-				infoView.repaint();
+				if(newVal != null) {
+					lblStoredAge.setText(newVal);
+					infoView.repaint();
+				}
 			}
 		});
 		btnAgeEdit.setBounds(672, 227, 171, 41);
@@ -153,8 +159,10 @@ public class PatientInfoView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				Login lframe = new Login();
 				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
-				lblStoredEmail.setText(newVal);
-				infoView.repaint();
+				if(newVal != null) {
+					lblStoredEmail.setText(newVal);
+					infoView.repaint();
+				}
 			}
 		});
 		btnEmailEdit.setBounds(672, 281, 171, 41);
@@ -167,8 +175,10 @@ public class PatientInfoView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				Login lframe = new Login();
 				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
-				lblStoredGender.setText(newVal);
-				infoView.repaint();
+				if(newVal != null) {
+					lblStoredGender.setText(newVal);
+					infoView.repaint();
+				}
 			}
 		});
 		btnGenderEdit.setBounds(672, 335, 171, 41);
@@ -181,8 +191,10 @@ public class PatientInfoView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				Login lframe = new Login();
 				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
-				lblStoredPass.setText(newVal);
-				infoView.repaint();
+				if(newVal != null) {
+					lblStoredPass.setText(newVal);
+					infoView.repaint();
+				}
 			}
 		});
 		btnPasswordEdit.setBounds(672, 389, 171, 41);
