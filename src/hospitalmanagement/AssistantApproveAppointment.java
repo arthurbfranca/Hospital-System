@@ -3,6 +3,7 @@ package hospitalmanagement;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.JOptionPane;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JFrame;
@@ -62,26 +63,28 @@ public class AssistantApproveAppointment extends JFrame {
 		try {
 			//Create reader
 			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(new FileInputStream("src/hospitalmanagement/appointments.json")));
+			//Read from JSON storing appointments that need to be approved
+			new InputStreamReader(new FileInputStream("src/hospitalmanagement/req_appointments.json")));
 
 			//Create parser
 			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
 
 			//Read appointments array from JSON
-			JsonArray appointArr = (JsonArray) parser.get("appointments");
+			JsonArray appointArr = (JsonArray) parser.get("requested_appointments");
 			Iterator i = appointArr.iterator();
 
 			//Iterate through all information stored in the appointments array of the JSON
 			while (i.hasNext()) {	
 				JsonObject appointObj = (JsonObject) i.next();
 				String date = (String) appointObj.get("date");
+				String year = (String) appointObj.get("year");
 				String number = (String) appointObj.get("number");
-				String patientID = (String) appointObj.get("patient_email");
-				String docID = (String) appointObj.get("doctor_email");
+				String emailPatient = (String) appointObj.get("patient_email");
+				String emailDoc = (String) appointObj.get("doctor_email");
 				String department = (String) appointObj.get("department");
 				String time = (String) appointObj.get("time");
 
-				appointments.add(patientID + ", " + docID + ", " + date + ", " + time + ", " + number + ", " + department);
+				appointments.add(emailPatient + ", " + emailDoc + ", " + date + ", " + year + ", " + time + ", " + number + ", " + department);
 			}
 
 			//Close reader
@@ -117,7 +120,22 @@ public class AssistantApproveAppointment extends JFrame {
 		approveBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//TODO: connect to JSON file that stores approved appointments
+				//Check if user selected an appointment or not
+				if (appointList.isSelectionEmpty()) {
+					//Display error message 
+					Login lframe = new Login();
+					JOptionPane.showMessageDialog(lframe, "Please select an appointment to approve.");
+				}
+				else {
+					//Display message that confirms the appointment was approved
+					Login lframe = new Login();
+					JOptionPane.showMessageDialog(lframe, "The selected appointment was approved successfully!");
+					
+					//Get selected appointment in the JList 
+					String selectedAppointment = appointments.get(appointList.getSelectedIndex());
+					//Store the selected appointment into approved appointments JSON
+					WriteToJSON.writeApprovedAppointment(selectedAppointment);
+				}
 			}
 		});
 		approveBtn.setBounds(566, 88, 171, 41);
