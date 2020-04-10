@@ -34,7 +34,6 @@ import com.github.cliftonlabs.json_simple.Jsoner;
 public class PatientTestResultView extends JFrame {
 
 	private JPanel contentPane;
-	private int panelCounter;
 
 	/**
 	 * Create the frame. This is for when the Patient clicks on the "View test

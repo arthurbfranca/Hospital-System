@@ -78,7 +78,16 @@
           "last_name": "Kwok",
           "id": "5",
           "first_name": "Sydney",
-          "prescriptions": [],
+          "prescriptions": [
+            "drug1",
+            "drug2",
+	    "drug3",
+            "drug4",
+	    "drug5",
+            "drug6",
+	    "drug7",
+            "drug8"
+          ],
           "age": "19",
           "email": "sydney.kwok@ucalgary.ca",
           "username": "sydney.kwok"
