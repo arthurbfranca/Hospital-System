@@ -93,7 +93,8 @@
           "password": "docPassword",
           "appointments": [
             "1",
-            "2"
+            "2",
+            "3"
           ],
           "gender": "Male",
           "last_name": "Sohaib",

@@ -16,10 +16,10 @@ import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.border.EtchedBorder;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
@@ -29,7 +29,7 @@ import com.github.cliftonlabs.json_simple.JsonObject;
  * Class that displays the selected patient's information.
  * @author arthurbfranca, ggdizon, sydneykwok
  */
-public class DoctorPatientsViewInformation extends JFrame {
+public class DoctorPatientsAddInformation extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -39,13 +39,14 @@ public class DoctorPatientsViewInformation extends JFrame {
 	 * This frame is the frame for when the Doctor selects the patient in the View Patient pane.
 	 * The Doctor will be shown information about the specific patient that was chosen in the previous pane.
 	 * @param email The email of the doctor (used as an identifier for reading/writing to JSON).
-	 * @param patientIndex The index of the patient chosen by the Doctor that was passed from the previous pane.
+	 * @param name Name of the patient chosen by the Doctor that was passed from the previous pane.
+	 * @param ID ID of the patient chosen by the Doctor that was passed from the previous pane.
 	 */
-	public DoctorPatientsViewInformation(String email, int patientIndex) {
+	public DoctorPatientsAddInformation(String email, int patientIndex) {
 		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 328);
+		setBounds(100, 100, 450, 300);
 		
 		// create the panel for the frame
 		contentPane = new JPanel();
@@ -85,13 +86,34 @@ public class DoctorPatientsViewInformation extends JFrame {
 		
 		
 		// Button that will close the current pane and return to the previous pane.
-		JButton btnReturn = new JButton("Return");
-		btnReturn.addMouseListener(new MouseAdapter() {
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				DoctorPatientsView viewPatientPane = new DoctorPatientsView(email);
+				JOptionPane.showMessageDialog(contentPane, "Patient has NOT been added.");
+				DoctorPatientsAdd viewPatientPane = new DoctorPatientsAdd(email);
 				viewPatientPane.setVisible(true);
 				dispose();
+			}
+		});
+		
+		// Button for adding patient as doctor's physician
+		JButton btnAdd = new JButton("Add");
+		btnAdd.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				int addPatient = JOptionPane.showConfirmDialog(contentPane, "Add " + name + "?");
+				if (addPatient == 0) {		// If YES was selected, then add patient as doctor's physician
+					// TODO: doctors in account2.json have yet to have a "patients" array where the
+					// selected patient can be added as doc's physician. Once this is made, add patient's
+					// name/email into doc's patients array
+					JOptionPane.showMessageDialog(contentPane, name + " has been added.");
+					dispose();
+					DoctorPatientsAdd addPatientsPane = new DoctorPatientsAdd(email);
+					addPatientsPane.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(contentPane, name + " has NOT been added.");
+				}
 			}
 		});
 		
@@ -150,7 +172,7 @@ public class DoctorPatientsViewInformation extends JFrame {
 		gbc_lblGenderShown.gridx = 1;
 		gbc_lblGenderShown.gridy = 2;
 		Patient.add(lblGenderShown, gbc_lblGenderShown);
-		
+
 		JLabel lblPrescriptions = new JLabel("Prescriptions:");
 		GridBagConstraints gbc_lblPrescriptions = new GridBagConstraints();
 		gbc_lblPrescriptions.insets = new Insets(0, 0, 0, 5);
@@ -158,37 +180,23 @@ public class DoctorPatientsViewInformation extends JFrame {
 		gbc_lblPrescriptions.gridy = 3;
 		Patient.add(lblPrescriptions, gbc_lblPrescriptions);
 		
-		JButton btnMedicalRecord = new JButton("Medical Record");
-		btnMedicalRecord.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				DoctorPatientsMedicalRecord medicalRecordPane = new DoctorPatientsMedicalRecord(email, patient);
-				medicalRecordPane.setVisible(true);
-			}
-		});
-		
-		JButton btnTests = new JButton("Tests Info");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(158, Short.MAX_VALUE)
+					.addComponent(lblPatientInformation)
+					.addGap(155))
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(75)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblPatientInformation)
-							.addGap(155))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(btnMedicalRecord)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnTests, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
-								.addComponent(Patient, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap(67, Short.MAX_VALUE))))
+					.addComponent(Patient, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(67, Short.MAX_VALUE))
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(168, Short.MAX_VALUE)
-					.addComponent(btnReturn, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
-					.addGap(161))
+					.addContainerGap(101, Short.MAX_VALUE)
+					.addComponent(btnAdd, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+					.addGap(39)
+					.addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+					.addGap(96))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -196,13 +204,11 @@ public class DoctorPatientsViewInformation extends JFrame {
 					.addContainerGap()
 					.addComponent(lblPatientInformation)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(Patient, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnMedicalRecord)
-						.addComponent(btnTests))
+					.addComponent(Patient, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnReturn)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnCancel)
+						.addComponent(btnAdd))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		

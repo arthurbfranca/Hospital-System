@@ -2,6 +2,7 @@ package hospitalmanagement;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,7 +13,7 @@ import javax.swing.border.EmptyBorder;
 /**
 * Class that displays the options the nurse can choose from upon logging in to their account
 * Includes options like: uploading test results and viewing schedules
-* @author sydneykwok, shavonnetran
+* @author sydneykwok, shavonnetran, epaslawski
 */
 public class NursePerspective extends JFrame {
 
@@ -32,6 +33,7 @@ public class NursePerspective extends JFrame {
 		
 		// create pane for the frame
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -58,11 +60,25 @@ public class NursePerspective extends JFrame {
 		
 		//Adding button for uploading test results
 		JButton btnNewButton = new JButton("Upload Test Results");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				NurseUploadTestsView uploadTests = new NurseUploadTestsView(email);
+				uploadTests.setVisible(true);
+			}
+		});
 		btnNewButton.setBounds(206, 151, 171, 41);
 		contentPane.add(btnNewButton);
 		
 		//Adding button for viewing schedule
 		JButton btnNewButton_1 = new JButton("View Schedule");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				NurseViewSchedulePerspective seeSched = new NurseViewSchedulePerspective(email);
+				seeSched.setVisible(true);
+			}
+		});
 		btnNewButton_1.setBounds(206, 89, 171, 41);
 		contentPane.add(btnNewButton_1);
 	}

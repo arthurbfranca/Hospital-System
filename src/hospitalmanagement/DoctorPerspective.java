@@ -72,6 +72,11 @@ public class DoctorPerspective extends JFrame {
 		
 		//Adding button for viewing availability
 		JButton ViewAvailabilityButton = new JButton("View Availability");
+		ViewAvailabilityButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+		});
 		ViewAvailabilityButton.setBounds(115, 137, 148, 53);
 		contentPane.add(ViewAvailabilityButton);
 		
@@ -91,6 +96,13 @@ public class DoctorPerspective extends JFrame {
 		
 		//Adding button for setting up the doctor's availability
 		JButton SetAvailabilityButton = new JButton("Set Availability");
+		SetAvailabilityButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				SetAvailability availabilityPane = new SetAvailability(email, 1);
+				availabilityPane.setVisible(true);
+			}
+		});
 		SetAvailabilityButton.setBounds(289, 137, 148, 53);
 		contentPane.add(SetAvailabilityButton);
 		

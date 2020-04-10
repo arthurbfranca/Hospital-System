@@ -1,13 +1,34 @@
 {
   "appointments": [
     {
-      "date": "03/03/2020"
       "number": "1",
-      "patientID": "1",
-      "doctorID": "1",
+      "patient_email": "sydney.kwok@ucalgary.ca",
+      "doctor_email": "bajwa@ucalgary.ca",
       "department": "Neurology",
-      "time": "10:00:00",
-      "prescriptions": ""
+      "time": "10:00",
+      "prescriptions": [],
+      "year": "2020",
+      "date" : "03/10"
+    }
+    {
+      "number": "2",
+      "patient_email": "sydney.kwok@ucalgary.ca",
+      "doctor_email": "bajwa@ucalgary.ca",
+      "department": "Neurology",
+      "time": "12:00",
+      "prescriptions": [],
+      "year": "2020",
+      "date" : "03/10"
+    }
+    {
+      "number": "3",
+      "patient_email": "sydney.kwok@ucalgary.ca",
+      "doctor_email": "bajwa@ucalgary.ca",
+      "department": "Cardiology",
+      "time": "11:00",
+      "prescriptions": [],
+      "year": "2020",
+      "date" : "03/10"
     }
   ]
 }
