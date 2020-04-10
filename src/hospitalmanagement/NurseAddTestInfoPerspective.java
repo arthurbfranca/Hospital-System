@@ -116,7 +116,7 @@ public class NurseAddTestInfoPerspective extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String textToSubmit = textField_1.getText();
-				String typeOfTest = comboBox.getSelectedItem().toString();;
+				String typeOfTest = comboBox.getSelectedItem().toString();
 				boolean successful = WriteToJSON.writeTestInfo("Nurse", email, selectedPatient, typeOfTest, textToSubmit);
 				if (successful == true) {
 					Login lframe = new Login();

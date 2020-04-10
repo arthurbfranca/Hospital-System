@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,10 +35,9 @@ public class PatientTestResultInfoView extends JFrame {
 	 * 
 	 * @param email     The email of the patient (used as an identifier for
 	 *                  reading/writing to JSON).
-	 * @param testIndex The index of the test chosen by the patient that was passed
-	 *                  from the previous pane.
+	 * @param id		The id number of the test.
 	 */
-	public PatientTestResultInfoView(String email, int testIndex) {
+	public PatientTestResultInfoView(String email, String id) {
 		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -74,8 +74,25 @@ public class PatientTestResultInfoView extends JFrame {
 			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
 			// get the json array of tests
 			JsonArray myTests = (JsonArray) parser.get("tests");
-			// get the specified test using the passed index
-			JsonObject test = (JsonObject) myTests.get(testIndex);
+			
+			// get the specified test
+			Iterator i = myTests.iterator();
+			JsonObject test = null;
+			int arrIndex = 0;
+
+			// iterate through the json array of tests
+			while (i.hasNext()) {
+				// get the json object of the test
+				test = (JsonObject) i.next();
+				// get the email of the patient of this test
+				String idNum = (String) test.get("id");
+				// compare that email to this user's email
+				if (idNum.equals(id)) {
+					// break out of the loop
+					break;
+				}
+				arrIndex++;
+			}
 
 			// add the test info to the pane by reading from the json
 			lbltestIDNum_1 = new JLabel((String) test.get("id"));

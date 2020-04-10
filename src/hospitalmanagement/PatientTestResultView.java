@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.awt.Color;
 import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -92,7 +93,9 @@ public class PatientTestResultView extends JFrame {
 				if (selectedIndex < 0) {
 					JOptionPane.showMessageDialog(contentPane, "Please select a test.");
 				} else {	// else, show the test results on this new pane
-					PatientTestResultInfoView info = new PatientTestResultInfoView(email, selectedIndex);
+					String temp = (myTestInfo.get(selectedIndex)).substring(4);
+					String id = temp.substring(0, 2);
+					PatientTestResultInfoView info = new PatientTestResultInfoView(email, id);
 					info.setVisible(true);
 					dispose();
 				}

@@ -4,7 +4,7 @@
       "notes": "Broken heart",
       "patient": "edpaslaw@ucalgary.ca",
       "staffEmail": "nurse@ucalgary.ca",
-      "id": "1",
+      "id": "01",
       "type": "X-Ray",
       "staffType": "Nurse"
     },
@@ -12,7 +12,7 @@
       "notes": "Positive for trying too hard",
       "patient": "edpaslaw@ucalgary.ca",
       "staffEmail": "nurse@ucalgary.ca",
-      "id": "2",
+      "id": "02",
       "type": "Other",
       "staffType": "Nurse"
     },
@@ -20,7 +20,7 @@
       "notes": "Someone help this girl",
       "patient": "edpaslaw@ucalgary.ca",
       "staffName": "nurse@ucalgary.ca",
-      "id": "3",
+      "id": "03",
       "type": "X-Ray",
       "staffType": "Nurse"
     },
@@ -28,8 +28,24 @@
       "notes": "Noell has a brain.",
       "patient": "nbea2@imageshack.us",
       "staffName": "nurse@ucalgary.ca",
-      "id": "4",
+      "id": "04",
       "type": "MRI",
+      "staffType": "Nurse"
+    }
+    {
+      "notes": "No cats were found :(",
+      "patient": "sydney.kwok@ucalgary.ca",
+      "staffName": "nurse@ucalgary.ca",
+      "id": "05",
+      "type": "CAT Scan",
+      "staffType": "Nurse"
+    },
+    {
+      "notes": "Your hemoglobin are thriving.",
+      "patient": "sydney.kwok@ucalgary.ca",
+      "staffName": "nurse@ucalgary.ca",
+      "id": "06",
+      "type": "Blood Test",
       "staffType": "Nurse"
     }
   ]
