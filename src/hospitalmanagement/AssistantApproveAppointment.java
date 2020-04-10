@@ -54,7 +54,7 @@ public class AssistantApproveAppointment extends JFrame {
 		
 		//Create label to indicate to assistants to select an appointment 
 		JLabel selectAppointLabel = new JLabel("Select an Appointment to Approve");
-		selectAppointLabel.setBounds(76, 230, 423, 33);
+		selectAppointLabel.setBounds(72, 361, 423, 33);
 		contentPane.add(selectAppointLabel);
 		
 		//Read from appointments JSON
@@ -76,13 +76,12 @@ public class AssistantApproveAppointment extends JFrame {
 				JsonObject appointObj = (JsonObject) i.next();
 				String date = (String) appointObj.get("date");
 				String number = (String) appointObj.get("number");
-				String patientID = (String) appointObj.get("patientID");
-				String docID = (String) appointObj.get("doctorID");
+				String patientID = (String) appointObj.get("patient_email");
+				String docID = (String) appointObj.get("doctor_email");
 				String department = (String) appointObj.get("department");
 				String time = (String) appointObj.get("time");
-				String prescrip = (String) appointObj.get("prescriptions");
 
-				appointments.add(patientID + ", " + docID + ", " + date + ", " + time + ", " + number + ", " + department + ", " + prescrip);
+				appointments.add(patientID + ", " + docID + ", " + date + ", " + time + ", " + number + ", " + department);
 			}
 
 			//Close reader
@@ -107,7 +106,7 @@ public class AssistantApproveAppointment extends JFrame {
 		
 		JScrollPane appointListScroll = new JScrollPane();
 		appointListScroll.setLocation(50, 33);
-		appointListScroll.setSize(330, 169);
+		appointListScroll.setSize(437, 315);
 		appointListScroll.setViewportView(appointList);
 		appointList.setLayoutOrientation(JList.VERTICAL);
 		contentPane.add(appointListScroll);
@@ -121,7 +120,7 @@ public class AssistantApproveAppointment extends JFrame {
 				//TODO: connect to JSON file that stores approved appointments
 			}
 		});
-		approveBtn.setBounds(566, 28, 171, 41);
+		approveBtn.setBounds(566, 88, 171, 41);
 		contentPane.add(approveBtn);
 		
 		//Add button to return to assistant home page
@@ -134,7 +133,7 @@ public class AssistantApproveAppointment extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(566, 357, 171, 41);
+		btnNewButton.setBounds(566, 287, 171, 41);
 		contentPane.add(btnNewButton);
 	}
 }

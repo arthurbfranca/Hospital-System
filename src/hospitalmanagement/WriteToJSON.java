@@ -432,10 +432,18 @@ public class WriteToJSON {
 		    // read tests array from json
 		    JsonArray testArray = (JsonArray) parser.get("tests");
 	    	
+		    // Get most recent patient test
+	    	JsonObject mostRecentTest = (JsonObject) testArray.get(testArray.size()-1);	// get the most recently added test
+
+	    	// id is incremented from most recent test's id
+	    	String id = Integer.toString(Integer.parseInt((String)mostRecentTest.get("id")) +1);
+		    
 			// close reader
 			reader.close();
+			
 			JsonObject newTest = new JsonObject(); 
 			//add items to new JsonObject
+			newTest.put("id", id);
 			newTest.put("type", typeOfTest);
 			newTest.put("staffType", staffType);
 			newTest.put("staffName", staffEmail);

@@ -110,11 +110,17 @@ public class DoctorAppointmentView extends JFrame {
 				
 				//FIXME Potential Error: the entries of a JsonArray are JsonObjects, and since we don't have a label for the number, the line below doesnt run
 				//get the id of the appointment to be displayed from doctor's object
-				System.out.println(" ");
+				//System.out.println(" ");
 				//String aptID = (String) appointmentIDs.get(q); REMOVEME
 				//String aptID = (String) appointmentIDs.getString(q); REMOVEME
-				JsonObject d = (JsonObject) appointmentIDs.get(q);
-				String aptID = (String) d.get("ID");
+				
+				///// Arthur this is what you originally had
+				/*JsonObject d = (JsonObject) appointmentIDs.get(q);
+				String aptID = (String) d.get("ID");*/
+				
+				// I replaced what you had with this next line
+				String aptID = (String) appointmentIDs.get(q);
+				
 				//find the appointment information within the appointments2.json
 				Iterator i = appointments.iterator();
 				//flag used to signal the loop below should stop iterating
