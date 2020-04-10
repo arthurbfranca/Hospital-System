@@ -1,0 +1,64 @@
+{
+  "requested_appointments": [
+    {
+      "number": "1",
+      "patient_email": "edpaslaw@ucalgary.ca",
+      "doctor_email": "bajwa@ucalgary.ca",
+      "department": "Cardiology",
+      "time": "9:00",
+      "prescriptions": [],
+      "year": "2020",
+      "date" : "04/25"
+    }
+    {
+      "number": "2",
+      "patient_email": "edpaslaw@ucalgary.ca",
+      "doctor_email": "bajwa@ucalgary.ca",
+      "department": "Neurology",
+      "time": "10:00",
+      "prescriptions": [],
+      "year": "2020",
+      "date" : "04/25"
+    }
+    {
+      "number": "3",
+      "patient_email": "gfrediani1@senate.gov",
+      "doctor_email": "bajwa@ucalgary.ca",
+      "department": "Nephrology",
+      "time": "11:00",
+      "prescriptions": [],
+      "year": "2020",
+      "date" : "04/25"
+    }
+    {
+      "number": "4",
+      "patient_email": "gfrediani1@senate.gov",
+      "doctor_email": "bajwa@ucalgary.ca",
+      "department": "Cardiology",
+      "time": "12:00",
+      "prescriptions": [],
+      "year": "2020",
+      "date" : "04/25"
+    }
+    {
+      "number": "5",
+      "patient_email": "sydney.kwok@ucalgary.ca",
+      "doctor_email": "bajwa@ucalgary.ca",
+      "department": "Neurology",
+      "time": "13:00",
+      "prescriptions": [],
+      "year": "2020",
+      "date" : "04/25"
+    }
+    {
+      "number": "6",
+      "patient_email": "sydney.kwok@ucalgary.ca",
+      "doctor_email": "bajwa@ucalgary.ca",
+      "department": "Cardiology",
+      "time": "14:00",
+      "prescriptions": [],
+      "year": "2020",
+      "date" : "04/25"
+    }
+  ]
+}
