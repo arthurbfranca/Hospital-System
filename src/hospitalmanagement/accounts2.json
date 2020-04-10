@@ -40,10 +40,7 @@
         },
         {
           "password": "password12345",
-          "appointments": [
-            "5",
-            "6"
-          ],
+          "appointments": [],
           "gender": "Female",
           "last_name": "Bea",
           "id": "3",
@@ -58,9 +55,7 @@
         },
         {
           "password": "password12345",
-          "appointments": [
-            "7"
-          ],
+          "appointments": [],
           "gender": "Male",
           "last_name": "Valek",
           "id": "4",
@@ -75,7 +70,10 @@
         },
         {
           "password": "passw0rd",
-          "appointments": [],
+          "appointments": [
+            "5",
+            "6"
+          ],
           "gender": "Female",
           "last_name": "Kwok",
           "id": "5",
@@ -95,6 +93,9 @@
             "1",
             "2",
             "3"
+            "4",
+            "5",
+            "6"
           ],
           "gender": "Male",
           "last_name": "Sohaib",
