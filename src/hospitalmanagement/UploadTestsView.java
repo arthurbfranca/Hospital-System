@@ -28,7 +28,7 @@ import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 
-public class NurseUploadTestsView extends JFrame {
+public class UploadTestsView extends JFrame {
 
 	private JPanel contentPane;
 
@@ -36,7 +36,7 @@ public class NurseUploadTestsView extends JFrame {
 	/**
 	 * Create the frame .
 	 */
-	public NurseUploadTestsView(String email) {
+	public UploadTestsView(String email, String accountType) {
 		// set properties of the frame
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 590, 444);
@@ -101,7 +101,7 @@ public class NurseUploadTestsView extends JFrame {
 				// Get the email of the patient selected
 				String selectedPatient = patientEmail.get(patientDropdown.getSelectedIndex());
 				//Bring up a text box to upload test results?
-				NurseAddTestInfoPerspective nextPane = new NurseAddTestInfoPerspective(email, selectedPatient);
+				AddTestInfoPerspective nextPane = new AddTestInfoPerspective(email, selectedPatient, accountType);
 				nextPane.setVisible(true);
 				dispose();
 				
@@ -116,10 +116,18 @@ public class NurseUploadTestsView extends JFrame {
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				if (accountType.equals("nurse")) {
 				//Return back to the login page after clicking return button
 				NursePerspective previousPane = new NursePerspective(email);
 				previousPane.setVisible(true);
 				dispose();
+				}
+				else if (accountType.contentEquals("doctor")) {
+					//Return back to the login page after clicking return button
+					DoctorPerspective previousDocPane = new DoctorPerspective(email);
+					previousDocPane.setVisible(true);
+					dispose();
+				}
 			}
 		});
 		btnReturn.setBounds(224, 337, 136, 14);
