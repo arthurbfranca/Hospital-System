@@ -193,6 +193,7 @@ public class WriteToJSON {
 			newAccount.put("email", email);
 			newAccount.put("gender", gender);
 			newAccount.put("password", pass);
+			newAccount.put("schedule","");
 			if(userType.equals("Doctor")) {
 				JsonArray appointments = new JsonArray();
 				newAccount.put("appointments", appointments);
