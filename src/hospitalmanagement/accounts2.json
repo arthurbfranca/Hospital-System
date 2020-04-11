@@ -42,7 +42,10 @@
         },
         {
           "password": "password12345",
-          "appointments": [],
+          "appointments": [
+            "5",
+            "6"
+          ],
           "gender": "Female",
           "last_name": "Bea",
           "id": "3",
@@ -57,7 +60,9 @@
         },
         {
           "password": "password12345",
-          "appointments": [],
+          "appointments": [
+            "7"
+          ],
           "gender": "Male",
           "last_name": "Valek",
           "id": "4",
@@ -73,23 +78,14 @@
         {
           "password": "passw0rd",
           "appointments":[
-		{"ID":"5"},
-		{"ID":"6"}
-	],
+            {"ID":"5"},
+            {"ID":"6"}
+          ],
           "gender": "Female",
           "last_name": "Kwok",
           "id": "5",
           "first_name": "Sydney",
-          "prescriptions": [
-            "drug1",
-            "drug2",
-	    "drug3",
-            "drug4",
-	    "drug5",
-            "drug6",
-	    "drug7",
-            "drug8"
-          ],
+          "prescriptions": [],
           "age": "19",
           "email": "sydney.kwok@ucalgary.ca",
           "username": "sydney.kwok"
@@ -101,12 +97,12 @@
         {
           "password": "docPassword",
           "appointments":[
-		{"ID":"1"},
-		{"ID":"2"},
-		{"ID":"3"},
-		{"ID":"4"},
-		{"ID":"5"},
-		{"ID":"6"}
+            {"ID":"1"},
+            {"ID":"2"},
+            {"ID":"3"},
+            {"ID":"4"},
+            {"ID":"5"},
+            {"ID":"6"}
 	],
           "gender": "Male",
           "last_name": "Sohaib",
