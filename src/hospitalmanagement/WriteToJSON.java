@@ -193,6 +193,7 @@ public class WriteToJSON {
 			newAccount.put("email", email);
 			newAccount.put("gender", gender);
 			newAccount.put("password", pass);
+			newAccount.put("schedule","");
 			if(userType.equals("Doctor")) {
 				JsonArray appointments = new JsonArray();
 				newAccount.put("appointments", appointments);
@@ -398,6 +399,111 @@ public class WriteToJSON {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/accounts2.json"));
 
 			// Write updates to JSON file
+			Jsoner.serialize(parser, writer);
+
+			// Close the writer
+			writer.close();
+
+		} catch (Exception ex) {
+		    ex.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * This method writes the test info to the assigned patient in the JSON.
+	 * 
+	 * @param staffType: either doctor or nurse in a String
+	 * @param staffEmail: the email of the staff member submitting the info
+	 * @param selectedPatientEmail: the email of the patient
+	 * @param typeOfTest: the type of test (MRI, X-Ray, etc.)
+	 * @param textToSubmit: the actual String of text to write
+	 * @author erinpaslawski
+	 * @return false if failed, true otherwise
+	 */
+	public static boolean writeTestInfo(String staffType, String staffEmail, String selectedPatientEmail , String typeOfTest, String textToSubmit) {
+		try {
+			// create reader
+			BufferedReader reader = new BufferedReader(
+			new InputStreamReader(new FileInputStream("src/hospitalmanagement/tests.json")));
+
+			// create parser
+		    JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+
+		    // read tests array from json
+		    JsonArray testArray = (JsonArray) parser.get("tests");
+	    	
+		    // Get most recent patient test
+	    	JsonObject mostRecentTest = (JsonObject) testArray.get(testArray.size()-1);	// get the most recently added test
+
+	    	// id is incremented from most recent test's id
+	    	String id = Integer.toString(Integer.parseInt((String)mostRecentTest.get("id")) +1);
+		    
+			// close reader
+			reader.close();
+			
+			JsonObject newTest = new JsonObject(); 
+			//add items to new JsonObject
+			newTest.put("id", id);
+			newTest.put("type", typeOfTest);
+			newTest.put("staffType", staffType);
+			newTest.put("staffName", staffEmail);
+			newTest.put("patient", selectedPatientEmail);
+			newTest.put("notes", textToSubmit);
+			
+			// update tests array
+			testArray.add(newTest);
+
+			// put the updated test array as the tests entry in the JSON
+			parser.put("tests", testArray);
+		    
+			// Create a writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/tests.json"));
+
+			// Write updates to JSON file
+			Jsoner.serialize(parser, writer);
+
+			// Close the writer
+			writer.close();
+			//return true if it works
+			return true;
+
+		} catch (Exception ex) {
+			//return false if there are any exceptions thrown
+		    return false;
+		}
+	}
+	
+		
+	/**
+	 * This method removes the approved appointment from the req_appointments.json and writes it to the appointments.json file 
+	 * @param appointment: the appointment to be removed and write to  
+	 * @author shavonnetran
+	 */
+	public static void writeApprovedAppointment(String appointment) {
+		try {
+			// Create reader
+			BufferedReader reader = new BufferedReader(
+			new InputStreamReader(new FileInputStream("src/hospitalmanagement/req_appointments.json")));
+
+			// Create parser
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+	
+			// Read requested appointments array from JSON
+		    	JsonArray reqAppoints = (JsonArray) parser.get("requested_appointments");
+		    	
+			parser.get(appointment);
+	    		
+			// Remove JSON object from request_appointments.json
+			reqAppoints.remove(appointment);
+		    
+			// Close reader
+			reader.close();
+			
+			// Create a writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/appointments.json"));
+
+			// Write the selected appointment to JSON file containing approved appointments: appointments.json
 			Jsoner.serialize(parser, writer);
 
 			// Close the writer

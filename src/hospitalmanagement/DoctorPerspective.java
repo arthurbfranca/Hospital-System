@@ -5,16 +5,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
 * Class that displays the options the doctor can choose from upon logging in to their account;
 * Includes options like: viewing appointments, patients, booking appointments, etc.
-* @author arthurbfranca, ggdizon, sydneykwok
+* @author arthurbfranca, ggdizon, sydneykwok, erinpaslawski
 */
 public class DoctorPerspective extends JFrame {
 
@@ -36,9 +35,9 @@ public class DoctorPerspective extends JFrame {
 		
 		// create panel for the frame
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setLayout(null);
 		
 		// add title label of the panel
@@ -71,11 +70,16 @@ public class DoctorPerspective extends JFrame {
 				viewPatientsPane.setVisible(true);
 			}
 		});
-		ViewPatientsButton.setBounds(115, 203, 148, 53);
+		ViewPatientsButton.setBounds(115, 204, 148, 53);
 		contentPane.add(ViewPatientsButton);
 		
 		//Adding button for viewing availability
 		JButton ViewAvailabilityButton = new JButton("View Availability");
+		ViewAvailabilityButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+		});
 		ViewAvailabilityButton.setBounds(115, 137, 148, 53);
 		contentPane.add(ViewAvailabilityButton);
 		
@@ -95,15 +99,18 @@ public class DoctorPerspective extends JFrame {
 		
 		//Adding button for setting up the doctor's availability
 		JButton SetAvailabilityButton = new JButton("Set Availability");
+		SetAvailabilityButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				SetAvailability availabilityPane = new SetAvailability(email, 1);
+				availabilityPane.setVisible(true);
+			}
+		});
 		SetAvailabilityButton.setBounds(289, 137, 148, 53);
 		contentPane.add(SetAvailabilityButton);
 		
 		//Adding button to return back to the home page
 		JButton btnReturn = new JButton("Log out");
-		btnReturn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		//Add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
@@ -114,18 +121,18 @@ public class DoctorPerspective extends JFrame {
 				dispose();
 			}
 		});
-		btnReturn.setBounds(217, 269, 119, 25);
+		btnReturn.setBounds(220, 269, 119, 25);
 		contentPane.add(btnReturn);
 		
-		JButton btnAddPatients = new JButton("Add Patients");
-		btnAddPatients.addMouseListener(new MouseAdapter() {
+		JButton btnUpdatePatientTest = new JButton("Update Test Results");
+		btnUpdatePatientTest.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent arg0) {
-				DoctorPatientsAdd addPatientsPane = new DoctorPatientsAdd(email);
-				addPatientsPane.setVisible(true);
+			public void mouseReleased(MouseEvent e) {
+				UploadTestsView uploadTests = new UploadTestsView(email, "doctor");
+				uploadTests.setVisible(true);
 			}
 		});
-		btnAddPatients.setBounds(289, 203, 148, 53);
-		contentPane.add(btnAddPatients);
+		btnUpdatePatientTest.setBounds(289, 203, 148, 53);
+		contentPane.add(btnUpdatePatientTest);
 	}
 }

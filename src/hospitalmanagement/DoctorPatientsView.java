@@ -115,7 +115,5 @@ public class DoctorPatientsView extends JFrame {
 		});
 		btnCancel.setBounds(236, 215, 97, 25);
 		contentPane.add(btnCancel);
-		// String[] patients = {"LastName, Alice", "LastName, Bob", "LastName, COVID19",
-		// "LastName, Dad", "LastName, Eckhardt"};
 	}
 }
