@@ -25,8 +25,8 @@
         {
           "password": "password12345",
           "appointments": [
-            "3",
-            "4"
+          	{"ID":"3"},
+		{"ID":"4"}
           ],
           "gender": "Male",
           "last_name": "F",
