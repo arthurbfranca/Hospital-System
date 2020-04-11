@@ -5,8 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import com.github.cliftonlabs.json_simple.JsonArray;
@@ -176,9 +174,8 @@ public class WriteToJSON {
 	    	
 		    // get the most recently added person of that account type
 	    	JsonObject mostRecentAccount = (JsonObject) accountTypeArr.get(accountTypeArr.size()-1);
-	    	// get id from that person
-
-	    	String id = Integer.toString( Integer.parseInt((String) mostRecentAccount.get("id")) +1);
+	    	// get id from most recent person and increment to get new account's id
+	    	String id = Integer.toString(Integer.parseInt((String) mostRecentAccount.get("id")) + 1);
 	    	
 	    	//close reader
 		    reader.close();
@@ -197,6 +194,9 @@ public class WriteToJSON {
 			if(userType.equals("Doctor")) {
 				JsonArray appointments = new JsonArray();
 				newAccount.put("appointments", appointments);
+				
+				JsonArray patients = new JsonArray();
+				newAccount.put("patients", patients);
 			}
 			
 			// append new patient to patient list
