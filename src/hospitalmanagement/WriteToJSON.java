@@ -409,6 +409,65 @@ public class WriteToJSON {
 		}
 	}
 	
+	/**
+	 * This method adds patient's ID to doctor's list of patients in the JSON when doctor
+	 * wants to assign themselves as a patient's physician
+	 * 
+	 * @param patientID the ID of the patient to be added to the doctor's patient list
+	 * @param doctorEmail the email of the doctor who wants to add a patient
+	 * @author ggdizon
+	 */
+	public static void addPatientToDoc(String patientID, String doctorEmail) {
+		try {
+			// create reader
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+
+			// create parser
+		    JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+
+		    // read accounts array from json
+		    JsonArray accounts = (JsonArray) parser.get("accounts");
+		    
+		    // extract the object representation of the doctors section of the accounts array
+		    // then get the array representation of that object
+		    JsonObject doctors = (JsonObject) accounts.get(1);
+	    	JsonArray doctorArr = (JsonArray) doctors.get("doctor");
+	    	
+			// close reader
+			reader.close();
+			
+			JsonObject user = Account.getAccountJSONObj("Doctor", doctorEmail);
+			int arrayIndex = doctorArr.indexOf(user);
+			JsonArray patientList = (JsonArray) user.get("patients");
+			
+			patientList.add(patientID);
+			
+			// update list of patients in the user
+			user.put("patients", patientList);
+			// update user in the doctors array
+			doctorArr.set(arrayIndex, user);
+			// put this updated doctor array as the doctor object
+			doctors.put("patient", doctorArr);
+			// put this updated doctor object at index 0 of the accounts array
+			accounts.set(1, doctors);
+			// put the updated accounts array as the account entry in the JSON
+			parser.put("accounts", accounts);
+		    
+			// Create a writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/accounts2.json"));
+
+			// Write updates to JSON file
+			Jsoner.serialize(parser, writer);
+
+			// Close the writer
+			writer.close();
+
+		} catch (Exception ex) {
+		    ex.printStackTrace();
+		}
+	}
+	
 	
 	/**
 	 * This method writes the test info to the assigned patient in the JSON.

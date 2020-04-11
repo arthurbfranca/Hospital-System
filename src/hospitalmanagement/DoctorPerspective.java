@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
 * Class that displays the options the doctor can choose from upon logging in to their account;
@@ -121,10 +123,14 @@ public class DoctorPerspective extends JFrame {
 				dispose();
 			}
 		});
-		btnReturn.setBounds(220, 269, 119, 25);
+		btnReturn.setBounds(220, 345, 119, 25);
 		contentPane.add(btnReturn);
 		
 		JButton btnUpdatePatientTest = new JButton("Update Test Results");
+		btnUpdatePatientTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnUpdatePatientTest.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -132,7 +138,18 @@ public class DoctorPerspective extends JFrame {
 				uploadTests.setVisible(true);
 			}
 		});
-		btnUpdatePatientTest.setBounds(289, 203, 148, 53);
+		btnUpdatePatientTest.setBounds(289, 270, 148, 53);
 		contentPane.add(btnUpdatePatientTest);
+		
+		JButton btnAddPatients = new JButton("Add Patients");
+		btnAddPatients.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				DoctorPatientsAdd addPatientsPane = new DoctorPatientsAdd(email);
+				addPatientsPane.setVisible(true);
+			}
+		});
+		btnAddPatients.setBounds(289, 204, 148, 53);
+		contentPane.add(btnAddPatients);
 	}
 }

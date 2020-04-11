@@ -106,11 +106,17 @@ public class DoctorPatientsAddInformation extends JFrame {
 				if (addPatient == 0) {		// If YES was selected, then add patient as doctor's physician
 					// TODO: doctors in account2.json have yet to have a "patients" array where the
 					// selected patient can be added as doc's physician. Once this is made, add patient's
-					// name/email into doc's patients array
-					JOptionPane.showMessageDialog(contentPane, name + " has been added.");
-					dispose();
-					DoctorPatientsAdd addPatientsPane = new DoctorPatientsAdd(email);
-					addPatientsPane.setVisible(true);
+					// ID into doc's patients array
+					boolean alreadyInList = checkAddPatient(patient, email);
+					
+					if (!alreadyInList) {
+						JOptionPane.showMessageDialog(contentPane, name + " has been added.");
+						dispose();
+						DoctorPatientsAdd addPatientsPane = new DoctorPatientsAdd(email);
+						addPatientsPane.setVisible(true);
+					} else {
+						JOptionPane.showMessageDialog(contentPane, name + " is already in your list of patients.");
+					}
 				} else {
 					JOptionPane.showMessageDialog(contentPane, name + " has NOT been added.");
 				}
@@ -225,4 +231,30 @@ public class DoctorPatientsAddInformation extends JFrame {
 		Patient.add(prescriptionListScroller, gbc_prescriptionList);
 		contentPane.setLayout(gl_contentPane);
 	}
+	
+	private boolean checkAddPatient(JsonObject patient, String doctorEmail) {
+		boolean alreadyInList = false;
+		
+		String patientID = (String) patient.get("id");
+		
+		JsonObject doctor = Account.getAccountJSONObj("Doctor", doctorEmail);
+		JsonArray patientList = (JsonArray) doctor.get("patients");
+		Iterator i = patientList.iterator();
+		
+		while (i.hasNext()) {
+			String nextIdInList = (String) i.next();
+			if (nextIdInList.equals(patientID)) {
+				alreadyInList = true;
+				break;
+			}
+		}
+		
+		if (!alreadyInList) {
+			WriteToJSON.addPatientToDoc(patientID, doctorEmail);
+		}
+		
+		return alreadyInList;
+		
+	}
+	
 }
