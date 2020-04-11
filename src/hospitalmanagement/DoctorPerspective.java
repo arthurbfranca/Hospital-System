@@ -5,13 +5,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
 * Class that displays the options the doctor can choose from upon logging in to their account;
 * Includes options like: viewing appointments, patients, booking appointments, etc.
-* @author arthurbfranca, ggdizon, sydneykwok
+* @author arthurbfranca, ggdizon, sydneykwok, erinpaslawski
 */
 public class DoctorPerspective extends JFrame {
 
@@ -35,6 +37,7 @@ public class DoctorPerspective extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setLayout(null);
 		
 		// add title label of the panel
@@ -67,7 +70,7 @@ public class DoctorPerspective extends JFrame {
 				viewPatientsPane.setVisible(true);
 			}
 		});
-		ViewPatientsButton.setBounds(203, 203, 148, 53);
+		ViewPatientsButton.setBounds(115, 204, 148, 53);
 		contentPane.add(ViewPatientsButton);
 		
 		//Adding button for viewing availability
@@ -120,5 +123,16 @@ public class DoctorPerspective extends JFrame {
 		});
 		btnReturn.setBounds(220, 269, 119, 25);
 		contentPane.add(btnReturn);
+		
+		JButton btnUpdatePatientTest = new JButton("Update Test Results");
+		btnUpdatePatientTest.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				UploadTestsView uploadTests = new UploadTestsView(email, "doctor");
+				uploadTests.setVisible(true);
+			}
+		});
+		btnUpdatePatientTest.setBounds(289, 203, 148, 53);
+		contentPane.add(btnUpdatePatientTest);
 	}
 }
