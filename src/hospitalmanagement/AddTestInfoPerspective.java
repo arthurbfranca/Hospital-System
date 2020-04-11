@@ -31,7 +31,7 @@ import java.io.InputStreamReader;
  * @author erinpaslawski
  *
  */
-public class NurseAddTestInfoPerspective extends JFrame {
+public class AddTestInfoPerspective extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -44,7 +44,7 @@ public class NurseAddTestInfoPerspective extends JFrame {
 	 * @param email THe email of the nurse
 	 * @param selectedPatient the patient for the test
 	 */
-	public NurseAddTestInfoPerspective(String email, String selectedPatient){
+	public AddTestInfoPerspective(String email, String selectedPatient, String accountType){
 		// set properties of the frame
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 590, 444);
@@ -117,7 +117,7 @@ public class NurseAddTestInfoPerspective extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				String textToSubmit = textField_1.getText();
 				String typeOfTest = comboBox.getSelectedItem().toString();
-				boolean successful = WriteToJSON.writeTestInfo("Nurse", email, selectedPatient, typeOfTest, textToSubmit);
+				boolean successful = WriteToJSON.writeTestInfo(accountType, email, selectedPatient, typeOfTest, textToSubmit);
 				if (successful == true) {
 					Login lframe = new Login();
 					JOptionPane.showMessageDialog(lframe, "Successful.");
@@ -127,9 +127,17 @@ public class NurseAddTestInfoPerspective extends JFrame {
 					JOptionPane.showMessageDialog(lframe, "Not successful.");
 				}
 				//Return back to the main page
-				NursePerspective previousPane = new NursePerspective(email);
-				previousPane.setVisible(true);
-				dispose();
+				if (accountType.equals("nurse")) {
+				    NursePerspective previousPane = new NursePerspective(email);
+				    previousPane.setVisible(true);
+				    dispose();
+				}
+				else if (accountType.contentEquals("doctor")) {
+					//Return back to the login page after clicking return button
+					DoctorPerspective previousDocPane = new DoctorPerspective(email);
+					previousDocPane.setVisible(true);
+					dispose();
+				}
 			}
 		});
 		btnNewButton.setBounds(227, 346, 136, 29);
