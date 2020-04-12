@@ -113,14 +113,14 @@ public class SetAvailability extends JFrame {
 				reader.close();
 				return accountsArr;
 			}catch(Exception e) {
-				System.out.println("Something went wront in findArrayOfAccounts()");
+				System.out.println("Something went wrong in findArrayOfAccounts()");
 				return null;
 			}
 		} */
 	
 	//This method sorts through a given array of jsonobjects corresponding to accounts and finds the one with the given email, if it cannot
 	//it returns a null and notifies the tester in the console
-	private JsonObject findAccount(JsonArray accountsArr, String email) {
+	public JsonObject findAccount(JsonArray accountsArr, String email) {
 			Iterator i;
 			//Now we find the JsonObject for the doctor in particular we are dealing with, whom is identified by the passed email
 			i = accountsArr.iterator(); 
@@ -141,7 +141,7 @@ public class SetAvailability extends JFrame {
 			if(goal!=null) {
 				return goal;
 			}
-			System.out.println("Account returned is null, findAccount() could not find it");
+			System.out.println("Account returned is null, findAccount() could not find it"); //notify the tester
 			return null;
 	}
 	
@@ -222,16 +222,13 @@ public class SetAvailability extends JFrame {
 	//d: the day of the starting day
 	//m: the month of the starting day, in numbers.
 	private String[] getDays(int m, int d, int q) {
-		String[] arr = new String[q];
-		arr[0] = String.valueOf(d) + "/" + m;
-		
+		String[] arr = new String[q+1];
 		int day = d;
 		int month = m;
-		for(int i = 1; i < q; i++) {
+		for(int i = 0; i <= q; i++) {
 			//i should be 0 if no extra days are to be set, keep this in mind when looking at range.
 			//for the entire range of days, not including the first, which has already been added to the array, add their numerical date to the string array
 			//to be returned in the model mm/dd
-			day += 1;
 			if(!dayExists(day, month)) {
 				//we have crossed the latest day of the given month
 				//move to the first day of the next month
@@ -241,16 +238,18 @@ public class SetAvailability extends JFrame {
 			String s = "";
 			if(month < 10) {
 				//if month has a single digit, add a 0 prefix
+				//FIXME
 				s += "0";
 			}
 			s += month + "/";
 			if(day < 10) {
 				//if day has a single digit, add a 0 prefix
-				s = "0";
+				s += "0";
 			}
 			s += day;
+			System.out.println("finally s is: " + s);
 			arr[i] = s;
-			
+			day += 1;
 		}
 		return arr;
 	}
@@ -260,7 +259,7 @@ public class SetAvailability extends JFrame {
 	//class, that is, set an availability.
 	//days: string with the numeric representation of dates whose schedule will be set
 	//time: string that represents the time of schedule. model: 10:20/14:30 or 10/12 (either is valid, only use colon if necessary)
-	public void set(String email, int accountType, String[] days, String time) {
+	private void set(String email, int accountType, String[] days, String time) {
 		try {
 			//reader to read accounts2.json
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
@@ -275,7 +274,7 @@ public class SetAvailability extends JFrame {
 			
 			JsonObject account = findAccount(accountsArr,email);
 			JsonObject schedule = (JsonObject) account.get("schedule");
-			System.out.println(schedule);
+
 			for(int i = 0; i < days.length; i++) {
 				schedule.put(days[i],time);
 			}
@@ -295,8 +294,10 @@ public class SetAvailability extends JFrame {
 			Jsoner.serialize(parser, writer);
 			// Close the writer
 			writer.close();
+			System.out.println("Account's schedule is now: " + schedule);
+			System.out.println(schedule.get("08/08"));
 		}catch(Exception e) {
-			System.out.println("Something went wront in set()");
+			System.out.println("Something went wrong in set()");
 		}		
 	}
 	
@@ -312,16 +313,16 @@ public class SetAvailability extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{215, 107, 35, 177, 0};
-		gbl_contentPane.rowHeights = new int[]{65, 22, 65, 20, 20, 20, 23, 20, 23, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{215, 107, 35, 177, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{65, 22, 65, 20, 20, 20, 23, 20, 23, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel mainLabel = new JLabel("Set Availability");
 		mainLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		GridBagConstraints gbc_mainLabel = new GridBagConstraints();
-		gbc_mainLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_mainLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_mainLabel.gridx = 3;
 		gbc_mainLabel.gridy = 1;
 		contentPane.add(mainLabel, gbc_mainLabel);
@@ -336,7 +337,7 @@ public class SetAvailability extends JFrame {
 		dateField = new JTextField();
 		GridBagConstraints gbc_dateField = new GridBagConstraints();
 		gbc_dateField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_dateField.insets = new Insets(0, 0, 5, 0);
+		gbc_dateField.insets = new Insets(0, 0, 5, 5);
 		gbc_dateField.gridx = 3;
 		gbc_dateField.gridy = 3;
 		contentPane.add(dateField, gbc_dateField);
@@ -353,7 +354,7 @@ public class SetAvailability extends JFrame {
 		startField.setColumns(10);
 		GridBagConstraints gbc_startField = new GridBagConstraints();
 		gbc_startField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_startField.insets = new Insets(0, 0, 5, 0);
+		gbc_startField.insets = new Insets(0, 0, 5, 5);
 		gbc_startField.gridx = 3;
 		gbc_startField.gridy = 4;
 		contentPane.add(startField, gbc_startField);
@@ -369,7 +370,7 @@ public class SetAvailability extends JFrame {
 		finishField.setColumns(10);
 		GridBagConstraints gbc_finishField = new GridBagConstraints();
 		gbc_finishField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_finishField.insets = new Insets(0, 0, 5, 0);
+		gbc_finishField.insets = new Insets(0, 0, 5, 5);
 		gbc_finishField.gridx = 3;
 		gbc_finishField.gridy = 5;
 		contentPane.add(finishField, gbc_finishField);
@@ -387,7 +388,7 @@ public class SetAvailability extends JFrame {
 		dayCount.setColumns(10);
 		GridBagConstraints gbc_dayCount = new GridBagConstraints();
 		gbc_dayCount.fill = GridBagConstraints.HORIZONTAL;
-		gbc_dayCount.insets = new Insets(0, 0, 5, 0);
+		gbc_dayCount.insets = new Insets(0, 0, 5, 5);
 		gbc_dayCount.gridx = 3;
 		gbc_dayCount.gridy = 7;
 		contentPane.add(dayCount, gbc_dayCount);
@@ -408,43 +409,102 @@ public class SetAvailability extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_consecutiveCheckbox = new GridBagConstraints();
-		gbc_consecutiveCheckbox.insets = new Insets(0, 0, 5, 0);
+		gbc_consecutiveCheckbox.insets = new Insets(0, 0, 5, 5);
 		gbc_consecutiveCheckbox.gridx = 3;
 		gbc_consecutiveCheckbox.gridy = 6;
 		contentPane.add(consecutiveCheckbox, gbc_consecutiveCheckbox);
-
-		
-		JButton confirmButton = new JButton("Confirm");
-		confirmButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				String date = dateField.getText();
-				String start = startField.getText();
-				String finish = finishField.getText();
-				if(date.length() > 0 && start.length() > 0 && finish.length() > 0) {
-					//if all information was inputted, although not necessarily correctly
-					if(!consecutiveCheckbox.isSelected()) {
-						//if only a single day is to be set, set the availability to the given
-						String[] day = new String[] {date};
-						set(email, accountType, day, start + "/" + finish);
-					}else {
-					//if more than one days is to be set get the days to be set and add to the json
-						String[] halves = date.split("/");
-						int month = Integer.parseInt(halves[0]);
-						int day = Integer.parseInt(halves[1]);
-						int q = Integer.parseInt(dayCount.getText());
-						String[] days = getDays(month, day, q);
-						set(email, accountType, days, start + "/" + finish);
-					}
-				} else {
-					System.out.println("missing strings");
-				}
-			}
-		});
-		GridBagConstraints gbc_confirmButton = new GridBagConstraints();
-		gbc_confirmButton.gridx = 3;
-		gbc_confirmButton.gridy = 8;
-		contentPane.add(confirmButton, gbc_confirmButton);
+						
+								
+		//Pardon the strange identation here, that was a windowsBuilder prank
+							JButton confirmButton = new JButton("Confirm");
+								confirmButton.addMouseListener(new MouseAdapter() {
+									@Override
+									public void mousePressed(MouseEvent e) {
+										String date = dateField.getText();
+										String start = startField.getText();
+										String finish = finishField.getText();
+										if(date.length() > 0 && start.length() > 0 && finish.length() > 0) {
+											//if all information was inputted, although not necessarily correctly
+											if(!consecutiveCheckbox.isSelected()) {
+												//if only a single day is to be set, set the availability to the given
+												String[] day = new String[] {date};
+												set(email, accountType, day, start + "/" + finish);
+												dispose();
+											}else {
+											//if more than one days is to be set get the days to be set and add to the json
+												String[] halves = date.split("/");
+												int month = Integer.parseInt(halves[0]);
+												int day = Integer.parseInt(halves[1]);	
+												int q = Integer.parseInt(dayCount.getText());
+												String[] days = getDays(month, day, q);
+												set(email, accountType, days, start + "/" + finish);
+												dispose();
+											}
+										} else {
+											System.out.println("missing strings");
+										}
+									}
+								});
+								GridBagConstraints gbc_confirmButton = new GridBagConstraints();
+								gbc_confirmButton.insets = new Insets(0, 0, 5, 5);
+								gbc_confirmButton.gridx = 3;
+								gbc_confirmButton.gridy = 8;
+								contentPane.add(confirmButton, gbc_confirmButton);
+						
+						JButton cancelButton = new JButton("Cancel");
+						cancelButton.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mousePressed(MouseEvent e) {
+								dispose();
+							}
+						});
+						GridBagConstraints gbc_cancelButton = new GridBagConstraints();
+						gbc_cancelButton.insets = new Insets(0, 0, 0, 5);
+						gbc_cancelButton.gridx = 3;
+						gbc_cancelButton.gridy = 9;
+						contentPane.add(cancelButton, gbc_cancelButton);
 	}
 
 }
+
+/*
+
+
+private String[] getDays(int m, int d, int q) {
+	String[] arr = new String[q+1];
+	arr[0] = String.valueOf(d) + "/" + m;
+	
+	int day = d;
+	int month = m;
+	for(int i = 1; i <= q; i++) {
+		//i should be 0 if no extra days are to be set, keep this in mind when looking at range.
+		//for the entire range of days, not including the first, which has already been added to the array, add their numerical date to the string array
+		//to be returned in the model mm/dd
+		day += 1;
+		
+		System.out.println(dayExists(day,month));
+		if(!dayExists(day, month)) {
+			//we have crossed the latest day of the given month
+			//move to the first day of the next month
+			month += 1;
+			day = 1;
+		}
+		String s = "";
+		if(month < 10) {
+			//if month has a single digit, add a 0 prefix
+			//FIXME
+			s += "0";
+		}
+		s += month + "/";
+		if(day < 10) {
+			//if day has a single digit, add a 0 prefix
+			s += "0";
+		}
+		s += day;
+		System.out.println("finally s is: " + s);
+		arr[i] = s;
+		
+	}
+	return arr;
+} */
+

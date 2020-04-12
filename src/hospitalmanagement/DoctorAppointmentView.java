@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 import java.util.Iterator;
 /**
 * Class that displays the panel for the doctor's appointments
-* @author arthurbfranca, ggdizon, sydneykwok
+* @code author arthurbfranca, ggdizon, sydneykwok
 */
 public class DoctorAppointmentView extends JFrame {
 	
@@ -110,7 +110,6 @@ public class DoctorAppointmentView extends JFrame {
 				
 				//FIXME Potential Error: the entries of a JsonArray are JsonObjects, and since we don't have a label for the number, the line below doesnt run
 				//get the id of the appointment to be displayed from doctor's object
-				System.out.println(" ");
 				//String aptID = (String) appointmentIDs.get(q); REMOVEME
 				//String aptID = (String) appointmentIDs.getString(q); REMOVEME
 				JsonObject d = (JsonObject) appointmentIDs.get(q);
@@ -170,6 +169,10 @@ public class DoctorAppointmentView extends JFrame {
 			department.setText((String) apt.get("department"));
 			type.setText("CHANGEME");
 		}
+	}
+	
+	private void updateAppointments(JsonArray a) {
+		//TODO
 	}
    
 	/**
@@ -300,14 +303,6 @@ public class DoctorAppointmentView extends JFrame {
 			gbc_AppointmentType.gridy = 5;
 			Appointment1.add(AppointmentType, gbc_AppointmentType);
 			
-			// Button for canceling the appointment (no event handlers yet)
-			JButton CancelButton = new JButton("Cancel");
-			GridBagConstraints gbc_CancelButton = new GridBagConstraints();
-			gbc_CancelButton.insets = new Insets(0, 0, 0, 5);
-			gbc_CancelButton.gridx = 3;
-			gbc_CancelButton.gridy = 6;
-			Appointment1.add(CancelButton, gbc_CancelButton);
-			
 			// create another panel for another appointment
 			JPanel Appointment2 = new JPanel();
 			Appointment2.setBounds(123, 219, 347, 172);
@@ -318,6 +313,42 @@ public class DoctorAppointmentView extends JFrame {
 			gbl_Appointment2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			gbl_Appointment2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			Appointment2.setLayout(gbl_Appointment2);
+			
+			// Button for canceling the appointment (no event handlers yet)
+			JButton CancelButton = new JButton("Cancel");
+			CancelButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent e) {
+						if(appointmentIDs.size() == 1) {
+							//there is only one appointment on display
+							appointmentIDs.remove(0);
+							Appointment1.setVisible(false);
+							updateAppointments(appointmentIDs);
+						}
+						else if(appointmentIDs.size() == 2) {
+							//there are two appointments on display, and none others
+							viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, 1);
+							Appointment2.setVisible(false);
+							appointmentIDs.remove(0);
+							updateAppointments(appointmentIDs);
+						}
+						else {
+							//there more than three appointments
+							viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter);
+							viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter+1);
+							appointmentIDs.remove(counter-1);
+							updateAppointments(appointmentIDs);
+						}
+
+						
+						
+					}
+			});
+			GridBagConstraints gbc_CancelButton = new GridBagConstraints();
+			gbc_CancelButton.insets = new Insets(0, 0, 0, 5);
+			gbc_CancelButton.gridx = 3;
+			gbc_CancelButton.gridy = 6;
+			Appointment1.add(CancelButton, gbc_CancelButton);
 			
 			// Label showing where patient's name is on GUI
 			JLabel PatientNameLabel2 = new JLabel("Patient:");
@@ -418,11 +449,11 @@ public class DoctorAppointmentView extends JFrame {
 					//to check for a negative index.
 					//Currently: appointment by appointment.
 					Appointment2.setVisible(true);	//this is necessary when the last page is reached
-					viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter-2);
-					viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter-=1);
-					if(counter-1 == 0){
+					if(counter > 1){
 					//counter is the leftmost index in the doctor's list of appointments
-						PreviousButton.setVisible(false);	//assures this method will not produce an IndexOutOfBounds exception
+						//PreviousButton.setVisible(false);	//assures this method will not produce an IndexOutOfBounds exception
+						viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter-2);
+						viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter-=1);
 					}
 				}
 			});
@@ -441,15 +472,11 @@ public class DoctorAppointmentView extends JFrame {
 					if(counter < appointmentIDs.size() - 1){
 						//there is at least one more appointment to be shown
 						PreviousButton.setVisible(true);	//redundant if already enabled, I expect no harm out of that FIXME: possible bug if it toggles
-						viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter);
-						viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter+=1);
-						if(counter == appointmentIDs.size() - 1){
-						//counter is the last index in the doctor's list of appointments
-							NextButton.setVisible(false);	//assures this method will not produce an IndexOutOfBounds exception
-						}
-					} else{
-						System.out.println("NextButton was pressed when it should never be accessible");
+						//counter is not the last index in the doctor's list of appointments, show the next one in the list
+							viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter);
+							viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter+=1);
 					}
+					
 				}
 			});
 			NextButton.setBounds(472, 441, 89, 23);
@@ -479,7 +506,7 @@ public class DoctorAppointmentView extends JFrame {
 			}
 			else if(appointmentIDs.size() == 1){
 				//a single appointment has been booked
-				Appointment2.setVisible(false);;
+				Appointment2.setVisible(false);
 				NextButton.setVisible(false);
 				PreviousButton.setVisible(false);
 				
@@ -504,7 +531,23 @@ public class DoctorAppointmentView extends JFrame {
 
 
 
-/* This here is an artifact, leave it should changes need to be made
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* THis here is an artifact, leave it should changes need to be made
   	//reader to read accounts2.json
 	BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
 	//parser to parse the reader
@@ -532,4 +575,28 @@ public class DoctorAppointmentView extends JFrame {
 			flag = 1;
 		}
 	}
+	
+	
+	
+	public void mousePressed(MouseEvent e) {
+					//Event Handler for NextButton
+					//If NextButton is enabled, then when this line is reached there are two appointments in display, and there is at least one more appointment
+					//to be shown. TODO: decide whether or not we're moving forward appointment by appointment or page by page
+					//Currently: appointment by appointment.
+					if(counter < appointmentIDs.size() - 1){
+						//there is at least one more appointment to be shown
+						PreviousButton.setVisible(true);	//redundant if already enabled, I expect no harm out of that FIXME: possible bug if it toggles
+						viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter);
+						viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter+=1);
+						if(counter == appointmentIDs.size() - 1){
+						//counter is the last index in the doctor's list of appointments
+							NextButton.setVisible(false);	//assures this method will not produce an IndexOutOfBounds exception
+						}
+					} else{
+						System.out.println("NextButton was pressed when it should never be accessible");
+					}
+				}
+			});
+	
+	
  */
