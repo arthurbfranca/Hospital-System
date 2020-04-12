@@ -3,7 +3,8 @@
     {
       "appointments": [],
       "doctors": [
-        "bajwa"
+        "bajwa",
+	"boogie"
       ],
       "type": "Neurology",
       "nurses": []
@@ -11,7 +12,8 @@
     {
       "appointments": [],
       "doctors": [
-        "bajwa"
+        "bajwa",
+	"boogie"
       ],
       "type": "Cardiology",
       "nurses": []
@@ -19,7 +21,8 @@
     {
       "appointments": [],
       "doctors": [
-        "bajwa"
+        "bajwa",
+	"boogie"
       ],
       "type": "Nephrology",
       "nurses": []

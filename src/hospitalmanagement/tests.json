@@ -31,7 +31,7 @@
       "id": "04",
       "type": "MRI",
       "staffType": "Nurse"
-    }
+    },
     {
       "notes": "No cats were found :(",
       "patient": "sydney.kwok@ucalgary.ca",
@@ -47,6 +47,46 @@
       "id": "06",
       "type": "Blood Test",
       "staffType": "Nurse"
+    },
+    {
+      "notes": "Not pregnant, phew.",
+      "patient": "edpaslaw@ucalgary.ca",
+      "staffName": "bajwa@ucalgary.ca",
+      "id": "07",
+      "type": "Ultrasound",
+      "staffType": "doctor"
+    },
+    {
+      "notes": "Serious case of the bugs",
+      "patient": "sydney.kwok@ucalgary.ca",
+      "staffName": "bajwa@ucalgary.ca",
+      "id": "08",
+      "type": "Blood Test",
+      "staffType": "doctor"
+    },
+    {
+      "notes": "Blood was present in the body",
+      "patient": "gfrediani1@senate.gov",
+      "staffName": "nurse@ucalgary.ca",
+      "id": "09",
+      "type": "Blood Test",
+      "staffType": "nurse"
+    },
+    {
+      "notes": "meow",
+      "patient": "nbea2@imageshack.us",
+      "staffName": "nurse@ucalgary.ca",
+      "id": "10",
+      "type": "CAT Scan",
+      "staffType": "nurse"
+    },
+    {
+      "notes": "testing testing",
+      "patient": "sydney.kwok@ucalgary.ca",
+      "staffName": "bajwa@ucalgary.ca",
+      "id": "11",
+      "type": "Blood Test",
+      "staffType": "doctor"
     }
   ]
 }
