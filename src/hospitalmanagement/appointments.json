@@ -3,7 +3,7 @@
     {
       "number": "1",
       "patient_email": "edpaslaw@ucalgary.ca",
-      "doctor_email": "bajwa@ucalgary.ca",
+      "doctor_email": "boogie@",
       "department": "Cardiology",
       "time": "9:00",
       "prescriptions": [],
@@ -23,7 +23,7 @@
     {
       "number": "3",
       "patient_email": "gfrediani1@senate.gov",
-      "doctor_email": "bajwa@ucalgary.ca",
+      "doctor_email": "boogie@",
       "department": "Nephrology",
       "time": "11:00",
       "prescriptions": [],
@@ -43,7 +43,7 @@
     {
       "number": "5",
       "patient_email": "sydney.kwok@ucalgary.ca",
-      "doctor_email": "bajwa@ucalgary.ca",
+      "doctor_email": "boogie@",
       "department": "Neurology",
       "time": "13:00",
       "prescriptions": [],
