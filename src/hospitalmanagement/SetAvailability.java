@@ -306,7 +306,7 @@ public class SetAvailability extends JFrame {
 	//accountType: identifies which kind of account has accessed this panel. Corresponds to the position of the account type in accounts2.json
 	//This constructor creates the panel
 	public SetAvailability(String email, int accountType) {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 816, 564);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

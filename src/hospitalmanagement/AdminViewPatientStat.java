@@ -23,6 +23,7 @@ public class AdminViewPatientStat extends JFrame {
 	 * @param email The email of the admin. Used to uniquely identify the user so we can easily access their info.
 	 */
 	public AdminViewPatientStat(String email) {
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 653, 412);
 		contentPane = new JPanel();
