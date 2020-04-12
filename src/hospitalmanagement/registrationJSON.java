@@ -175,17 +175,29 @@ public class registrationJSON {
 	    	// get id from that person
 	    	int lastID = ((BigDecimal) mostRecentAccount.get("id")).intValue();
 	    	
+	    	// Create a new Json Object with the given new account parameters
+	    	JsonObject newAccount = new JsonObject();
+	    	
+	    	// get JsonObject of last user's schedule if doc or nurse
+	    	JsonObject schedule;
+	    	if(userType.equals("Doctor") || userType.equals("Nurse")) {
+				schedule = ((JsonObject) ((JsonObject) accountTypeArr.get(0)).get("schedule"));
+				newAccount.put("schedule", schedule);
+			}
+	    	
 	    	//close reader
 		    reader.close();
 	    	
-	    	// Create a new Json Object with the given new account parameters
-			JsonObject newAccount = new JsonObject();
+		    // add the key/value pairs to the new account
 			newAccount.put("id", lastID+1);	// id is incremented from most recent account's id
 			newAccount.put("first_name", first);
 			newAccount.put("last_name", last);
 			newAccount.put("email", email);
 			newAccount.put("gender", gender);
 			newAccount.put("password", pass);
+			
+			//doc and nurse schedule{} obj
+			
 			if(userType.equals("Doctor")) {
 				JsonArray appointments = new JsonArray();
 				newAccount.put("appointments", appointments);

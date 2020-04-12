@@ -96,6 +96,19 @@
     {
       "doctor": [
         {
+          "schedule": {},
+          "password": "dummyDoc",
+          "appointments": [],
+          "gender": "Male",
+          "patients": [],
+          "last_name": "Dummy",
+          "id": "1",
+          "first_name": "Dumb",
+          "email": "dumb@ucalgary.ca",
+          "username": "dumb"
+        },
+        {
+          "schedule": {},
           "password": "docPassword",
           "appointments": [
             {
@@ -115,12 +128,13 @@
             "5"
           ],
           "last_name": "Sohaib",
-          "id": "1",
+          "id": "2",
           "first_name": "Dr",
           "email": "bajwa@ucalgary.ca",
           "username": "bajwa"
         },
         {
+          "schedule": {},
           "password": "iamadoc",
           "appointments": [],
           "gender": "Male",
@@ -129,12 +143,13 @@
             "4"
           ],
           "last_name": "Martens",
-          "id": "2",
+          "id": "3",
           "first_name": "Doc",
           "email": "doc.martens@doctor.ca",
           "username": "doc.martens"
         },
         {
+          "schedule": {},
           "password": "iamdoc",
           "appointments": [],
           "gender": "Male",
@@ -142,7 +157,7 @@
             "5"
           ],
           "last_name": "Doc",
-          "id": "3",
+          "id": "4",
           "first_name": "Doctor",
           "email": "doc@doc.com",
           "username": "doc"
@@ -192,8 +207,11 @@
             }
           ],
           "gender": "Male",
+          "patients": [
+            "5"
+          ],
           "last_name": "doc",
-          "id": "4",
+          "id": "5",
           "first_name": "doc",
           "email": "boogie@",
           "username": "boogie"
@@ -203,10 +221,21 @@
     {
       "nurse": [
         {
+          "schedule": {},
+          "password": "dummyNurse",
+          "gender": "Male",
+          "last_name": "Dummy",
+          "id": "1",
+          "first_name": "Dummy",
+          "email": "dummy@ucalgary.ca",
+          "username": "dummy"
+        },
+        {
+          "schedule": {},
           "password": "nursePassword",
           "gender": "Female",
           "last_name": "Jacky",
-          "id": "1",
+          "id": "2",
           "first_name": "Nurse",
           "email": "nurse@ucalgary.ca",
           "username": "nurse"

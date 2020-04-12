@@ -407,35 +407,38 @@ public class SetAvailability extends JFrame {
 	 * @param time The String of the availability being set.
 	 * 				model: 10:20/14:30 or 10/12 (either is valid, only use colon if necessary)
 	 */
-	private void set(String email, int accountType, String[] days, String time) {
+	private void set(String email, int accountType, String[] days, String time) { // set(bajwa@ucalgary.ca, 1, day[] = "04/13", "12/18")
 		try {
 			// reader to read accounts2.json
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
 			// parser to parse the reader
 			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
-			// we look for the JsonArray within accounts2.json, for that is where the
-			// JsonObject of our account is
+			// get the JsonArray of accounts within accounts2.json, for that is where the JsonObject of our account is
 			JsonArray accounts = (JsonArray) parser.get("accounts");
-			JsonObject accountsObj = (JsonObject) accounts.get(accountType); // this is the object that has the list of
+			// get the Object that has the list of all accounts of the given type
+			//JsonObject accountsObj = (JsonObject) accounts.get(accountType); // this is the object that has the list of
 																				// all accounts of the given type
-			String type = findType(accountType);
-			JsonArray accountsArr = (JsonArray) accountsObj.get(type);
-			reader.close();
+			//String type = findType(accountType);
+			//JsonArray accountsArr = (JsonArray) accountsObj.get(type);
+			//reader.close();
+			JsonObject account = Account.getAccountJSONObj(findType(accountType), email);
 
-			JsonObject account = findAccount(accountsArr, email);
+			//JsonObject account = findAccount(accountsArr, email);
 			JsonObject schedule = (JsonObject) account.get("schedule");
 
+			reader.close();
+			
 			for (int i = 0; i < days.length; i++) {
 				schedule.put(days[i], time);
 			}
 
 			account.put("schedule", schedule); // update account's schedule
-			accountsArr.set(index, account); // add the updated account into array of accounts of its type
+			//accountsArr.set(index, account); // add the updated account into array of accounts of its type
 			// put this updated patient array as the patient object
-			accountsObj.put(type, accountsArr);
+			//accountsObj.put(type, accountsArr);
 			// put this updated patient object at index 0 of the accounts array
-			accounts.set(accountType, accountsObj);
+			//accounts.set(accountType, accountsObj);
 			// put the updated accounts array as the account entry in the JSON
 			parser.put("accounts", accounts);
 
@@ -447,6 +450,7 @@ public class SetAvailability extends JFrame {
 			writer.close();
 			System.out.println("Account's schedule is now: " + schedule);
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Something went wrong in set()");
 		}
 	}

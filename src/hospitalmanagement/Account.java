@@ -201,19 +201,19 @@ public class Account {
 			JsonArray accounts = (JsonArray) parser.get("accounts");
 			
 			Iterator i;
-			if (accountType.equals("Administrator")) {
+			if (accountType.equals("Administrator") || accountType.equals("administrator")) {
 		    	JsonObject administrators = (JsonObject) accounts.get(4);
 		    	JsonArray adminArr = (JsonArray) administrators.get("administrator");
 		    	i = adminArr.iterator();
-		    } else if (accountType.equals("Assistant")) {
+		    } else if (accountType.equals("Assistant") || accountType.equals("assistant")) {
 		    	JsonObject assistants = (JsonObject) accounts.get(3);
 		    	JsonArray assistantArr = (JsonArray) assistants.get("assistant");
 		    	i = assistantArr.iterator();
-		    } else if (accountType.equals("Doctor")) {
+		    } else if (accountType.equals("Doctor") || accountType.equals("doctor")) {
 		    	JsonObject doctors = (JsonObject) accounts.get(1);
 		    	JsonArray doctorArr = (JsonArray) doctors.get("doctor");
 		    	i = doctorArr.iterator();
-		    } else if (accountType.equals("Nurse")) {
+		    } else if (accountType.equals("Nurse") || accountType.equals("nurse")) {
 		    	JsonObject nurses = (JsonObject) accounts.get(2);
 		    	JsonArray nurseArr = (JsonArray) nurses.get("nurse");
 		    	i = nurseArr.iterator();
