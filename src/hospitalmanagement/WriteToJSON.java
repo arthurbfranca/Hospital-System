@@ -51,13 +51,13 @@ public class WriteToJSON {
 
 	/**
 	 * This method writes the new account (of a user who is a patient) to the JSON.
-	 * @param first: the user's first name
-	 * @param last: the user's last name
-	 * @param age: the user's age
-	 * @param email: the user's email
-	 * @param gender: the user's gender
-	 * @param user: the user's username
-	 * @param pass: the user's password
+	 * @param first the user's first name
+	 * @param last the user's last name
+	 * @param age the user's age
+	 * @param email the user's email
+	 * @param gender the user's gender
+	 * @param user the user's username
+	 * @param pass the user's password
 	 */
 	public static void writePatientAccountToJSON(String first, String last, int age, String email, String gender, String pass) {
 		try {
@@ -117,6 +117,25 @@ public class WriteToJSON {
 
 			// Close the writer
 			writer.close();
+			
+			// create reader
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/medical_records.json")));
+			
+			// create parser
+			parser = (JsonObject) Jsoner.deserialize(reader);
+			
+			// read medicalrecords array from json
+			JsonArray medicalRecords = (JsonArray) parser.get("medicalrecords");
+			
+			reader.close();
+			
+			writeNewPatientMedicalRecordList(id, medicalRecords);
+			
+			writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/medical_records.json"));
+			
+			Jsoner.serialize(parser, writer);
+			
+			writer.close();
 
 		} catch (Exception ex) {
 		    ex.printStackTrace();
@@ -126,12 +145,12 @@ public class WriteToJSON {
 	/**
 	 * This method writes the new account (of a user who is a staff member) to the JSON.
 	 * @param userType: the user's account type (doctor, nurse, etc.)
-	 * @param first: the user's first name
-	 * @param last: the user's last name
-	 * @param email: the user's email
-	 * @param gender: the user's gender
-	 * @param user: the user's username
-	 * @param pass: the user's password
+	 * @param first the user's first name
+	 * @param last the user's last name
+	 * @param email the user's email
+	 * @param gender the user's gender
+	 * @param user the user's username
+	 * @param pass the user's password
 	 */
 	public static void writeStaffAccountToJSON(String userType, String first, String last, String email, String gender, String pass) {
 		try {
@@ -287,8 +306,8 @@ public class WriteToJSON {
 	/**
 	 * This method writes the doctor to the assigned department in the JSON.
 	 * 
-	 * @param username:   the doctor's username
-	 * @param department: the department that is to be written to
+	 * @param username   the doctor's username
+	 * @param department the department that is to be written to
 	 * @author erinpaslawski
 	 * @return false if failed, true otherwise
 	 */
@@ -472,11 +491,11 @@ public class WriteToJSON {
 	/**
 	 * This method writes the test info to the assigned patient in the JSON.
 	 * 
-	 * @param staffType: either doctor or nurse in a String
-	 * @param staffEmail: the email of the staff member submitting the info
-	 * @param selectedPatientEmail: the email of the patient
-	 * @param typeOfTest: the type of test (MRI, X-Ray, etc.)
-	 * @param textToSubmit: the actual String of text to write
+	 * @param staffType either doctor or nurse in a String
+	 * @param staffEmail the email of the staff member submitting the info
+	 * @param selectedPatientEmail the email of the patient
+	 * @param typeOfTest the type of test (MRI, X-Ray, etc.)
+	 * @param textToSubmit the actual String of text to write
 	 * @author erinpaslawski
 	 * @return false if failed, true otherwise
 	 */
@@ -536,7 +555,7 @@ public class WriteToJSON {
 		
 	/**
 	 * This method removes the approved appointment from the req_appointments.json and writes it to the appointments.json file 
-	 * @param appointment: the appointment to be removed and write to  
+	 * @param appointment the appointment to be removed and write to  
 	 * @author shavonnetran
 	 */
 	public static void writeApprovedAppointment(String appointment) {
@@ -572,4 +591,69 @@ public class WriteToJSON {
 		    ex.printStackTrace();
 		}
 	}
+	
+	/**
+	 * This method edits the JsonArray of the medicalrecords in the medical_records.json
+	 * file. It adds the items needed to the medical records of the new patient registering.
+	 * The items were examples taken from the source:
+	 * {@link https://www.ahrq.gov/ncepcr/tools/pf-handbook/mod8-app-b-monica-latte.html} 
+	 * 
+	 * @param patientID the new patient's ID
+	 * @param records the JsonArray of medical records that contains all the records of all patients
+	 * @author ggdizon
+	 */
+	public static void writeNewPatientMedicalRecordList(String patientID, JsonArray records) {
+		// create new JSON object in which the records will be put in
+		JsonObject newRecord = new JsonObject();
+		
+		// add items to JsonObject
+		newRecord.put("patientIndex", patientID);
+		
+		JsonArray notesArr = new JsonArray();
+		newRecord.put("notes", notesArr);
+		
+		newRecord.put("maritalstatus", "NO VALUE");
+		newRecord.put("race", "NO VALUE");
+		newRecord.put("problems", "NO VALUE");
+		
+		JsonArray medsArr = new JsonArray();
+		newRecord.put("medications", medsArr);
+		
+		JsonArray allergiesArr = new JsonArray();
+		newRecord.put("allergies", allergiesArr);
+		
+		// array for things involving a physical of a patient
+		JsonArray physicalArr = new JsonArray();
+		// add items into JsonObject
+		JsonObject physicalItems = new JsonObject();
+		physicalItems.put("temp", "NO VALUE");
+		physicalItems.put("pulse", "NO VALUE");
+		physicalItems.put("rhythm", "NO VALUE");
+		physicalItems.put("bp", "NO VALUE");
+		physicalItems.put("height", "NO VALUE");
+		physicalItems.put("weight", "NO VALUE");
+		physicalItems.put("appearance", "NO VALUE");
+		physicalItems.put("eyes", "NO VALUE");
+		physicalItems.put("ENMT", "NO VALUE");
+		physicalItems.put("respiratory", "NO VALUE");
+		physicalItems.put("cardiovascular", "NO VALUE");
+		physicalItems.put("skin", "NO VALUE");
+		physicalItems.put("problems", "NO VALUE");
+		physicalItems.put("impression", "NO VALUE");
+		physicalItems.put("lastupdated", "NO VALUE");
+		physicalItems.put("updatedby", "NO VALUE");
+		physicalArr.add(physicalItems);	
+
+		newRecord.put("physical", physicalArr);
+		
+		
+		newRecord.put("plan", "NO VALUE");
+
+		newRecord.put("testorders", "NO VALUE");
+		
+		newRecord.put("location", "Totally-Legit-And-Not-Imaginary Hospital");
+		
+		records.add(newRecord);
+	}
+	
 }
