@@ -43,7 +43,7 @@ public class AssistantApproveAppointment extends JFrame {
 	 */
 	public AssistantApproveAppointment(String email) {
 		//Set frame properties
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 815, 514);
 		
 		//Create the panel for the frame
