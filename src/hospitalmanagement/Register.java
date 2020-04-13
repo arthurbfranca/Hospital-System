@@ -225,10 +225,10 @@ public class Register extends JFrame {
 					}
 					
 					if (registrationSuccess) {
-					// show the welcome view
-					NewAccountWelcome welcome = new NewAccountWelcome(contentPane, email);
-					welcome.setVisible(true);
-					dispose();
+						// show the welcome view
+						NewAccountWelcome welcome = new NewAccountWelcome(contentPane, email);
+						welcome.setVisible(true);
+						dispose();
 					}
 				}
 			}

@@ -133,6 +133,7 @@ public class registrationJSON {
 	 */
 	public static void writeStaffAccountToJSON(String userType, String first, String last, String email, String gender, String pass) {
 		try {
+			System.out.println("start");
 		    // create reader
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
 
@@ -179,14 +180,16 @@ public class registrationJSON {
 	    	JsonObject newAccount = new JsonObject();
 	    	
 	    	// get JsonObject of last user's schedule if doc or nurse
-	    	JsonObject schedule;
 	    	if(userType.equals("Doctor") || userType.equals("Nurse")) {
-				schedule = ((JsonObject) ((JsonObject) accountTypeArr.get(0)).get("schedule"));
+				//schedule = ((JsonObject) ((JsonObject) accountTypeArr.get(0)).get("schedule"));
+	    		JsonObject schedule = (JsonObject) ((JsonObject) accountTypeArr.get(0)).get("schedule");
+	    		System.out.println(schedule);
 				newAccount.put("schedule", schedule);
 			}
 	    	
 	    	//close reader
 		    reader.close();
+		    System.out.println("Closed reader");
 	    	
 		    // add the key/value pairs to the new account
 			newAccount.put("id", lastID+1);	// id is incremented from most recent account's id
@@ -282,6 +285,7 @@ public class registrationJSON {
 		    
 		    //close reader
 		    reader.close();
+		    System.out.println("end");
 
 		} catch (Exception ex) {
 		    ex.printStackTrace();

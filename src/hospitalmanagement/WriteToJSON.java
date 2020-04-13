@@ -210,12 +210,19 @@ public class WriteToJSON {
 			newAccount.put("gender", gender);
 			newAccount.put("password", pass);
 			newAccount.put("schedule","");
+			
 			if(userType.equals("Doctor")) {
 				JsonArray appointments = new JsonArray();
 				newAccount.put("appointments", appointments);
 				
 				JsonArray patients = new JsonArray();
 				newAccount.put("patients", patients);
+			}
+			
+			// get JsonObject of last user's schedule if doc or nurse
+	    	if(userType.equals("Doctor") || userType.equals("Nurse")) {
+	    		JsonObject schedule = new JsonObject();
+				newAccount.put("schedule", schedule);
 			}
 			
 			// append new patient to patient list
