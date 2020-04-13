@@ -5,8 +5,7 @@
       "patient_email": "edpaslaw@ucalgary.ca",
       "doctor_email": "boogie@",
       "department": "Cardiology",
-      "time": "9:00",
-      "prescriptions": [],
+      "time": "09/10",
       "year": "2020",
       "date": "04/22"
     },
@@ -15,8 +14,7 @@
       "patient_email": "edpaslaw@ucalgary.ca",
       "doctor_email": "bajwa@ucalgary.ca",
       "department": "Neurology",
-      "time": "10:00",
-      "prescriptions": [],
+      "time": "10/11",
       "year": "2020",
       "date": "04/22"
     },
@@ -25,8 +23,7 @@
       "patient_email": "gfrediani1@senate.gov",
       "doctor_email": "boogie@",
       "department": "Nephrology",
-      "time": "11:00",
-      "prescriptions": [],
+      "time": "11/12",
       "year": "2020",
       "date": "04/22"
     },
@@ -35,8 +32,7 @@
       "patient_email": "gfrediani1@senate.gov",
       "doctor_email": "bajwa@ucalgary.ca",
       "department": "Cardiology",
-      "time": "12:00",
-      "prescriptions": [],
+      "time": "12/13",
       "year": "2020",
       "date": "04/22"
     },
@@ -45,8 +41,7 @@
       "patient_email": "sydney.kwok@ucalgary.ca",
       "doctor_email": "boogie@",
       "department": "Neurology",
-      "time": "13:00",
-      "prescriptions": [],
+      "time": "13/14",
       "year": "2020",
       "date": "04/22"
     },
@@ -55,8 +50,7 @@
       "patient_email": "sydney.kwok@ucalgary.ca",
       "doctor_email": "bajwa@ucalgary.ca",
       "department": "Cardiology",
-      "time": "14:00",
-      "prescriptions": [],
+      "time": "14/15",
       "year": "2020",
       "date": "04/22"
     }

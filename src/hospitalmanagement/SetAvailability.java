@@ -1,47 +1,42 @@
 package hospitalmanagement;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-//libraries necessary to work with out JSON:
+//libraries necessary to work with our JSON:
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-import java.util.Iterator;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.Iterator;
-import java.awt.GridBagLayout;
 import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
-import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-//Author: Arthur
-//This class is shared by all users. It is used to set their own availability.
-//The availability is set by date, where the user has the ability to set it in chunks. That is, he might say my availability is 10-14 on 04/01, as well as
-//the upcoming 5 days. When the operation is carried out, 04/01 - 04/06 will have their availability set as 10-14.
-//This availability is stored in appointments2.json
+
+/**
+ * This class is used by doctors and nurses to set their own availability.
+ * Availabilities are set by date, where the user has the ability to set it in
+ * chunks. That is, he might say my availability is 10 am to 2 pm on 04/01, as well as
+ * the upcoming 5 days. When the operation is carried out, the days 04/01 to
+ * 04/06 will have their availability set as 10-14. This availability is stored
+ * in accounts2.json as the user's "schedule" object.
+ * 
+ * @author Arthur
+ *
+ */
 public class SetAvailability extends JFrame {
-	
-	//variable used to determine what is the index of the user's account in their json object within accounts2.json.
-	//this is declared here, so that it can be "returned" in a method that already returns the account's object (findAccount())
-	private int index = -1;
+
+	// TODO: add a checking mechanism to see if a schedule was already set for a day
 
 	private JPanel contentPane;
 	private JTextField dateField;
@@ -49,243 +44,349 @@ public class SetAvailability extends JFrame {
 	private JTextField finishField;
 	private JCheckBox consecutiveCheckbox;
 	private JTextField dayCount;
-	//TODO: add a checking mechanism to see if a schedule was already set for a day
-	
-	 /* Launch the application.
-	 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SetAvailability frame = new SetAvailability();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+
+	/**
+	 * This constructor creates the panel.
+	 * 
+	 * @param email       the login that identifies the user
+	 * @param accountType identifies which kind of account has accessed this panel.
+	 *                    the integer is the index of the account type object in the
+	 *                    "accounts" array of accounts2.json.
+	 */
+	public SetAvailability(String email, int accountType) {
+
+		// set the frame properties
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 816, 564);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		// add the panel's main label
+		JLabel mainLabel = new JLabel("Set Availability");
+		mainLabel.setBounds(329, 86, 114, 22);
+		mainLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		contentPane.add(mainLabel);
+
+		// add label to help user enter hours in correct form
+		JLabel lblPleaseEnterStarting = new JLabel(
+				"Please enter starting and finishing hour as hours from 0 to 24 (e.g. start: 9, finish: 15)");
+		lblPleaseEnterStarting.setBounds(164, 135, 495, 16);
+		contentPane.add(lblPleaseEnterStarting);
+
+		// label for date
+		JLabel dateLabel = new JLabel("Date (MM/DD):");
+		dateLabel.setBounds(90, 194, 86, 16);
+		contentPane.add(dateLabel);
+
+		// textfield for date entry
+		dateField = new JTextField();
+		dateField.setBounds(280, 191, 397, 22);
+		contentPane.add(dateField);
+		dateField.setColumns(10);
+
+		// label for starting hours
+		JLabel startLabel = new JLabel("Starting Hour:");
+		startLabel.setBounds(90, 229, 81, 16);
+		contentPane.add(startLabel);
+
+		// textfield for starting hour entry
+		startField = new JTextField();
+		startField.setBounds(280, 226, 397, 22);
+		startField.setColumns(10);
+		contentPane.add(startField);
+
+		// label for finishing hours
+		JLabel finishLabel = new JLabel("Finishing Hour:");
+		finishLabel.setBounds(90, 264, 86, 16);
+		contentPane.add(finishLabel);
+
+		// textfield for finishing hour entry
+		finishField = new JTextField();
+		finishField.setBounds(280, 261, 397, 22);
+		finishField.setColumns(10);
+		contentPane.add(finishField);
+
+		// label for asking user how many consecutive days they would like to set
+		// the given availability for
+		JLabel moreDaysLabel = new JLabel("How many more days:");
+		moreDaysLabel.setBounds(90, 329, 129, 16);
+		contentPane.add(moreDaysLabel);
+		moreDaysLabel.setVisible(false);
+
+		// give the user the option to set this availability for consecutive days
+		consecutiveCheckbox = new JCheckBox("Set schedule for following days");
+		consecutiveCheckbox.setBounds(360, 292, 207, 25);
+		consecutiveCheckbox.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (consecutiveCheckbox.isSelected()) {
+					moreDaysLabel.setVisible(true);
+					dayCount.setVisible(true);
+				} else {
+					moreDaysLabel.setVisible(false);
+					dayCount.setVisible(false);
 				}
 			}
 		});
-	}
-	*/
+		contentPane.add(consecutiveCheckbox);
 
-	/**
-	 * Create the frame.
-	 */
-	
-	//Helper method for findAccount(), it returns the type of an account given an integer that corresponds to the index of the accountType in the array
-	//within accounts2.json. This method was written for the sake of readability
-	private String findType(int i) {
-		if(i == 0) {
-			return "patient";
-		}
-		else if(i == 1) {
-			return "doctor";
-		}
-		else if(i == 2) {
-			return "nurse";
-		}
-		else if(i == 3) {
-			return "assistant";
-		}
-		else if(i == 4) {
-			return "administrator";
-		}
-		else {
-			//notify the tester a bad request was made
-			System.out.println("invalid index, could there's no such index in accounts2.json. Index was: " + i);
-			return null;
-		}
-	}
-	
-	//takes in the index that corresponds to the account type's position in accounts2.json and returns the array with the list of all accounts of
-		//said type.
-	/*
-		private JsonArray findArrayOfAccounts(int accountType) {
-			try {
-				//reader to read accounts2.json
-				BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
-				//parser to parse the reader
-				JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
-			   //we look for the JsonArray within accounts2.json, for that is where the JsonObject of our account is
-				JsonArray accounts = (JsonArray) parser.get("accounts");
-				JsonObject accountsObj = (JsonObject) accounts.get(accountType);	//this is the object that has the list of all accounts of the given type
-				String type = findType(accountType);
-				JsonArray accountsArr = (JsonArray) accountsObj.get(type);
-				reader.close();
-				return accountsArr;
-			}catch(Exception e) {
-				System.out.println("Something went wront in findArrayOfAccounts()");
-				return null;
-			}
-		} */
-	
-	//This method sorts through a given array of jsonobjects corresponding to accounts and finds the one with the given email, if it cannot
-	//it returns a null and notifies the tester in the console
-	private JsonObject findAccount(JsonArray accountsArr, String email) {
-			Iterator i;
-			//Now we find the JsonObject for the doctor in particular we are dealing with, whom is identified by the passed email
-			i = accountsArr.iterator(); 
-			int flag = 0; //flag used to stop the iteration when we've found the correct object
-			JsonObject goal = null;
-			//go through all doctors to find the one we're dealing with. A constant time search could be implemented, but that would conflict with the 
-			//json format we are going with, which simplifies the syntax. This is a tradeoff in terms of writing code more easily, but we have lesser efficiency
-			//had we more time to troubleshoot, we'd opt for the optimal setup.
-			//FIXME: this may or not be skipping the first item in the list
-			while(i.hasNext() && flag == 0) {
-				index += 1;
-				goal = (JsonObject) i.next();
-				String currentEmail = (String) goal.get("email");
-				if(currentEmail.equals(email)) {
-					flag = 1;
+		// text field for user to enter how many days
+		dayCount = new JTextField();
+		dayCount.setBounds(280, 326, 397, 22);
+		dayCount.setColumns(10);
+		contentPane.add(dayCount);
+		dayCount.setVisible(false);
+
+		// button for user to confirm their actions
+		JButton confirmButton = new JButton("Confirm");
+		confirmButton.setBounds(280, 387, 86, 25);
+		confirmButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+
+				String date = dateField.getText(); // the date the user wants to set their availability for
+				String start = startField.getText(); // the start hour of their availability
+				String finish = finishField.getText(); // the end hour of their availabilty
+
+				// check that all fields were filled in (although not necessarily correctly/no error checking yet)
+				if (date.length() > 0 && start.length() > 0 && finish.length() > 0) {
+
+					// if consecutive days checkbox was not checked (only setting availability for one day)
+					if (!consecutiveCheckbox.isSelected()) {
+
+						// create a single element string array containing the given date
+						String[] day = new String[] { date };
+						// set the availability for this date
+						set(email, accountType, day, start + "/" + finish);
+						// dispose();
+
+					} else { // else if more than one day is being set
+
+						// split the date so that halves[0] = MM and halves[1] = DD
+						String[] halves = date.split("/");
+						int month = Integer.parseInt(halves[0]); 		// get int of the month of the given date
+						int day = Integer.parseInt(halves[1]); 			// get int of the day of the given date
+						int q = Integer.parseInt(dayCount.getText()); 	// get int of how many more days to set availability
+						// get an array of all the dates that need to have their availability set
+						String[] days = getDays(month, day, q);
+						// set the availability for these days
+						set(email, accountType, days, start + "/" + finish);
+						// dispose();
+					}
+				} else { // if not all fields were filled in, send the user a message
+					Login lframe = new Login();
+					JOptionPane.showMessageDialog(lframe, "Please fill in all fields.");
+					// return;
 				}
 			}
-			if(goal!=null) {
-				return goal;
-			}
-			System.out.println("Account returned is null, findAccount() could not find it"); //notify the tester
-			return null;
-	}
-	
+		});
+		contentPane.add(confirmButton);
 
-	//takes in a number, and returns the month that it is equivalent to it. Helper method for getDays() and dayExists()
+		// if user presses cancel button, close the set availability window
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				dispose();
+			}
+		});
+		cancelButton.setBounds(417, 387, 86, 25);
+		contentPane.add(cancelButton);
+	}
+
+	/**
+	 * Helper method. It returns the String form of the account
+	 * type given as an integer that corresponds to the index of the accountType in
+	 * the array within accounts2.json. This method was written for the sake of
+	 * readability.
+	 * 
+	 * @param i the integer index of the account type in the accounts array of the
+	 *          accounts2 json
+	 * @return the String of the account type
+	 */
+	private String findType(int i) {
+		if (i == 0) {
+			return "patient";
+		} else if (i == 1) {
+			return "doctor";
+		} else if (i == 2) {
+			return "nurse";
+		} else if (i == 3) {
+			return "assistant";
+		} else if (i == 4) {
+			return "administrator";
+		} else {
+			// notify the tester a bad request was made
+			System.out.println("Invalid index. There's no such index in accounts2.json. Index was: " + i);
+			return null;
+		}
+	}
+
+	/**
+	 * Helper method for getDays() and dayExists().
+	 * Takes in a number, and returns the month that it is equivalent to it.
+	 * @param i The integer representation of the month
+	 * @return the String representation of the month
+	 */
 	private String getMonthString(int i) {
-		if(i == 1) {
+		if (i == 1) {
 			return "january";
-		}
-		else if(i == 2) {
+		} else if (i == 2) {
 			return "february";
-		}
-		else if(i == 3) {
+		} else if (i == 3) {
 			return "march";
-		}
-		else if(i == 4) {
+		} else if (i == 4) {
 			return "april";
-		}
-		else if(i == 5) {
+		} else if (i == 5) {
 			return "may";
-		}
-		else if(i == 6) {
+		} else if (i == 6) {
 			return "june";
-		}
-		else if(i == 7) {
+		} else if (i == 7) {
 			return "july";
-		}
-		else if(i == 8) {
+		} else if (i == 8) {
 			return "august";
-		}
-		else if(i == 9) {
+		} else if (i == 9) {
 			return "september";
-		}
-		else if(i == 10) {
+		} else if (i == 10) {
 			return "october";
-		}
-		else if(i == 11) {
+		} else if (i == 11) {
 			return "november";
-		}
-		else if(i == 12) {
+		} else if (i == 12) {
 			return "december";
-		}
-		else{
+		} else {
 			System.out.println(i + " is not a month");
 			return null;
 		}
 	}
-	
-	//This method is used by getDays() 
-	//To check whether a month has passed in the range from starting to starting + q, it will refer to dates.json to see the number
-	//of days the month has.
-	//TODO: make it so 2020 is corresponding to the current year.
+
+	/** TODO: make it so 2020 is corresponding to the current year. ****
+	 * This method is used by getDays().
+	 * Checks whether a month has passed in the range from starting to starting + q.
+	 * It refers to the dates.json to see the number of days the month has.
+	 * @param day The integer representation of the day that may roll over to the next month.
+	 * @param month The integer representation of the ("current") month
+	 * @return
+	 */
 	private Boolean dayExists(int day, int month) {
 		try {
-			//reader to read dates.json
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/dates.json")));
-			//parser to parse the reader
+			// reader to read dates.json
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/dates.json")));
+			// parser to parse the reader
 			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
-			//get the object with latest day of each month for the current year
+			
+			// get the object with latest day of each month for the current year
 			JsonObject year = (JsonObject) parser.get("2020");
+			// get the String representation of the given month
 			String ms = getMonthString(month);
+			// get the number of days in that month
 			String monthSizeString = (String) year.get(ms);
+			// get the integer value of the number of days in the month
 			int max = Integer.parseInt(monthSizeString);
-			if(day >  max) {
+			// if the passed day is greater than the number of days in that month
+			if (day > max) {
 				return false;
 			}
+			// else if the day falls within the month
 			return true;
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("Something went wrong, presumably dates.json couldn't be opened");
 			return null;
 		}
 	}
-	
-	
-	//this method takes in the information regarding a specific day of the year, and returns a string array containing the date of this day, as well as the
-	//next q days after that.
-	//d: the day of the starting day
-	//m: the month of the starting day, in numbers.
-	private String[] getDays(int m, int d, int q) {
-		String[] arr = new String[q+1];
-		int day = d;
-		int month = m;
-		for(int i = 0; i <= q; i++) {
-			//i should be 0 if no extra days are to be set, keep this in mind when looking at range.
-			//for the entire range of days, not including the first, which has already been added to the array, add their numerical date to the string array
-			//to be returned in the model mm/dd
-			if(!dayExists(day, month)) {
-				//we have crossed the latest day of the given month
-				//move to the first day of the next month
+
+	/**
+	 * This method takes in the information regarding a specific day of the year,
+	 * and returns a string array containing the date of this day, as well as the
+	 * next q days after that.
+	 * @param month The month of the starting day, in numbers.
+	 * @param day The day of the starting day, in numbers.
+	 * @param q The number of additional days.
+	 * @return a String array of all the days to be added in mm/dd form
+	 */
+	private String[] getDays(int month, int day, int q) {
+		// create the array for the set of days (1 + q more days)
+		String[] arr = new String[q + 1];
+		
+		// i should be 0 if no extra days are to be set, keep this in mind when looking at range.
+		// for the entire range of days, not including the first, which has already been
+		// added to the array, add their numerical date to the string array
+		// to be returned in the form mm/dd
+		for (int i = 0; i <= q; i++) {
+			
+			if (!dayExists(day, month)) {
+				// we have crossed the latest day of the given month
+				// move to the first day of the next month
 				month += 1;
 				day = 1;
 			}
 			String s = "";
-			if(month < 10) {
-				//if month has a single digit, add a 0 prefix
-				//FIXME
+			if (month < 10) {
+				// if month has a single digit, add a 0 prefix
+				// FIXME
 				s += "0";
 			}
 			s += month + "/";
-			if(day < 10) {
-				//if day has a single digit, add a 0 prefix
+			if (day < 10) {
+				// if day has a single digit, add a 0 prefix
 				s += "0";
 			}
 			s += day;
-			System.out.println("finally s is: " + s);
+			//System.out.println("finally s is: " + s);
 			arr[i] = s;
 			day += 1;
 		}
 		return arr;
 	}
-	
-	
-	//This method was written for the sake of readability, it is called in the event handler of confirmButton, and it performs the functionality of this
-	//class, that is, set an availability.
-	//days: string with the numeric representation of dates whose schedule will be set
-	//time: string that represents the time of schedule. model: 10:20/14:30 or 10/12 (either is valid, only use colon if necessary)
+
+	/**
+	 * This method was written for the sake of readability. It is called in the event handler
+	 * of confirmButton, and it performs the functionality of this class, that is, set an availability.
+	 * @param email The email of this user.
+	 * @param accountType The account type of this user (in array integer index form)
+	 * @param days The string array of days (in mm/dd format) whose schedule will be set
+	 * @param time The String of the availability being set.
+	 * 				model: 10:20/14:30 or 10/12 (either is valid, only use colon if necessary)
+	 */
 	private void set(String email, int accountType, String[] days, String time) {
 		try {
-			//reader to read accounts2.json
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
-			//parser to parse the reader
+			// reader to read accounts2.json
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+			// parser to parse the reader
 			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
-		   //we look for the JsonArray within accounts2.json, for that is where the JsonObject of our account is
+			// get the JsonArray of accounts within accounts2.json, for that is where the JsonObject of our account is
 			JsonArray accounts = (JsonArray) parser.get("accounts");
-			JsonObject accountsObj = (JsonObject) accounts.get(accountType);	//this is the object that has the list of all accounts of the given type
-			String type = findType(accountType);
-			JsonArray accountsArr = (JsonArray) accountsObj.get(type);
+			// get the JsonObject of this user's accountType
+			JsonObject userType = (JsonObject) accounts.get(accountType);
+			// get the JsonArray of this account type
+			JsonArray accountTypeArr = Account.getAccountJSONObj(findType(accountType));
+			//close the reader
 			reader.close();
 			
-			JsonObject account = findAccount(accountsArr,email);
+			// get the JsonObject of this particular account
+			JsonObject account = Account.getAccountJSONObj(findType(accountType), email);
+			// get the schedule object of this user
 			JsonObject schedule = (JsonObject) account.get("schedule");
-
-			for(int i = 0; i < days.length; i++) {
-				schedule.put(days[i],time);
+			// get the array index of the account in it's accountTypeArr
+			int arrIndex = accountTypeArr.indexOf(account);
+			
+			// add all of the day/time pairs to the schedule object
+			for (int i = 0; i < days.length; i++) {
+				schedule.put(days[i], time);
 			}
 
-			account.put("schedule",schedule);	//update account's schedule
-			accountsArr.set(index,account);			//add the updated account into array of accounts of its type
-			//put this updated patient array as the patient object
-			accountsObj.put(type, accountsArr);
-			//put this updated patient object at index 0 of the accounts array
-			accounts.set(accountType, accountsObj);
-			//put the updated accounts array as the account entry in the JSON
+			// put the updated schedule back into the account
+			account.put("schedule", schedule);
+			// put the account back into it's usertype array
+			accountTypeArr.set(arrIndex, account);
+			// put this updated account type array as the account type obj
+			userType.put(findType(accountType), accountTypeArr);
+			// put this updated account type obj at the correct index of the accounts array
+			accounts.set(accountType, userType);
+			// put the updated accounts array as the account entry in the JSON
 			parser.put("accounts", accounts);
 			
 			// Create a writer
@@ -295,215 +396,55 @@ public class SetAvailability extends JFrame {
 			// Close the writer
 			writer.close();
 			System.out.println("Account's schedule is now: " + schedule);
-		}catch(Exception e) {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Something went wrong in set()");
-		}		
-	}
-	
-	
-	
-	//email: the login that identifies the user
-	//accountType: identifies which kind of account has accessed this panel. Corresponds to the position of the account type in accounts2.json
-	//This constructor creates the panel
-	public SetAvailability(String email, int accountType) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 816, 564);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{215, 107, 35, 177, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{65, 22, 65, 20, 20, 20, 23, 20, 23, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
-		
-		JLabel mainLabel = new JLabel("Set Availability");
-		mainLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		GridBagConstraints gbc_mainLabel = new GridBagConstraints();
-		gbc_mainLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_mainLabel.gridx = 3;
-		gbc_mainLabel.gridy = 1;
-		contentPane.add(mainLabel, gbc_mainLabel);
-		
-		JLabel dateLabel = new JLabel("Date (MM/DD):");
-		GridBagConstraints gbc_dateLabel = new GridBagConstraints();
-		gbc_dateLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_dateLabel.gridx = 1;
-		gbc_dateLabel.gridy = 3;
-		contentPane.add(dateLabel, gbc_dateLabel);
-		
-		dateField = new JTextField();
-		GridBagConstraints gbc_dateField = new GridBagConstraints();
-		gbc_dateField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_dateField.insets = new Insets(0, 0, 5, 5);
-		gbc_dateField.gridx = 3;
-		gbc_dateField.gridy = 3;
-		contentPane.add(dateField, gbc_dateField);
-		dateField.setColumns(10);
-		
-		JLabel startLabel = new JLabel("Starting Hour:");
-		GridBagConstraints gbc_startLabel = new GridBagConstraints();
-		gbc_startLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_startLabel.gridx = 1;
-		gbc_startLabel.gridy = 4;
-		contentPane.add(startLabel, gbc_startLabel);
-		
-		startField = new JTextField();
-		startField.setColumns(10);
-		GridBagConstraints gbc_startField = new GridBagConstraints();
-		gbc_startField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_startField.insets = new Insets(0, 0, 5, 5);
-		gbc_startField.gridx = 3;
-		gbc_startField.gridy = 4;
-		contentPane.add(startField, gbc_startField);
-		
-		JLabel finishLabel = new JLabel("Finishing Hour:");
-		GridBagConstraints gbc_finishLabel = new GridBagConstraints();
-		gbc_finishLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_finishLabel.gridx = 1;
-		gbc_finishLabel.gridy = 5;
-		contentPane.add(finishLabel, gbc_finishLabel);
-		
-		finishField = new JTextField();
-		finishField.setColumns(10);
-		GridBagConstraints gbc_finishField = new GridBagConstraints();
-		gbc_finishField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_finishField.insets = new Insets(0, 0, 5, 5);
-		gbc_finishField.gridx = 3;
-		gbc_finishField.gridy = 5;
-		contentPane.add(finishField, gbc_finishField);
-	
-		
-		JLabel moreDaysLabel = new JLabel("How many more days:");
-		GridBagConstraints gbc_moreDaysLabel = new GridBagConstraints();
-		gbc_moreDaysLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_moreDaysLabel.gridx = 1;
-		gbc_moreDaysLabel.gridy = 7;
-		contentPane.add(moreDaysLabel, gbc_moreDaysLabel);
-		moreDaysLabel.setVisible(false);
-		
-		dayCount = new JTextField();
-		dayCount.setColumns(10);
-		GridBagConstraints gbc_dayCount = new GridBagConstraints();
-		gbc_dayCount.fill = GridBagConstraints.HORIZONTAL;
-		gbc_dayCount.insets = new Insets(0, 0, 5, 5);
-		gbc_dayCount.gridx = 3;
-		gbc_dayCount.gridy = 7;
-		contentPane.add(dayCount, gbc_dayCount);
-		dayCount.setVisible(false);
-		
-		consecutiveCheckbox = new JCheckBox("Set schedule for following days");
-		consecutiveCheckbox.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(consecutiveCheckbox.isSelected()) {
-					moreDaysLabel.setVisible(true);
-					dayCount.setVisible(true);
-				}
-				else {
-					moreDaysLabel.setVisible(false);
-					dayCount.setVisible(false);
-				}
-			}
-		});
-		GridBagConstraints gbc_consecutiveCheckbox = new GridBagConstraints();
-		gbc_consecutiveCheckbox.insets = new Insets(0, 0, 5, 5);
-		gbc_consecutiveCheckbox.gridx = 3;
-		gbc_consecutiveCheckbox.gridy = 6;
-		contentPane.add(consecutiveCheckbox, gbc_consecutiveCheckbox);
-						
-								
-		//Pardon the strange identation here, that was a windowsBuilder prank
-							JButton confirmButton = new JButton("Confirm");
-								confirmButton.addMouseListener(new MouseAdapter() {
-									@Override
-									public void mousePressed(MouseEvent e) {
-										String date = dateField.getText();
-										String start = startField.getText();
-										String finish = finishField.getText();
-										if(date.length() > 0 && start.length() > 0 && finish.length() > 0) {
-											//if all information was inputted, although not necessarily correctly
-											if(!consecutiveCheckbox.isSelected()) {
-												//if only a single day is to be set, set the availability to the given
-												String[] day = new String[] {date};
-												set(email, accountType, day, start + "/" + finish);
-												dispose();
-											}else {
-											//if more than one days is to be set get the days to be set and add to the json
-												String[] halves = date.split("/");
-												int month = Integer.parseInt(halves[0]);
-												int day = Integer.parseInt(halves[1]);	
-												int q = Integer.parseInt(dayCount.getText());
-												String[] days = getDays(month, day, q);
-												set(email, accountType, days, start + "/" + finish);
-												dispose();
-											}
-										} else {
-											System.out.println("missing strings");
-										}
-									}
-								});
-								GridBagConstraints gbc_confirmButton = new GridBagConstraints();
-								gbc_confirmButton.insets = new Insets(0, 0, 5, 5);
-								gbc_confirmButton.gridx = 3;
-								gbc_confirmButton.gridy = 8;
-								contentPane.add(confirmButton, gbc_confirmButton);
-						
-						JButton cancelButton = new JButton("Cancel");
-						cancelButton.addMouseListener(new MouseAdapter() {
-							@Override
-							public void mousePressed(MouseEvent e) {
-								dispose();
-							}
-						});
-						GridBagConstraints gbc_cancelButton = new GridBagConstraints();
-						gbc_cancelButton.insets = new Insets(0, 0, 0, 5);
-						gbc_cancelButton.gridx = 3;
-						gbc_cancelButton.gridy = 9;
-						contentPane.add(cancelButton, gbc_cancelButton);
+		}
 	}
 
-}
+} // end of class
+
+// Below is just old code we want to keep just in case?
+
+//takes in the index that corresponds to the account type's position in
+// accounts2.json and returns the array with the list of all accounts of
+// said type.
+/*
+ * private JsonArray findArrayOfAccounts(int accountType) { try { //reader to
+ * read accounts2.json BufferedReader reader = new BufferedReader(new
+ * InputStreamReader(new
+ * FileInputStream("src/hospitalmanagement/accounts2.json"))); //parser to parse
+ * the reader JsonObject parser = (JsonObject) Jsoner.deserialize(reader); //we
+ * look for the JsonArray within accounts2.json, for that is where the
+ * JsonObject of our account is JsonArray accounts = (JsonArray)
+ * parser.get("accounts"); JsonObject accountsObj = (JsonObject)
+ * accounts.get(accountType); //this is the object that has the list of all
+ * accounts of the given type String type = findType(accountType); JsonArray
+ * accountsArr = (JsonArray) accountsObj.get(type); reader.close(); return
+ * accountsArr; }catch(Exception e) {
+ * System.out.println("Something went wront in findArrayOfAccounts()"); return
+ * null; } }
+ */
 
 /*
-
-
-private String[] getDays(int m, int d, int q) {
-	String[] arr = new String[q+1];
-	arr[0] = String.valueOf(d) + "/" + m;
-	
-	int day = d;
-	int month = m;
-	for(int i = 1; i <= q; i++) {
-		//i should be 0 if no extra days are to be set, keep this in mind when looking at range.
-		//for the entire range of days, not including the first, which has already been added to the array, add their numerical date to the string array
-		//to be returned in the model mm/dd
-		day += 1;
-		
-		System.out.println(dayExists(day,month));
-		if(!dayExists(day, month)) {
-			//we have crossed the latest day of the given month
-			//move to the first day of the next month
-			month += 1;
-			day = 1;
-		}
-		String s = "";
-		if(month < 10) {
-			//if month has a single digit, add a 0 prefix
-			//FIXME
-			s += "0";
-		}
-		s += month + "/";
-		if(day < 10) {
-			//if day has a single digit, add a 0 prefix
-			s += "0";
-		}
-		s += day;
-		System.out.println("finally s is: " + s);
-		arr[i] = s;
-		
-	}
-	return arr;
-} */
-
+ * 
+ * 
+ * private String[] getDays(int m, int d, int q) { String[] arr = new
+ * String[q+1]; arr[0] = String.valueOf(d) + "/" + m;
+ * 
+ * int day = d; int month = m; for(int i = 1; i <= q; i++) { //i should be 0 if
+ * no extra days are to be set, keep this in mind when looking at range. //for
+ * the entire range of days, not including the first, which has already been
+ * added to the array, add their numerical date to the string array //to be
+ * returned in the model mm/dd day += 1;
+ * 
+ * System.out.println(dayExists(day,month)); if(!dayExists(day, month)) { //we
+ * have crossed the latest day of the given month //move to the first day of the
+ * next month month += 1; day = 1; } String s = ""; if(month < 10) { //if month
+ * has a single digit, add a 0 prefix //FIXME s += "0"; } s += month + "/";
+ * if(day < 10) { //if day has a single digit, add a 0 prefix s += "0"; } s +=
+ * day; System.out.println("finally s is: " + s); arr[i] = s;
+ * 
+ * } return arr; }
+ */
