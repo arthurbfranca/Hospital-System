@@ -418,7 +418,7 @@ public class DoctorAppointmentView extends JFrame {
 			JButton PreviousButton = new JButton("Previous");
 			PreviousButton.addMouseListener(new MouseAdapter() {
 				@Override
-				public void mousePressed(MouseEvent e) {
+				public void mouseReleased(MouseEvent e) {
 					//Event Handler for PreviousButton
 					//If PreviousButton is enabled then there is at least one prior appointment, since we're going appointment by appointment, this code won't attempt
 					//to check for a negative index.
@@ -439,7 +439,7 @@ public class DoctorAppointmentView extends JFrame {
 			JButton NextButton = new JButton("Next");
 			NextButton.addMouseListener(new MouseAdapter() {
 				@Override
-				public void mousePressed(MouseEvent e) {
+				public void mouseReleased(MouseEvent e) {
 					//Event Handler for NextButton
 					//If NextButton is enabled, then when this line is reached there are two appointments in display, and there is at least one more appointment
 					//to be shown. TODO: decide whether or not we're moving forward appointment by appointment or page by page
@@ -466,7 +466,7 @@ public class DoctorAppointmentView extends JFrame {
 			// If button is clicked, then close this window, effectively returning to previous.
 			ReturnToMainButton.addMouseListener(new MouseAdapter() {
 				@Override
-				public void mouseClicked(MouseEvent e) {
+				public void mouseReleased(MouseEvent e) {
 					dispose();
 				}
 			});

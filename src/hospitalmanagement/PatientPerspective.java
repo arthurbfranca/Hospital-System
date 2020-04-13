@@ -53,7 +53,7 @@ public class PatientPerspective extends JFrame {
 		// Add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				// Return back to the login page after clicking return button
 				Login loginPane = new Login();
 				loginPane.setVisible(true);
@@ -68,7 +68,7 @@ public class PatientPerspective extends JFrame {
 		// Add event handler for view appointments button
 		viewAppointButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				// Switch to panel that displays appointments for patients to view
 				PatientAppointmentView appointmentPane = new PatientAppointmentView(email);
 				// TODO: Should really be the following
@@ -86,7 +86,7 @@ public class PatientPerspective extends JFrame {
 		// Add event handler for book appointments button
 		bookAppointButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				// Switch to panel where patients can book an appointment
 				PatientBookAppointment bookApp = new PatientBookAppointment(email);
 				bookApp.setVisible(true);
@@ -100,7 +100,7 @@ public class PatientPerspective extends JFrame {
 		// Add event handler for view test results button
 		viewResultButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				// Switch to panel that displays the test results for patients to view
 				PatientTestResultView appointmentPane = new PatientTestResultView(email);
 				appointmentPane.setVisible(true);
@@ -114,7 +114,7 @@ public class PatientPerspective extends JFrame {
 		// Add event handler for view records button
 		viewRecordButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				// Switch to panel that displays choice between viewing prescriptions or appointments
 				PatientRecordsView records = new PatientRecordsView(email);
 				records.setVisible(true);
@@ -128,7 +128,7 @@ public class PatientPerspective extends JFrame {
 		// Add event handler for view personal info button
 		viewInfoButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				// Switch to panel that displays the patient's personal info
 				PatientInfoView personalInfo = new PatientInfoView(email);
 				personalInfo.setVisible(true);

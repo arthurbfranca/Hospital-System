@@ -48,7 +48,7 @@ public class AdminPerspective extends JFrame {
 		// add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Return back to the login page after clicking return button
 				Login loginPane = new Login();
 				loginPane.setVisible(true);
@@ -63,7 +63,7 @@ public class AdminPerspective extends JFrame {
 		//Add event handler for assigning doctor to department button
 		assignDocBtn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Switch to panel that displays the frame for assigning doctors to department
 				AdminAssignDocDepView assignDocDep = new AdminAssignDocDepView(email);
 				assignDocDep.setVisible(true);
@@ -77,7 +77,7 @@ public class AdminPerspective extends JFrame {
 		//Add event handler for view stats button
 		viewStatBtn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Switch to panel that displays the frame for viewing statistics
 				AdminViewStats viewStatPanel = new AdminViewStats(email);
 				viewStatPanel.setVisible(true);

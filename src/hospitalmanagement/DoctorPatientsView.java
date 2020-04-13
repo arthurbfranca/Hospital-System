@@ -91,7 +91,7 @@ public class DoctorPatientsView extends JFrame {
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				int selectedIndex = patientList.getSelectedIndex();
 				if (selectedIndex < 0) {
 					JOptionPane.showMessageDialog(contentPane, "Please select a patient.");
@@ -109,7 +109,7 @@ public class DoctorPatientsView extends JFrame {
 		JButton btnCancel = new JButton("Return");
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				dispose();
 			}
 		});

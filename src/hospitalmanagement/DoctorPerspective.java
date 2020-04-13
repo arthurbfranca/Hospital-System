@@ -52,7 +52,7 @@ public class DoctorPerspective extends JFrame {
 		//Add event handler for view appointment button
 		ViewAppointmentsButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Switch to panel that displays the appointments to view
 				DoctorAppointmentView appointmentPane = new DoctorAppointmentView(email);
 				appointmentPane.setVisible(true);
@@ -66,7 +66,7 @@ public class DoctorPerspective extends JFrame {
 		//Add event handler for view patient button
 		ViewPatientsButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				//Switch to panel that displays the patients that the doctor can view 
 				DoctorPatientsView viewPatientsPane = new DoctorPatientsView(email);
 				viewPatientsPane.setVisible(true);
@@ -79,7 +79,7 @@ public class DoctorPerspective extends JFrame {
 		JButton ViewAvailabilityButton = new JButton("View Availability");
 		ViewAvailabilityButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 			}
 		});
 		ViewAvailabilityButton.setBounds(115, 137, 148, 53);
@@ -90,7 +90,7 @@ public class DoctorPerspective extends JFrame {
 		//Add event handler for book appointment button
 		BookAppointmentButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Switch to panel where the doctor can book an appointment
 				// ORIGINAL !!!!!!!!!!!1
 				//DoctorBookPatient patientsPane = new DoctorBookPatient(email);
@@ -106,7 +106,7 @@ public class DoctorPerspective extends JFrame {
 		JButton SetAvailabilityButton = new JButton("Set Availability");
 		SetAvailabilityButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				SetAvailability availabilityPane = new SetAvailability(email, 1);
 				availabilityPane.setVisible(true);
 			}
@@ -119,7 +119,7 @@ public class DoctorPerspective extends JFrame {
 		//Add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Return back to the login home page after clicking return button
 				Login loginPane = new Login();
 				loginPane.setVisible(true);
@@ -147,7 +147,7 @@ public class DoctorPerspective extends JFrame {
 		JButton btnAddPatients = new JButton("Add Patients");
 		btnAddPatients.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				DoctorPatientsAdd addPatientsPane = new DoctorPatientsAdd(email);
 				addPatientsPane.setVisible(true);
 			}

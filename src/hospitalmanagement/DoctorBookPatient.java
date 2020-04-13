@@ -148,7 +148,7 @@ public class DoctorBookPatient extends JFrame {
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				selectedName = names.get(patientList.getSelectedIndex());
 				ID = Integer.parseInt(patientIDs[patientList.getSelectedIndex()]);
 				DoctorBookPatientInformation patientInfoPane = new DoctorBookPatientInformation(email, selectedName, ID);
@@ -164,7 +164,7 @@ public class DoctorBookPatient extends JFrame {
 		JButton btnCancel = new JButton("Return");
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				dispose();
 			}
 		});

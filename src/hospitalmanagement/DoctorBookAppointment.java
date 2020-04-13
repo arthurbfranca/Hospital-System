@@ -182,8 +182,8 @@ public class DoctorBookAppointment extends JFrame {
 		// Add event handler for book button
 		BookButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
-			
+			public void mouseReleased(MouseEvent e) {
+
 				// Get all the information the patients selected from the drop down menus
 				String selectedDep = deptComboBox.getSelectedItem().toString();
 				String selectedPatient = patientDropdown.getSelectedItem().toString();
