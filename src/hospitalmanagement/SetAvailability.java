@@ -120,7 +120,7 @@ public class SetAvailability extends JFrame {
 		consecutiveCheckbox.setBounds(360, 292, 207, 25);
 		consecutiveCheckbox.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				if (consecutiveCheckbox.isSelected()) {
 					moreDaysLabel.setVisible(true);
 					dayCount.setVisible(true);
@@ -144,7 +144,7 @@ public class SetAvailability extends JFrame {
 		confirmButton.setBounds(280, 387, 86, 25);
 		confirmButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 
 				String date = dateField.getText(); // the date the user wants to set their availability for
 				String start = startField.getText(); // the start hour of their availability
@@ -188,7 +188,7 @@ public class SetAvailability extends JFrame {
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				dispose();
 			}
 		});

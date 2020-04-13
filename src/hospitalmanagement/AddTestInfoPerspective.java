@@ -149,7 +149,7 @@ public class AddTestInfoPerspective extends JFrame {
 		//Add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Return back to the main page after clicking return button
 				NursePerspective previousPane = new NursePerspective(email);
 				previousPane.setVisible(true);

@@ -44,7 +44,7 @@ public class NewAccountWelcome extends JFrame {
 		//Add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				dispose();
 			}
 		});

@@ -105,7 +105,7 @@ public class PatientInfoView extends JFrame {
 		JButton btnLastNameEdit = new JButton("Edit");
 		btnLastNameEdit.addMouseListener(new MouseAdapter() {
 			// if the user clicks the button
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				// prompt the user to enter a new value
 				Login lframe = new Login();
 				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
@@ -123,7 +123,7 @@ public class PatientInfoView extends JFrame {
 		JButton btnFirstNameEdit = new JButton("Edit");
 		btnFirstNameEdit.addMouseListener(new MouseAdapter() {
 			// if the user clicks the button
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				Login lframe = new Login();
 				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
 				// display the new entered value
@@ -140,7 +140,7 @@ public class PatientInfoView extends JFrame {
 		JButton btnAgeEdit = new JButton("Edit");
 		btnAgeEdit.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				Login lframe = new Login();
 				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
 				if(newVal != null) {
@@ -156,7 +156,7 @@ public class PatientInfoView extends JFrame {
 		JButton btnEmailEdit = new JButton("Edit");
 		btnEmailEdit.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				Login lframe = new Login();
 				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
 				if(newVal != null) {
@@ -172,7 +172,7 @@ public class PatientInfoView extends JFrame {
 		JButton btnGenderEdit = new JButton("Edit");
 		btnGenderEdit.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				Login lframe = new Login();
 				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
 				if(newVal != null) {
@@ -188,7 +188,7 @@ public class PatientInfoView extends JFrame {
 		JButton btnPasswordEdit = new JButton("Edit");
 		btnPasswordEdit.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				Login lframe = new Login();
 				String newVal = JOptionPane.showInputDialog(lframe, "Enter new value: ");
 				if(newVal != null) {
@@ -204,7 +204,7 @@ public class PatientInfoView extends JFrame {
 		JButton btnSaveChanges = new JButton("Save Changes");
 		btnSaveChanges.addMouseListener(new MouseAdapter() {
 			// if the user clicks this button
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				// notify the user that their data will be updated in the database
 				Login lframe = new Login();
 				JOptionPane.showMessageDialog(lframe, "Changes saved! Updates will be made to your file.");

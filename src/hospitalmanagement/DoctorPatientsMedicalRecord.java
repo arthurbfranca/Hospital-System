@@ -88,7 +88,7 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 		JButton btnEditRecord = new JButton("Edit Record");
 		btnEditRecord.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				DoctorPatientsMedicalRecordEdit editRecordPane = new DoctorPatientsMedicalRecordEdit(email, patient);
 				editRecordPane.setVisible(true);
 				dispose();
@@ -101,7 +101,7 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 		JButton btnReturn = new JButton("Return");
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				dispose();
 			}
 		});

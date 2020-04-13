@@ -89,7 +89,7 @@ public class DoctorPatientsAddInformation extends JFrame {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				JOptionPane.showMessageDialog(contentPane, "Patient has NOT been added.");
 				DoctorPatientsAdd viewPatientPane = new DoctorPatientsAdd(email);
 				viewPatientPane.setVisible(true);
@@ -101,7 +101,7 @@ public class DoctorPatientsAddInformation extends JFrame {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				int addPatient = JOptionPane.showConfirmDialog(contentPane, "Add " + name + "?");
 				if (addPatient == 0) {		// If YES was selected, then add patient as doctor's physician
 					// TODO: doctors in account2.json have yet to have a "patients" array where the
