@@ -265,16 +265,16 @@ public class Account {
 			// then create an iterator to iterate through that array
 			
 			JsonArray accountArrayReturn;
-			if (accountType.equals("Administrator")) {
+			if (accountType.equals("Administrator") || accountType.equals("administrator")) {
 		    	JsonObject administrators = (JsonObject) accounts.get(4);
 		    	accountArrayReturn = (JsonArray) administrators.get("administrator");
-		    } else if (accountType.equals("Assistant")) {
+		    } else if (accountType.equals("Assistant") || accountType.equals("assistant")) {
 		    	JsonObject assistants = (JsonObject) accounts.get(3);
 		    	accountArrayReturn = (JsonArray) assistants.get("assistant");
-		    } else if (accountType.equals("Doctor")) {
+		    } else if (accountType.equals("Doctor") || accountType.equals("doctor")) {
 		    	JsonObject doctors = (JsonObject) accounts.get(1);
 		    	accountArrayReturn = (JsonArray) doctors.get("doctor");
-		    } else if (accountType.equals("Nurse")) {
+		    } else if (accountType.equals("Nurse") || accountType.equals("nurse")) {
 		    	JsonObject nurses = (JsonObject) accounts.get(2);
 		    	accountArrayReturn = (JsonArray) nurses.get("nurse");
 		    } else {

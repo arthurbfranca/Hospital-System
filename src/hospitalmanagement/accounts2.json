@@ -95,8 +95,13 @@
     },
     {
       "doctor": [
-	{
-          "schedule": {},
+        {
+          "schedule": {
+            "04/13": "12/18",
+            "04/14": "12/18",
+            "04/15": "12/18",
+            "04/16": "12/18"
+          },
           "password": "docPassword",
           "appointments": [
             {
@@ -181,8 +186,12 @@
     },
     {
       "nurse": [
-	{
-          "schedule": {},
+        {
+          "schedule": {
+            "04/15": "9/15",
+            "04/16": "9/15",
+            "04/17": "9/15"
+          },
           "password": "nursePassword",
           "gender": "Female",
           "last_name": "Jacky",

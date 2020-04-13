@@ -1,8 +1,5 @@
 package hospitalmanagement;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,36 +8,25 @@ import javax.swing.border.EmptyBorder;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-import java.util.Iterator;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.Iterator;
-import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.GridBagConstraints;
 import java.awt.Font;
 import javax.swing.JButton;
-import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
  * This class is used by doctors and nurses to set their own availability.
  * Availabilities are set by date, where the user has the ability to set it in
- * chunks. That is, he might say my availability is 10-14 on 04/01, as well as
+ * chunks. That is, he might say my availability is 10 am to 2 pm on 04/01, as well as
  * the upcoming 5 days. When the operation is carried out, the days 04/01 to
  * 04/06 will have their availability set as 10-14. This availability is stored
  * in accounts2.json as the user's "schedule" object.
@@ -51,12 +37,6 @@ import java.awt.event.ActionEvent;
 public class SetAvailability extends JFrame {
 
 	// TODO: add a checking mechanism to see if a schedule was already set for a day
-
-	// index variable used to determine the index of the user's account in their
-	// json object within accounts2.json.
-	// this is declared here, so that it can be "returned" in a method that already
-	// returns the account's object (findAccount())
-	private int index = -1;
 
 	private JPanel contentPane;
 	private JTextField dateField;
@@ -217,7 +197,7 @@ public class SetAvailability extends JFrame {
 	}
 
 	/**
-	 * Helper method for findAccount(). It returns the String form of the account
+	 * Helper method. It returns the String form of the account
 	 * type given as an integer that corresponds to the index of the accountType in
 	 * the array within accounts2.json. This method was written for the sake of
 	 * readability.
@@ -243,43 +223,6 @@ public class SetAvailability extends JFrame {
 			return null;
 		}
 	}
-
-	/************************ I think i can replace this with Account.getAccountJSONObj(String accountType, String email)*****
-	 * This method sorts through a given array of JsonObjects corresponding to
-	 * accounts and finds the one with the given email. If it cannot, find the account
-	 * it returns a null and notifies the tester in the console.
-	 * @param accountsArr a JsonArray of accounts
-	 * @param email the user's email
-	 * @return the JsonObject of the account with the given email
-	 */
-	private JsonObject findAccount(JsonArray accountsArr, String email) {
-		Iterator i;
-		// Now we find the JsonObject for the doctor in particular we are dealing with,
-		// whom is identified by the passed email
-		i = accountsArr.iterator();
-		int flag = 0; // flag used to stop the iteration when we've found the correct object
-		JsonObject goal = null;
-		// go through all doctors to find the one we're dealing with. A constant time
-		// search could be implemented, but that would conflict with the
-		// json format we are going with, which simplifies the syntax. This is a
-		// tradeoff in terms of writing code more easily, but we have lesser efficiency
-		// had we more time to troubleshoot, we'd opt for the optimal setup.
-		// FIXME: this may or not be skipping the first item in the list
-		while (i.hasNext() && flag == 0) {
-			index += 1;
-			goal = (JsonObject) i.next();
-			String currentEmail = (String) goal.get("email");
-			if (currentEmail.equals(email)) {
-				flag = 1;
-			}
-		}
-		if (goal != null) {
-			return goal;
-		}
-		System.out.println("Account returned is null, findAccount() could not find it"); // notify the tester
-		return null;
-	}
-
 
 	/**
 	 * Helper method for getDays() and dayExists().
@@ -391,7 +334,7 @@ public class SetAvailability extends JFrame {
 				s += "0";
 			}
 			s += day;
-			System.out.println("finally s is: " + s);
+			//System.out.println("finally s is: " + s);
 			arr[i] = s;
 			day += 1;
 		}
@@ -407,7 +350,7 @@ public class SetAvailability extends JFrame {
 	 * @param time The String of the availability being set.
 	 * 				model: 10:20/14:30 or 10/12 (either is valid, only use colon if necessary)
 	 */
-	private void set(String email, int accountType, String[] days, String time) { // set(bajwa@ucalgary.ca, 1, day[] = "04/13", "12/18")
+	private void set(String email, int accountType, String[] days, String time) {
 		try {
 			// reader to read accounts2.json
 			BufferedReader reader = new BufferedReader(
@@ -416,32 +359,36 @@ public class SetAvailability extends JFrame {
 			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
 			// get the JsonArray of accounts within accounts2.json, for that is where the JsonObject of our account is
 			JsonArray accounts = (JsonArray) parser.get("accounts");
-			// get the Object that has the list of all accounts of the given type
-			//JsonObject accountsObj = (JsonObject) accounts.get(accountType); // this is the object that has the list of
-																				// all accounts of the given type
-			//String type = findType(accountType);
-			//JsonArray accountsArr = (JsonArray) accountsObj.get(type);
-			//reader.close();
-			JsonObject account = Account.getAccountJSONObj(findType(accountType), email);
-
-			//JsonObject account = findAccount(accountsArr, email);
-			JsonObject schedule = (JsonObject) account.get("schedule");
-
+			// get the JsonObject of this user's accountType
+			JsonObject userType = (JsonObject) accounts.get(accountType);
+			// get the JsonArray of this account type
+			JsonArray accountTypeArr = Account.getAccountJSONObj(findType(accountType));
+			//close the reader
 			reader.close();
 			
+			// get the JsonObject of this particular account
+			JsonObject account = Account.getAccountJSONObj(findType(accountType), email);
+			// get the schedule object of this user
+			JsonObject schedule = (JsonObject) account.get("schedule");
+			// get the array index of the account in it's accountTypeArr
+			int arrIndex = accountTypeArr.indexOf(account);
+			
+			// add all of the day/time pairs to the schedule object
 			for (int i = 0; i < days.length; i++) {
 				schedule.put(days[i], time);
 			}
 
-			account.put("schedule", schedule); // update account's schedule
-			//accountsArr.set(index, account); // add the updated account into array of accounts of its type
-			// put this updated patient array as the patient object
-			//accountsObj.put(type, accountsArr);
-			// put this updated patient object at index 0 of the accounts array
-			//accounts.set(accountType, accountsObj);
+			// put the updated schedule back into the account
+			account.put("schedule", schedule);
+			// put the account back into it's usertype array
+			accountTypeArr.set(arrIndex, account);
+			// put this updated account type array as the account type obj
+			userType.put(findType(accountType), accountTypeArr);
+			// put this updated account type obj at the correct index of the accounts array
+			accounts.set(accountType, userType);
 			// put the updated accounts array as the account entry in the JSON
 			parser.put("accounts", accounts);
-
+			
 			// Create a writer
 			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/accounts2.json"));
 			// Write updates to JSON file
@@ -449,6 +396,7 @@ public class SetAvailability extends JFrame {
 			// Close the writer
 			writer.close();
 			System.out.println("Account's schedule is now: " + schedule);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Something went wrong in set()");
