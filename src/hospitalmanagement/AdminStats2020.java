@@ -14,7 +14,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * Class that displays the next panel for the admin to view the number of patients who have visited 
+ * Class that displays the next panel for the admin to view the number of patients who have visited in the year 2020
+ * It will read from the appointments JSON file and count how many appointments were made 
  * @author shavonnetran
  */
 public class AdminStats2020 extends JFrame {
