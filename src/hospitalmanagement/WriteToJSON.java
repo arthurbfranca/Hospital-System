@@ -663,4 +663,264 @@ public class WriteToJSON {
 		records.add(newRecord);
 	}
 	
+	/**
+	 * Writes the appointment to the appropriate json files.
+	 * 
+	 * @param accountType The account type of the user confirming the appointment.
+	 * @param patientEmail The email of the patient being booked in the appointment.
+	 * @param docEmail The email of the doctor being booked in the appointment.
+	 * @param department The department (in title-case) for the appointment to be booked in.
+	 * @param time The time of the appointment (start/end format).
+	 * @param year The year of the appointment.
+	 * @param date The date of the appointment (MM/DD).
+	 */
+	public static void bookAppointment(String accountType, String patientEmail, String docEmail, String department,
+			String time, String year, String date) {
+		
+		if(accountType.equals("Doctor") || accountType.equals("Nurse")) {
+			/************
+			 * when the doctor books the appointment we must
+			 * 		(1) add this appointment to the APPOINTMENTS JSON file
+			 * 		(2) add the appointment ID to the patient's appointment array in ACCOUNT json
+			 * 		(3) add the appointment ID to the doctor's appointment array in ACCOUNT json
+			 * 		(4) add the appointment ID to the department's appointment array in DEPARTMENT json
+			 * TODO:(5) some how update the doctor's availability???????????? in ACCOUNT json
+			 ****************/
+			try {
+				/******* (1) APPOINTMENT ADDED TO APPOINTMENTS JSON *********/
+				// create reader for APPOINTMENT json
+				BufferedReader appointmentReader = new BufferedReader(
+						new InputStreamReader(new FileInputStream("src/hospitalmanagement/appointments.json")));
+
+				// create parser for APPOINTMENT json
+			    JsonObject appointmentParser = (JsonObject) Jsoner.deserialize(appointmentReader);
+
+			    // read appointments array from json
+			    JsonArray appointmentsArr = (JsonArray) appointmentParser.get("appointments");
+		    	
+			    // get the most recently added appointment
+		    	JsonObject mostRecentAppointment = (JsonObject) appointmentsArr.get(appointmentsArr.size()-1);
+		    	// get number from most recent and increment to get new appointment's number
+		    	String IDNumber = Integer.toString(Integer.parseInt((String) mostRecentAppointment.get("number")) + 1);
+			    
+				// close reader
+				appointmentReader.close();
+				
+				// create the new appointment obj
+				JsonObject appointment = new JsonObject();
+
+				appointment.put("number", IDNumber);
+				appointment.put("patient_email", patientEmail);
+				appointment.put("doctor_email", docEmail);
+				appointment.put("department", department);
+				appointment.put("time", time);
+				appointment.put("year", year);
+				appointment.put("date", date);
+				
+				// append new appointment to appointments array
+				appointmentsArr.add(appointment);
+				appointmentParser.put("appointments", appointmentsArr);
+			    
+				// Create a writer for APPOINTMENT json
+				BufferedWriter appointmentWriter = new BufferedWriter(new FileWriter("src/hospitalmanagement/appointments.json"));
+
+				// Write updates to APPOINTMENT json
+				Jsoner.serialize(appointmentParser, appointmentWriter);
+
+				// Close the writer
+				appointmentWriter.close();
+				
+				/******* (2)/(3) APPOINTMENT ID ADDED TO PATIENT & DOCTOR APPOINTMENT ARRAYS IN ACCOUNT JSON *********/
+				// create reader for ACCOUNT json
+				BufferedReader accountReader = new BufferedReader(
+						new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+
+				// create parser for ACCOUNT json
+			    JsonObject accountParser = (JsonObject) Jsoner.deserialize(accountReader);
+
+			    // read accounts array from json
+			    JsonArray accountsArr = (JsonArray) accountParser.get("accounts");
+		    	
+			    // get the patients object
+			    JsonObject patientObj = (JsonObject) accountsArr.get(0);
+			    // get the patient array
+			    JsonArray patientArr = (JsonArray) patientObj.get("patient");
+			    // get the object of this specific patient
+			    JsonObject patient = Account.getAccountJSONObj("Patient", patientEmail);
+			    // save index of patient in patientArr
+			    int arrIndex = patientArr.indexOf(patient);
+			    // get the appointments array of the patient
+			    JsonArray patientAppts = (JsonArray) patient.get("appointments");
+			    // add the IDNumber to the array
+			    patientAppts.add(IDNumber);
+			    // put the appointments array back into the patient object
+			    patient.put("appointments", patientAppts);
+				// put patient object back into patientArr
+				patientArr.set(arrIndex, patient);
+				// put patient array back in patients object
+				patientObj.put("patient", patientArr);
+			    
+			    // get the doctors object
+			    JsonObject doctorObj = (JsonObject) accountsArr.get(1);
+			    // get the doctor array
+			    JsonArray doctorArr = (JsonArray) doctorObj.get("doctor");
+			    // get the object of this specific doctor
+			    JsonObject doctor = Account.getAccountJSONObj("Doctor", docEmail);
+			    // save index of doctor in doctorArr
+			    arrIndex = doctorArr.indexOf(doctor);
+			    // get the appointments array of the doctor
+			    JsonArray doctorAppts = (JsonArray) doctor.get("appointments");
+			    // create new object with id
+			    JsonObject obj = new JsonObject();
+			    obj.put("ID", IDNumber);
+				// append new obj to appointments array
+			    doctorAppts.add(obj);
+			    // put doctor appointment array back into doctor object
+				doctor.put("appointments", doctorAppts);
+				// put doctor object back into doctorArr
+				doctorArr.set(arrIndex, doctor);
+				// put doctor array back in doctors object
+				doctorObj.put("doctor", doctorArr);
+				
+				// put the patient and doctor objects back into the accounts array
+				accountsArr.set(0, patientObj);
+				accountsArr.set(1, doctorObj);
+				
+				// put the accountsArr back into the accountParser
+				accountParser.put("accounts", accountsArr);
+			    
+				// Create a writer for ACCOUNT json
+				BufferedWriter accountWriter = new BufferedWriter(new FileWriter("src/hospitalmanagement/accounts2.json"));
+
+				// Write updates to ACCOUNT json
+				Jsoner.serialize(accountParser, accountWriter);
+
+				// Close the writer
+				accountWriter.close();
+				
+				/******* (4) APPOINTMENT ID ADDED TO APPOINTMENT ARRAY IN DEPARTMENT JSON *********/
+				
+				// create reader for DEPARTMENT json
+				BufferedReader departmentReader = new BufferedReader(
+						new InputStreamReader(new FileInputStream("src/hospitalmanagement/departments.json")));
+
+				// create parser for DEPARTMENT json
+			    JsonObject departmentParser = (JsonObject) Jsoner.deserialize(departmentReader);
+
+			    // read departments array from json
+			    JsonArray departmentsArr = (JsonArray) departmentParser.get("departments");
+			    
+		    	// get the specific department object
+			    JsonObject dept = null;
+			    for (int i = 0; i < departmentsArr.size(); i++) {
+
+					// get the i-th department object
+					dept = (JsonObject) departmentsArr.get(i);
+					// if the department type matches the given department String, we have the correct obj
+					if(dept.get("type").equals(department)) {
+						break;
+					}
+				}
+			    // save index of dept in departmentsArr
+			    arrIndex = departmentsArr.indexOf(dept);
+			    
+			    // get the department's appointment array
+			    JsonArray deptAppts = (JsonArray) dept.get("appointments");
+			    // close reader
+				appointmentReader.close();
+			    // add the IDNumber to the array
+			    deptAppts.add(IDNumber);
+			    // put the department's appointment array back into the dept object
+			    dept.put("appointments", deptAppts);
+				// put dept object back into departmentsArr
+				departmentsArr.set(arrIndex, dept);
+				// put departments array back in departments parser
+				departmentParser.put("departments", departmentsArr);
+			    
+				// Create a writer for DEPARTMENT json
+				BufferedWriter departmentWriter = new BufferedWriter(new FileWriter("src/hospitalmanagement/departments.json"));
+
+				// Write updates to DEPARTMENT json
+				Jsoner.serialize(departmentParser, departmentWriter);
+
+				// Close the writer
+				departmentWriter.close();
+
+			} catch (Exception ex) {
+			    ex.printStackTrace();
+			}
+			
+		} else if(accountType.equals("Patient")) {
+			// write appointment to requested appointments json
+			writeRequestedAppointment(patientEmail, docEmail, department, time, year, date);
+			
+		} else {
+			System.out.println("Invalid account type. Appointment could not be booked.");
+		}
+		
+	}
+	
+	/**
+	 * Write the appointment to the requested appointment json where it will have to be
+	 * approved by an assistant before being officially booked.
+	 * 
+	 * @param patientEmail The email of the patient being booked in the appointment.
+	 * @param docEmail The email of the doctor being booked in the appointment.
+	 * @param department The department (in title-case) for the appointment to be booked in.
+	 * @param time The time of the appointment (start/end format).
+	 * @param year The year of the appointment.
+	 * @param date The date of the appointment (MM/DD).
+	 */
+	private static void writeRequestedAppointment(String patientEmail, String docEmail, String department,
+			String time, String year, String date) {
+		// add this appointment to the requested appointments JSON file.
+		try {
+			// create reader
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/req_appointments.json")));
+
+			// create parser
+		    JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+
+		    // read requested appointments array from json
+		    JsonArray reqApptsArr = (JsonArray) parser.get("requested_appointments");
+	    	
+		    // get the most recently added requested appointment
+	    	JsonObject mostRecent = (JsonObject) reqApptsArr.get(reqApptsArr.size()-1);
+	    	// get number from most recent and increment to get new appointment's number
+	    	String number = Integer.toString(Integer.parseInt((String) mostRecent.get("number")) + 1);
+		    
+			// close reader
+			reader.close();
+			
+			// create the new appointment obj
+			JsonObject appointment = new JsonObject();
+
+			appointment.put("number", number);
+			appointment.put("patient_email", patientEmail);
+			appointment.put("doctor_email", docEmail);
+			appointment.put("department", department);
+			appointment.put("time", time);
+			appointment.put("year", year);
+			appointment.put("date", date);
+			
+			// append new appointment to requested appointments array
+			reqApptsArr.add(appointment);
+			parser.put("requested_appointments", reqApptsArr);
+		    
+			// Create a writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/req_appointments.json"));
+
+			// Write updates to JSON file
+			Jsoner.serialize(parser, writer);
+
+			// Close the writer
+			writer.close();
+
+		} catch (Exception ex) {
+		    ex.printStackTrace();
+		}
+		
+	}
+	
 }

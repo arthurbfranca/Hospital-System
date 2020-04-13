@@ -1,8 +1,6 @@
 package hospitalmanagement;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -10,16 +8,12 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
@@ -182,14 +176,6 @@ public class DoctorBookAppointment extends JFrame {
 		setTimeDropdownVals(email, year, month, day);
 		contentPane.add(timeComboBox);
 
-		/************
-		 * TO DO: when the doctor books the appointment, double check all the selections are valid,
-		 * then (1) add this appointment to the appointments JSON file
-		 * 		(2) add the appointment ID to the patient's appointment array in account json
-		 * 		(3) add the appointment ID to the doctor's appointment array in account json
-		 * 		(4) add the appointment ID to the department's appointment array in department json
-		 * 		(5) some how update the doctor's availability???????????? cries
-		 ****************/
 		// Adding button for booking an appointment
 		JButton BookButton = new JButton("Book");
 		BookButton.setBounds(162, 386, 89, 23);
@@ -197,14 +183,21 @@ public class DoctorBookAppointment extends JFrame {
 		BookButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+
 				// Get all the information the patients selected from the drop down menus
-				// String selectedDep = departmentDropdown.getSelectedItem().toString();
-				String selectedDoc = patientDropdown.getSelectedItem().toString();
-				String selectedTime = yearDropdown.getSelectedItem().toString();
-				String aptType = monthDropdown.getSelectedItem().toString();
+				String selectedDep = deptComboBox.getSelectedItem().toString();
+				String selectedPatient = patientDropdown.getSelectedItem().toString();
+				String selectedYear = yearDropdown.getSelectedItem().toString();
+				String selectedMonth = monthDropdown.getSelectedItem().toString();
+				String selectedDay = dayComboBox.getSelectedItem().toString();
+				String selectedMMDD = getMMDDString(selectedMonth, selectedDay);
+				String selectedTime = getStartEndTime(timeComboBox.getSelectedItem().toString());
+				
+				// book the appointment with the given info
+				WriteToJSON.bookAppointment("Doctor", selectedPatient, email, selectedDep, selectedTime, selectedYear, selectedMMDD);
+				
 				Login lframe = new Login();
-				// Displays a message to confirm that the patient has successfully booked their
-				// appointment
+				// Displays a message to confirm that the patient has successfully booked their appointment
 				JOptionPane.showMessageDialog(lframe, "Your appointment has been made!");
 			}
 		});
@@ -358,7 +351,7 @@ public class DoctorBookAppointment extends JFrame {
 		timeComboBox.removeAllItems();
 
 		// get the MM/DD representation of the currently chosen date
-		String date = getMMDDString();
+		String date = getMMDDString(month, day);
 
 		// get the doctor object from the accounts json
 		JsonObject doctor = (JsonObject) Account.getAccountJSONObj("Doctor", email);
@@ -387,47 +380,60 @@ public class DoctorBookAppointment extends JFrame {
 
 	/**
 	 * Returns the MM/DD format of the currently selected date.
-	 * 
+	 * @param month The selected month.
+	 * @param day The selected day.
 	 * @return the MM/DD format of the currently selected date.
 	 */
-	private String getMMDDString() {
+	private String getMMDDString(String month, String day) {
 		String MM = "";
 		String DD = "";
-
+		
 		// set MM
-		if (month == "January") {
+		if(month == "January") {
 			MM = "01";
-		} else if (month == "February") {
+		} else if(month == "February") {
 			MM = "02";
-		} else if (month == "March") {
+		} else if(month == "March") {
 			MM = "03";
-		} else if (month == "April") {
+		} else if(month == "April") {
 			MM = "04";
-		} else if (month == "May") {
+		} else if(month == "May") {
 			MM = "05";
-		} else if (month == "June") {
+		} else if(month == "June") {
 			MM = "06";
-		} else if (month == "July") {
+		} else if(month == "July") {
 			MM = "07";
-		} else if (month == "August") {
+		} else if(month == "August") {
 			MM = "08";
-		} else if (month == "September") {
+		} else if(month == "September") {
 			MM = "09";
-		} else if (month == "October") {
+		} else if(month == "October") {
 			MM = "10";
-		} else if (month == "November") {
+		} else if(month == "November") {
 			MM = "11";
-		} else { // if(month == "december") {
+		} else { //if(month == "december") {
 			MM = "12";
 		}
-
+		
 		// set DD
 		DD = day;
-		if (DD.length() == 1) {
+		if(DD.length() == 1) {
 			DD = "0" + DD;
-		}
-
+		}	
+		
 		// return MM/DD
 		return MM + "/" + DD;
+	}
+	
+	/**
+	 * Returns the selected time of the appointment in startTime/endTime format.
+	 * (Assumes all appointment bookings are to be 1 hour)
+	 * @param startTime The selected appointment start time.
+	 * @return The String representation of the appointment time in startTime/endTime format.
+	 */
+	private String getStartEndTime(String startTime) {
+		int start = Integer.parseInt(startTime);
+		int end = start+1;
+		return startTime + "/" + end;
 	}
 }
