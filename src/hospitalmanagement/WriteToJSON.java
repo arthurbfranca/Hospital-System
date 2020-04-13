@@ -663,4 +663,103 @@ public class WriteToJSON {
 		records.add(newRecord);
 	}
 	
+	/**
+	 * Writes the appointment to the appropriate json files.
+	 * 
+	 * @param accountType The account type of the user confirming the appointment.
+	 * @param patientEmail The email of the patient being booked in the appointment.
+	 * @param docEmail The email of the doctor being booked in the appointment.
+	 * @param department The department (in title-case) for the appointment to be booked in.
+	 * @param time The time of the appointment (start/end format).
+	 * @param year The year of the appointment.
+	 * @param date The date of the appointment (MM/DD).
+	 */
+	public static void bookAppointment(String accountType, String patientEmail, String docEmail, String department,
+			String time, String year, String date) {
+		
+		if(accountType.equals("Doctor") || accountType.equals("Nurse")) {
+			// write to appointment, account, and department jsons
+			System.out.println("Cool");
+			/************
+			 * TO DO: when the doctor books the appointment, double check all the selections are valid,
+			 * then (1) add this appointment to the appointments JSON file
+			 * 		(2) add the appointment ID to the patient's appointment array in account json
+			 * 		(3) add the appointment ID to the doctor's appointment array in account json
+			 * 		(4) add the appointment ID to the department's appointment array in department json
+			 * 		(5) some how update the doctor's availability???????????? cries
+			 ****************/
+			
+		} else if(accountType.equals("Patient")) {
+			// write appointment to requested appointments json
+			writeRequestedAppointment(patientEmail, docEmail, department, time, year, date);
+			
+		} else {
+			System.out.println("Invalid account type. Appointment could not be booked.");
+		}
+		
+	}
+	
+	/**
+	 * Write the appointment to the requested appointment json where it will have to be
+	 * approved by an assistant before being officially booked.
+	 * 
+	 * @param patientEmail The email of the patient being booked in the appointment.
+	 * @param docEmail The email of the doctor being booked in the appointment.
+	 * @param department The department (in title-case) for the appointment to be booked in.
+	 * @param time The time of the appointment (start/end format).
+	 * @param year The year of the appointment.
+	 * @param date The date of the appointment (MM/DD).
+	 */
+	private static void writeRequestedAppointment(String patientEmail, String docEmail, String department,
+			String time, String year, String date) {
+		// add this appointment to the requested appointments JSON file.
+		try {
+			// create reader
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/hospitalmanagement/req_appointments.json")));
+
+			// create parser
+		    JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+
+		    // read requested appointments array from json
+		    JsonArray reqApptsArr = (JsonArray) parser.get("requested_appointments");
+	    	
+		    // get the most recently added requested appointment
+	    	JsonObject mostRecent = (JsonObject) reqApptsArr.get(reqApptsArr.size()-1);
+	    	// get number from most recent and increment to get new appointment's number
+	    	String number = Integer.toString(Integer.parseInt((String) mostRecent.get("number")) + 1);
+		    
+			// close reader
+			reader.close();
+			
+			JsonObject appointment = new JsonObject();
+
+			appointment.put("number", number);
+			appointment.put("patient_email", patientEmail);
+			appointment.put("doctor_email", docEmail);
+			appointment.put("department", department);
+			
+			appointment.put("time", time);
+			appointment.put("year", year);
+			appointment.put("date", date);
+			
+			// append new appointment to requested appointments array
+			reqApptsArr.add(appointment);
+			parser.put("requested_appointments", reqApptsArr);
+		    
+			// Create a writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/req_appointments.json"));
+
+			// Write updates to JSON file
+			Jsoner.serialize(parser, writer);
+
+			// Close the writer
+			writer.close();
+
+		} catch (Exception ex) {
+		    ex.printStackTrace();
+		}
+		
+	}
+	
 }
