@@ -7,7 +7,7 @@
       "department": "Cardiology",
       "time": "09/10",
       "year": "2020",
-      "date" : "04/22"
+      "date": "04/22"
     },
     {
       "number": "2",
@@ -16,7 +16,7 @@
       "department": "Neurology",
       "time": "10/11",
       "year": "2020",
-      "date" : "04/22"
+      "date": "04/22"
     },
     {
       "number": "3",
@@ -25,7 +25,7 @@
       "department": "Nephrology",
       "time": "11/12",
       "year": "2020",
-      "date" : "04/22"
+      "date": "04/22"
     },
     {
       "number": "4",
@@ -34,7 +34,7 @@
       "department": "Cardiology",
       "time": "12/13",
       "year": "2020",
-      "date" : "04/22"
+      "date": "04/22"
     },
     {
       "number": "5",
@@ -43,7 +43,7 @@
       "department": "Neurology",
       "time": "13/14",
       "year": "2020",
-      "date" : "04/22"
+      "date": "04/22"
     },
     {
       "number": "6",
@@ -52,7 +52,7 @@
       "department": "Cardiology",
       "time": "14/15",
       "year": "2020",
-      "date" : "04/22"
+      "date": "04/22"
     }
   ]
 }
