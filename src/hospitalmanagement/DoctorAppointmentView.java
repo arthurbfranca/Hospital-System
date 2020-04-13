@@ -95,6 +95,41 @@ public class DoctorAppointmentView extends JFrame {
 		}
 	}
 	
+	//like getDoctor, this method takes in an email, and looks for the account with that email in accounts2.json of type "Patient"
+	public JsonObject getPatient(String email) {
+		try {
+			//reader to read accounts2.json
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+			//parser to parse the reader
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+		   //we look for the JsonArray within accounts2.json, for that is where the JsonObject of our doctor is
+			JsonArray accounts = (JsonArray) parser.get("accounts");
+			JsonObject patientsObj = (JsonObject) accounts.get(0);	//this is the object that has the list of all doctors
+			JsonArray patientArr = (JsonArray) patientsObj.get("patient");
+			Iterator i;
+			//Now we find the JsonObject for the doctor in particular we are dealing with, whom is identified by the passed email
+			i = patientArr.iterator(); 
+			int flag = 0; //flag used to stop the iteration when we've found the correct object
+			JsonObject patient = null;
+			//go through all doctors to find the one we're dealing with. A constant time search could be implemented, but that would conflict with the 
+			//json format we are going with, which simplifies the syntax. This is a tradeoff in terms of writing code more easily, but we have lesser efficiency
+			//had we more time to troubleshoot, we'd opt for the optimal setup.
+			while(i.hasNext() && flag == 0) {
+				patient = (JsonObject) i.next();
+				String currentEmail = (String) patient.get("email");
+				if(currentEmail.equals(email)) {
+					flag = 1;
+				}
+			}
+			reader.close();
+			return patient;
+		}
+		catch(Exception e) {
+			System.out.println("Something went wrong during execution of getPatient()");
+			return null;
+		}
+	}
+	
 	//this method takes the doctor's JsonObject and returns the qth appointment in the doctor's list of appointments, where q is an index (a valid q: 0 <=q < arraySize)
 	//this method may return an null object, this should be checked in the calling code
 	public JsonObject getAppointment(JsonObject doctor, int q) {
@@ -163,10 +198,13 @@ public class DoctorAppointmentView extends JFrame {
 		else {
 			//we have found the appointment in the json
 			//we now take the information from either account
+			//JsonObject patient = getPatient(apt.get("patient"));
+			//name.setText(patient.get("first_name") + " " + patient.get("last_name"));
 			name.setText("CHANGEME");
 			date.setText((String) apt.get("CHANGEME"));
 			time.setText((String) apt.get("time"));
 			department.setText((String) apt.get("department"));
+			//type.setText(apt.get("type"));
 			type.setText("CHANGEME");
 		}
 	}
