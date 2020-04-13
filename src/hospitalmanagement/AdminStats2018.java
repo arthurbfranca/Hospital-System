@@ -52,7 +52,7 @@ public class AdminStats2018 extends JFrame {
 		//Add event handler for return button
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Close current window and return to the previous window
 				dispose();
 			}

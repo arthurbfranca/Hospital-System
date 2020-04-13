@@ -76,7 +76,7 @@ public class DoctorBookPatientInformation extends JFrame {
 		// If Cancel button is clicked, it will show a dialog, then close the pane and return to previous pane
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				JOptionPane.showMessageDialog(contentPane, "Patient has NOT been added.");
 				dispose();
 				DoctorBookPatient addPatientPane = new DoctorBookPatient(email);
@@ -309,7 +309,7 @@ public class DoctorBookPatientInformation extends JFrame {
 		// If "Book Appointment" button was clicked, a confirmation dialogue will be shown.
 		btnBookAppointment.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				int timeListIndex = timeList.getSelectedIndex();
 				if (timeListIndex < 0) {  //If no timeslot was chosen, give a message saying so and don't book appointment
 					JOptionPane.showMessageDialog(contentPane, "Please select a timeslot.");

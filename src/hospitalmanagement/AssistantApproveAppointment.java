@@ -119,7 +119,7 @@ public class AssistantApproveAppointment extends JFrame {
 		//Add event handler for approve button
 		approveBtn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Check if user selected an appointment or not
 				if (appointList.isSelectionEmpty()) {
 					//Display error message 
@@ -146,7 +146,7 @@ public class AssistantApproveAppointment extends JFrame {
 		//Add event handler for return button
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Close current window and return to assistant home page
 				dispose();
 			}

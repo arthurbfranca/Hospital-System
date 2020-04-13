@@ -57,7 +57,7 @@ public class AdminViewStats extends JFrame {
 		//Add event handler to next button
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Get selected year from combo box
 				String selectedYear = yearComboBox.getSelectedItem().toString();
 				

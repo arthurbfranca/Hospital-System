@@ -210,7 +210,7 @@ public class PatientAppointmentInfoView extends JFrame {
 		// Add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				// Return back to the appointments page after clicking return button
 				PatientAppointmentView p = new PatientAppointmentView(email);
 				p.setVisible(true);
