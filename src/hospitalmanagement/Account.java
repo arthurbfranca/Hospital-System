@@ -240,6 +240,67 @@ public class Account {
 			return null;
 		}
 	}
+	
+	/**
+	 * Helper method for patient book appointment.
+	 * This method takes a username and the index of an account type in the accounts json.
+	 * It returns the JsonObject of the user with the passed account type and username.
+	 * @param accountIndex: the index of an account type in the accounts json
+	 * @param username: the user's username
+	 * @return account: the JsonObject of the account with the specified account type and username
+	 */
+	public static JsonObject getAccountJSONObj(int accountIndex, String username) {
+		try {
+			//reader to read accounts2.json
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+			//parser to parse the reader
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+			//we look for the JsonArray within accounts2.json, for that is where the JsonObject of our user is
+			JsonArray accounts = (JsonArray) parser.get("accounts");
+			// get the object of the account type using the passed index
+			JsonObject accountType = (JsonObject) accounts.get(accountIndex);
+			
+			// get the user type name from the passed index
+			String userType;
+			if (accountIndex == 0) {
+		    	userType = "patient";
+		    } else if (accountIndex == 1) {
+		    	userType = "doctor";
+		    } else if (accountIndex == 2) {
+		    	userType = "nurse";
+		    } else if (accountIndex == 3) {
+		    	userType = "assistant";
+		    } else {
+		    	userType = "administrator";
+		    }
+			
+			// get the array of the account type using the user type name
+	    	JsonArray accountTypeArr = (JsonArray) accountType.get(userType);
+	    	
+	    	// create an iterator for the array
+			Iterator i = accountTypeArr.iterator();
+			
+			JsonObject account = null;
+			int flag = 0;
+			
+			// iterate through the array to find the account with the given username
+			while(i.hasNext() && flag == 0) {
+				account = (JsonObject) i.next();
+				String currentUsername = (String) account.get("username");
+				if(currentUsername.equals(username)) {
+					flag = 1;
+				}
+			}
+			// close the reader
+			reader.close();
+			// return the account object
+			return account;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	/**
 	 * This method takes an account type. It returns a JsonArray of the all accounts

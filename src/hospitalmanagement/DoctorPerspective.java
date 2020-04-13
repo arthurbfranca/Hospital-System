@@ -92,7 +92,10 @@ public class DoctorPerspective extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//Switch to panel where the doctor can book an appointment
-				DoctorBookPatient patientsPane = new DoctorBookPatient(email);
+				// ORIGINAL !!!!!!!!!!!1
+				//DoctorBookPatient patientsPane = new DoctorBookPatient(email);
+				// Sydney experiment panel
+				DoctorBookAppointment patientsPane = new DoctorBookAppointment(email);
 				patientsPane.setVisible(true);
 			}
 		});
