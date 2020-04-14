@@ -128,6 +128,8 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 		btnViewTestOrders.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				DoctorPatientsTestOrdersView testOrderPane = new DoctorPatientsTestOrdersView(email, index);
+				testOrderPane.setVisible(true);
 			}
 		});
 		contentPane.add(btnViewTestOrders, "cell 1 6");

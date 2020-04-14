@@ -40,7 +40,7 @@ public class DoctorPatientsTestOrdersView extends JFrame {
 	 * @param patientIndex The patient's index according to their position in the accounts2.json
 	 * @author ggdizon
 	 */
-	public DoctorPatientsTestOrdersView(String patientIndex) {
+	public DoctorPatientsTestOrdersView(String email, String patientIndex) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -90,8 +90,13 @@ public class DoctorPatientsTestOrdersView extends JFrame {
 					int selectedIndex = testList.getSelectedIndex();
 					if (selectedIndex < 0) {
 						JOptionPane.showMessageDialog(contentPane, "Please select a test order.");
+					} else if (testInfos.get(selectedIndex).contains("No Test Orders For The Patient.")) {
+						JOptionPane.showMessageDialog(contentPane, "The patient has no test orders.");
 					} else {
-						
+						JsonObject test = getTest(patientIndex, selectedIndex);
+						String testID = (String) test.get("id");
+						DoctorPatientsTestOrdersInfo testInfoPane = new DoctorPatientsTestOrdersInfo(email, patientIndex, testID);
+						testInfoPane.setVisible(true);
 					}
 				}
 			});
@@ -178,6 +183,12 @@ public class DoctorPatientsTestOrdersView extends JFrame {
 		}
 		
 		return testInfo;
+	}
+	
+	private JsonObject getTest(String patientIndex, int testIndex) {
+		JsonArray testsArr = getPatientsTestOrders(patientIndex);
+		JsonObject test = (JsonObject) testsArr.get(testIndex);
+		return test;
 	}
 	
 }

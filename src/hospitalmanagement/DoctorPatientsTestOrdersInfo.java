@@ -82,6 +82,7 @@ public class DoctorPatientsTestOrdersInfo extends JFrame {
 		contentPane.add(lblNotes, "cell 0 4,alignx center");
 		
 		JTextArea txtNotes = new JTextArea();
+		txtNotes.setEditable(false);
 		txtNotes.setFont(new Font("Monospaced", Font.PLAIN, 15));
 		txtNotes.setText(moreTestInfos[1]);
 		JScrollPane txtNotesScroller = new JScrollPane(txtNotes);
