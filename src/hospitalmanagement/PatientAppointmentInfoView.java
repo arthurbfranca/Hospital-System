@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 package hospitalmanagement;
 
 import java.awt.Color;
