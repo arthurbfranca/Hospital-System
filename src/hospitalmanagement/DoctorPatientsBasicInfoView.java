@@ -15,7 +15,6 @@ import javax.swing.border.EmptyBorder;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
@@ -47,7 +46,6 @@ public class DoctorPatientsBasicInfoView extends JFrame {
 		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[100px][500,grow]", "[30][30px][30px][30px][30px][60px][60px][30px][]"));
 		
 		// Gets the basic information of the patient needed
 		ArrayList<Object> informations = getMedicalRecordBasicInfo(patientIndex);
@@ -60,72 +58,90 @@ public class DoctorPatientsBasicInfoView extends JFrame {
 		String location = (String) informations.get(3);
 		@SuppressWarnings("unchecked")
 		ArrayList<String> allergies = (ArrayList<String>) informations.get(4);
+		contentPane.setLayout(null);
 		
 		// Creates and shows the labels for the patient's basic information
 		JLabel lblName = new JLabel("Full Name (First / Last):");
-		contentPane.add(lblName, "cell 0 0,alignx center");
+		lblName.setBounds(12, 19, 137, 16);
+		contentPane.add(lblName);
 		
 		JLabel lblFullname = new JLabel(fullName);
-		contentPane.add(lblFullname, "cell 1 0,alignx center");
+		lblFullname.setBounds(285, 19, 53, 16);
+		contentPane.add(lblFullname);
 		
 		JLabel lblAge = new JLabel("Age:");
+		lblAge.setBounds(67, 53, 27, 16);
 		lblAge.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblAge, "cell 0 1,alignx center");
+		contentPane.add(lblAge);
 		
 		JLabel lblShownAge = new JLabel(age);
-		contentPane.add(lblShownAge, "cell 1 1,alignx center");
+		lblShownAge.setBounds(312, 61, 0, 0);
+		contentPane.add(lblShownAge);
 		
 		JLabel lblGender = new JLabel("Gender:");
-		contentPane.add(lblGender, "cell 0 2,alignx center");
+		lblGender.setBounds(58, 87, 46, 16);
+		contentPane.add(lblGender);
 		
 		JLabel lblShowngender = new JLabel(gender);
-		contentPane.add(lblShowngender, "cell 1 2,alignx center");
+		lblShowngender.setBounds(312, 95, 0, 0);
+		contentPane.add(lblShowngender);
 		
 		JLabel lblMaritalStatus = new JLabel("Marital Status:");
-		contentPane.add(lblMaritalStatus, "cell 0 3,alignx center");
+		lblMaritalStatus.setBounds(39, 121, 84, 16);
+		contentPane.add(lblMaritalStatus);
 		
 		JLabel lblShownmarital = new JLabel(maritalstatus);
-		contentPane.add(lblShownmarital, "cell 1 3,alignx center");
+		lblShownmarital.setBounds(312, 129, 0, 0);
+		contentPane.add(lblShownmarital);
 		
 		JLabel lblRace = new JLabel("Race:");
+		lblRace.setBounds(64, 155, 33, 16);
 		lblRace.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblRace, "cell 0 4,alignx center");
+		contentPane.add(lblRace);
 		
 		JLabel lblShownrace = new JLabel(race);
-		contentPane.add(lblShownrace, "cell 1 4,alignx center");
+		lblShownrace.setBounds(312, 163, 0, 0);
+		contentPane.add(lblShownrace);
 		
 		JLabel lblProblems = new JLabel("Problems:");
-		contentPane.add(lblProblems, "cell 0 5,alignx center");
+		lblProblems.setBounds(52, 204, 58, 16);
+		contentPane.add(lblProblems);
 		
 		JTextPane txtpnShownproblems = new JTextPane();
+		txtpnShownproblems.setBounds(153, 182, 317, 60);
 		txtpnShownproblems.setEditable(false);
 		txtpnShownproblems.setText(problems);
-		contentPane.add(txtpnShownproblems, "cell 1 5,grow");
+		contentPane.add(txtpnShownproblems);
 		
 		JLabel lblAllergies = new JLabel("Allergies:");
-		contentPane.add(lblAllergies, "cell 0 6,alignx center");
+		lblAllergies.setBounds(54, 268, 54, 16);
+		contentPane.add(lblAllergies);
 		
 		JList<Object> shownAllergies = new JList<>(allergies.toArray(new String [allergies.size()]));
 		shownAllergies.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		JScrollPane allergyScroller = new JScrollPane();
+		allergyScroller.setBounds(153, 246, 317, 60);
 		allergyScroller.setViewportView(shownAllergies);
-		contentPane.add(allergyScroller, "cell 1 6,grow");
+		contentPane.add(allergyScroller);
 		
 		JLabel lblClinicLocation = new JLabel("Clinic Location:");
-		contentPane.add(lblClinicLocation, "cell 0 7,alignx center");
+		lblClinicLocation.setBounds(38, 317, 86, 16);
+		contentPane.add(lblClinicLocation);
 		
 		JLabel lblShownlocation = new JLabel(location);
-		contentPane.add(lblShownlocation, "cell 1 7,alignx center");
+		lblShownlocation.setBounds(312, 325, 0, 0);
+		contentPane.add(lblShownlocation);
 		
 		// Button to close the window and return to the previous one
 		JButton btnReturn = new JButton("Return");
+		btnReturn.setBounds(377, 344, 93, 25);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				dispose();
 			}
 		});
-		contentPane.add(btnReturn, "cell 1 8,alignx right");
+		contentPane.add(btnReturn);
 		
 	}
 	
