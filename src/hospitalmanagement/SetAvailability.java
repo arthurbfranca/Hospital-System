@@ -223,6 +223,54 @@ public class SetAvailability extends JFrame {
 			return null;
 		}
 	}
+	
+	//takes in the index that corresponds to the account type's position in accounts2.json and returns the array with the list of all accounts of
+		//said type.
+	/*
+		private JsonArray findArrayOfAccounts(int accountType) {
+			try {
+				//reader to read accounts2.json
+				BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+				//parser to parse the reader
+				JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+			   //we look for the JsonArray within accounts2.json, for that is where the JsonObject of our account is
+				JsonArray accounts = (JsonArray) parser.get("accounts");
+				JsonObject accountsObj = (JsonObject) accounts.get(accountType);	//this is the object that has the list of all accounts of the given type
+				String type = findType(accountType);
+				JsonArray accountsArr = (JsonArray) accountsObj.get(type);
+				reader.close();
+				return accountsArr;
+			}catch(Exception e) {
+				System.out.println("Something went wrong in findArrayOfAccounts()");
+				return null;
+			}
+		} */
+	
+	//This method sorts through a given array of jsonobjects corresponding to accounts and finds the one with the given email, if it cannot
+	//it returns a null and notifies the tester in the console
+	public JsonObject findAccount(JsonArray accountsArr, String email) {
+			Iterator i;
+			//Now we find the JsonObject for the doctor in particular we are dealing with, whom is identified by the passed email
+			i = accountsArr.iterator(); 
+			int flag = 0; //flag used to stop the iteration when we've found the correct object
+			JsonObject goal = null;
+			//go through all doctors to find the one we're dealing with. A constant time search could be implemented, but that would conflict with the 
+			//json format we are going with, which simplifies the syntax. This is a tradeoff in terms of writing code more easily, but we have lesser efficiency
+			//had we more time to troubleshoot, we'd opt for the optimal setup.
+			while(i.hasNext() && flag == 0) {
+				index += 1;
+				goal = (JsonObject) i.next();
+				String currentEmail = (String) goal.get("email");
+				if(currentEmail.equals(email)) {
+					flag = 1;
+				}
+			}
+			if(goal!=null) {
+				return goal;
+			}
+			System.out.println("Account returned is null, findAccount() could not find it"); //notify the tester
+			return null;
+	}
 
 	/**
 	 * Helper method for getDays() and dayExists().
@@ -329,6 +377,7 @@ public class SetAvailability extends JFrame {
 				s += "0";
 			}
 			s += month + "/";
+      
 			if (day < 10) {
 				// if day has a single digit, add a 0 prefix
 				s += "0";
@@ -370,6 +419,7 @@ public class SetAvailability extends JFrame {
 			JsonObject account = Account.getAccountJSONObj(findType(accountType), email);
 			// get the schedule object of this user
 			JsonObject schedule = (JsonObject) account.get("schedule");
+      
 			// get the array index of the account in it's accountTypeArr
 			int arrIndex = accountTypeArr.indexOf(account);
 			
