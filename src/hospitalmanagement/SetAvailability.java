@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.SwingConstants;
 
 /**
  * This class is used by doctors and nurses to set their own availability.
@@ -72,7 +73,8 @@ public class SetAvailability extends JFrame {
 		// add label to help user enter hours in correct form
 		JLabel lblPleaseEnterStarting = new JLabel(
 				"Please enter starting and finishing hour as hours from 0 to 24 (e.g. start: 9, finish: 15)");
-		lblPleaseEnterStarting.setBounds(164, 135, 495, 16);
+		lblPleaseEnterStarting.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPleaseEnterStarting.setBounds(90, 127, 569, 38);
 		contentPane.add(lblPleaseEnterStarting);
 
 		// label for date
@@ -117,7 +119,7 @@ public class SetAvailability extends JFrame {
 
 		// give the user the option to set this availability for consecutive days
 		consecutiveCheckbox = new JCheckBox("Set schedule for following days");
-		consecutiveCheckbox.setBounds(360, 292, 207, 25);
+		consecutiveCheckbox.setBounds(360, 292, 299, 25);
 		consecutiveCheckbox.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -396,10 +398,13 @@ public class SetAvailability extends JFrame {
 			// Close the writer
 			writer.close();
 			System.out.println("Account's schedule is now: " + schedule);
-			
+			Login lframe = new Login();
+			JOptionPane.showMessageDialog(lframe, "Successful.");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Something went wrong in set()");
+			Login lframe = new Login();
+			JOptionPane.showMessageDialog(lframe, "Not successful.");
 		}
 	}
 
