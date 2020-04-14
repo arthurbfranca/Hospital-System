@@ -848,6 +848,7 @@ public class WriteToJSON {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
    /**
 	 * Writes the appointment to the appropriate json files.
 	 * 
