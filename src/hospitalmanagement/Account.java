@@ -223,7 +223,7 @@ public class Account {
 		    	i = patientArr.iterator();
 		    }
 			
-			JsonObject account = null;
+			JsonObject account = new JsonObject();
 			int flag = 0;
 			while(i.hasNext() && flag == 0) {
 				account = (JsonObject) i.next();
