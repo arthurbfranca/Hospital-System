@@ -218,12 +218,10 @@ public class NurseViewSchedulePerspective extends JFrame {
 			JsonArray accounts = (JsonArray) parser.get("accounts");
 			// get the JsonObject of this user's accountType
 			JsonObject userType = (JsonObject) accounts.get(accountType);
-			// get the JsonArray of this account type
-			JsonArray accountTypeArr = Account.getAccountJSONObj(SetAvailability.findType(accountType));
 			//close the reader
 			reader.close();
 			// get the JsonObject of this particular account
-			JsonObject account = Account.getAccountJSONObj(SetAvailability.findType(accountType), email);
+			JsonObject account = Account.getAccountJSONObj("Nurse", email);
 			// get the schedule object of this user
 			JsonObject schedule = (JsonObject) account.get("schedule");
 			// find if there is a schedule for todays date
