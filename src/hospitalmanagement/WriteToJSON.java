@@ -559,13 +559,29 @@ public class WriteToJSON {
 		}
 	}
 	
-		
 	/**
-	 * This method removes the approved appointment from the req_appointments.json and writes it to the appointments.json file 
-	 * @param appointment the appointment to be removed and write to  
-	 * @author shavonnetran
+	 * This method removes the approved appointment from the req_appointments.json and writes it to the
+	 * appointments.json file. It also adds that appointment's ID number to the appointment arrays of the
+	 * doctor and patient (in accounts2.json), as well as the appointment array of the department (in
+	 * departments.json).
+	 * 
+	 * @param ID The ID number of the appointment in the req_appointment.json file.
+	 * @param patientEmail The email of the patient being booked in the appointment.
+	 * @param docEmail The email of the doctor being booked in the appointment.
+	 * @param department The department (in title-case) for the appointment to be booked in.
+	 * @param time The time of the appointment (start/end format).
+	 * @param year The year of the appointment.
+	 * @param date The date of the appointment (MM/DD).
+	 * 
+	 * @author shavonnetran, sydneykwok
 	 */
-	public static void writeApprovedAppointment(String appointment) {
+	public static void writeApprovedAppointment(String ID, String patientEmail, String docEmail, String department, String time, String year, String date) {
+		
+		// put the appointment in the appointment json, and add the appointment
+		// id to the appointment arrays of the doctor, patient, and department
+		bookAppointment("Nurse", patientEmail, docEmail, department, time, year, date);
+		
+		// then remove the appointment from req appointment
 		try {
 			// Create reader
 			BufferedReader reader = new BufferedReader(
@@ -575,20 +591,30 @@ public class WriteToJSON {
 			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
 	
 			// Read requested appointments array from JSON
-		    	JsonArray reqAppoints = (JsonArray) parser.get("requested_appointments");
-		    	
-			parser.get(appointment);
+		    JsonArray reqAppoints = (JsonArray) parser.get("requested_appointments");
+		    
+		    // find the specific appointment
+		    JsonObject appointment = null;
+		    for(int i = 0; i < reqAppoints.size(); i++) {
+		    	appointment = (JsonObject) reqAppoints.get(i);
+		    	if(appointment.get("number").equals(ID)) {
+		    		break;
+		    	}
+		    }
 	    		
-			// Remove JSON object from request_appointments.json
+			// Remove the appointment from request_appointments.json
 			reqAppoints.remove(appointment);
+			
+			// put the updated appointment array back into the parser
+			parser.put("requested_appointments", reqAppoints);
 		    
 			// Close reader
 			reader.close();
 			
 			// Create a writer
-			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/appointments.json"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/req_appointments.json"));
 
-			// Write the selected appointment to JSON file containing approved appointments: appointments.json
+			// Write the updates to the req_appointments.json file
 			Jsoner.serialize(parser, writer);
 
 			// Close the writer

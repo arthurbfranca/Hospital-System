@@ -28,7 +28,7 @@ public class AdminStats2019 extends JFrame {
 	 * @param email The email of the admin. Used to uniquely identify the user so we can easily access their info
 	 */
 	public AdminStats2019(String email) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 626, 436);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(135, 206, 235));
