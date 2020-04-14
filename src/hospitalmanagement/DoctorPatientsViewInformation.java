@@ -95,7 +95,7 @@ public class DoctorPatientsViewInformation extends JFrame {
 		});
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				DoctorPatientsView viewPatientPane = new DoctorPatientsView(email);
 				viewPatientPane.setVisible(true);
 				dispose();
