@@ -18,7 +18,6 @@ import javax.swing.border.EmptyBorder;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.border.EtchedBorder;
@@ -47,7 +46,6 @@ public class DoctorPatientsNotesView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(new Color(135, 206, 235));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[grow]", "[30][10][grow][]"));
 		
 		// Get list of notes for the patient in the medical records json
 		List<String> notes = getPatientsNotes(patientIndex);
@@ -56,10 +54,12 @@ public class DoctorPatientsNotesView extends JFrame {
 			String numberedList = (i+1) + ". " + notes.get(i);
 			notes.set(i, numberedList);
 		}
+		contentPane.setLayout(null);
 		
 		// Title Label
 		JLabel lblNewLabel = new JLabel("Patient Notes and Developments");
-		contentPane.add(lblNewLabel, "cell 0 0,alignx center");
+		lblNewLabel.setBounds(124, 19, 184, 16);
+		contentPane.add(lblNewLabel);
 		
 		// JList of the notes about the patients
 		JList<Object> notesList = new JList<>(notes.toArray(new String[notes.size()]));
@@ -71,22 +71,25 @@ public class DoctorPatientsNotesView extends JFrame {
 		});
 		notesList.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.GRAY));
 		JScrollPane notesListScroller = new JScrollPane();
+		notesListScroller.setBounds(12, 60, 408, 152);
 		notesListScroller.setViewportView(notesList);
-		contentPane.add(notesListScroller, "cell 0 2,grow");
+		contentPane.add(notesListScroller);
 		
 		// Button to add another note for the patient
 		JButton btnNewButton = new JButton("Add Notes");
-		contentPane.add(btnNewButton, "flowx,cell 0 3,alignx center");
+		btnNewButton.setBounds(133, 216, 91, 25);
+		contentPane.add(btnNewButton);
 		
 		// Button to leave the window and return to the previous one
 		JButton btnReturn = new JButton("Return");
+		btnReturn.setBounds(228, 216, 71, 25);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				dispose();
 			}
 		});
-		contentPane.add(btnReturn, "cell 0 3,alignx right");
+		contentPane.add(btnReturn);
 		
 	}
 	

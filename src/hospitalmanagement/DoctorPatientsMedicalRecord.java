@@ -12,9 +12,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import net.miginfocom.swing.MigLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class DoctorPatientsMedicalRecord extends JFrame {
 
@@ -37,7 +34,6 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[220.00px,center][220.00px,center]", "[32px][32px][32px][32px][32px][32px][32px][40]"));
 		
 		// Get patient's information
 		// Get patient's name
@@ -48,22 +44,27 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 		String id = (String) patient.get("id");
 		int indexAsInt = Integer.parseInt(id) - 1;
 		String index = Integer.toString(indexAsInt);
+		contentPane.setLayout(null);
 		
 		// Creates and adds the labels for the different
 		// kinds of medical records into the pane
 		// as well as buttons to view them
 		JLabel lblRecords = new JLabel("Records");
-		contentPane.add(lblRecords, "cell 1 0,grow");
+		lblRecords.setBounds(213, 12, 197, 32);
+		contentPane.add(lblRecords);
 		
 		JLabel lblName = new JLabel(last_name + first_name);
+		lblName.setBounds(87, 48, 48, 32);
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
-		contentPane.add(lblName, "flowy,cell 0 1,alignx center,growy");
+		contentPane.add(lblName);
 		
 		JLabel lblBaasicInformation = new JLabel("Basic Information");
+		lblBaasicInformation.setBounds(12, 84, 197, 32);
 		lblBaasicInformation.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblBaasicInformation, "cell 0 2,grow");
+		contentPane.add(lblBaasicInformation);
 		
 		JButton btnViewBI = new JButton("View Basic Info");
+		btnViewBI.setBounds(252, 88, 119, 25);
 		btnViewBI.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -71,13 +72,15 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 				basicInfoPanel.setVisible(true);
 			}
 		});
-		contentPane.add(btnViewBI, "cell 1 2");
+		contentPane.add(btnViewBI);
 		
 		JLabel lblNotes = new JLabel("Notes");
+		lblNotes.setBounds(12, 120, 197, 32);
 		lblNotes.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblNotes, "cell 0 3,grow");
+		contentPane.add(lblNotes);
 		
 		JButton btnViewNotes = new JButton("View Notes");
+		btnViewNotes.setBounds(263, 124, 97, 25);
 		btnViewNotes.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -85,13 +88,15 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 				notesPane.setVisible(true);
 			}
 		});
-		contentPane.add(btnViewNotes, "cell 1 3");
+		contentPane.add(btnViewNotes);
 		
 		JLabel lblPhysicalInformation = new JLabel("Physical Information");
+		lblPhysicalInformation.setBounds(12, 156, 197, 32);
 		lblPhysicalInformation.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblPhysicalInformation, "cell 0 4,grow");
+		contentPane.add(lblPhysicalInformation);
 		
 		JButton btnViewPhysicalInfo = new JButton("View Physical Info");
+		btnViewPhysicalInfo.setBounds(244, 160, 135, 25);
 		btnViewPhysicalInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -99,13 +104,15 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 				physInfoPane.setVisible(true);
 			}
 		});
-		contentPane.add(btnViewPhysicalInfo, "cell 1 4");
+		contentPane.add(btnViewPhysicalInfo);
 		
 		JLabel lblMedications = new JLabel("Medications");
+		lblMedications.setBounds(12, 192, 197, 32);
 		lblMedications.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblMedications, "cell 0 5,grow");
+		contentPane.add(lblMedications);
 		
 		JButton btnViewCurrentMedications = new JButton("View Current Medications");
+		btnViewCurrentMedications.setBounds(222, 196, 179, 25);
 		btnViewCurrentMedications.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -113,18 +120,21 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 				medicationsPane.setVisible(true);
 			}
 		});
-		contentPane.add(btnViewCurrentMedications, "cell 1 5");
+		contentPane.add(btnViewCurrentMedications);
 		
 		JLabel lblTestOrders = new JLabel("Test Orders");
+		lblTestOrders.setBounds(12, 228, 197, 32);
 		lblTestOrders.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblTestOrders, "cell 0 6,grow");
+		contentPane.add(lblTestOrders);
 		
 		
 		JLabel lblMedicalRecord = new JLabel("Medical");
+		lblMedicalRecord.setBounds(12, 12, 197, 32);
 		lblMedicalRecord.setHorizontalAlignment(SwingConstants.RIGHT);
-		contentPane.add(lblMedicalRecord, "cell 0 0,grow");
+		contentPane.add(lblMedicalRecord);
 		
 		JButton btnViewTestOrders = new JButton("View Test Orders");
+		btnViewTestOrders.setBounds(245, 232, 133, 25);
 		btnViewTestOrders.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -132,10 +142,11 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 				testOrderPane.setVisible(true);
 			}
 		});
-		contentPane.add(btnViewTestOrders, "cell 1 6");
+		contentPane.add(btnViewTestOrders);
 		
 		// Button allowing the user to close the pane and return to the previous one
 		JButton btnNewButton = new JButton("Return");
+		btnNewButton.setBounds(276, 272, 71, 25);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -144,6 +155,6 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 				dispose();
 			}
 		});
-		contentPane.add(btnNewButton, "cell 1 7,alignx center,aligny center");
+		contentPane.add(btnNewButton);
 	}
 }

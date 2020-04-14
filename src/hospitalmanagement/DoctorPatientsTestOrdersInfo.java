@@ -15,13 +15,10 @@ import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import java.awt.Font;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -47,56 +44,65 @@ public class DoctorPatientsTestOrdersInfo extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(new Color(135, 206, 235));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[150][250,grow]", "[][30][45][45][60][]"));
 		
 		// String of additional test information
 		String[] moreTestInfos = getMoreTestInfo(testID);
+		contentPane.setLayout(null);
 		
 		// Create and show needed labels for the test information
 		JLabel lblTestOrderFor = new JLabel("Test Order For:");
+		lblTestOrderFor.setBounds(36, 47, 103, 19);
 		lblTestOrderFor.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		contentPane.add(lblTestOrderFor, "cell 0 1,alignx center");
+		contentPane.add(lblTestOrderFor);
 		
 		JLabel lblPatientname = new JLabel(getPatientName(patientIndex));
+		lblPatientname.setBounds(255, 47, 76, 19);
 		lblPatientname.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		contentPane.add(lblPatientname, "cell 1 1,alignx center");
+		contentPane.add(lblPatientname);
 		
 		JLabel lblTestId = new JLabel("Test ID:");
+		lblTestId.setBounds(59, 88, 56, 19);
 		lblTestId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		contentPane.add(lblTestId, "cell 0 2,alignx center");
+		contentPane.add(lblTestId);
 		
 		JLabel lblTestid = new JLabel(testID);
+		lblTestid.setBounds(255, 88, 76, 19);
 		lblTestid.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		contentPane.add(lblTestid, "cell 1 2,alignx center");
+		contentPane.add(lblTestid);
 		
 		JLabel lblTestType = new JLabel("Test Type:");
+		lblTestType.setBounds(50, 137, 74, 19);
 		lblTestType.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		contentPane.add(lblTestType, "cell 0 3,alignx center");
+		contentPane.add(lblTestType);
 		
 		JLabel lblTesttype = new JLabel(moreTestInfos[0]);
+		lblTesttype.setBounds(255, 137, 76, 19);
 		lblTesttype.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		contentPane.add(lblTesttype, "cell 1 3,alignx center");
+		contentPane.add(lblTesttype);
 		
 		JLabel lblNotes = new JLabel("Notes:");
+		lblNotes.setBounds(66, 194, 43, 19);
 		lblNotes.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		contentPane.add(lblNotes, "cell 0 4,alignx center");
+		contentPane.add(lblNotes);
 		
 		JTextArea txtNotes = new JTextArea();
 		txtNotes.setEditable(false);
 		txtNotes.setFont(new Font("Monospaced", Font.PLAIN, 15));
 		txtNotes.setText(moreTestInfos[1]);
 		JScrollPane txtNotesScroller = new JScrollPane(txtNotes);
-		contentPane.add(txtNotesScroller, "cell 1 4,grow");
+		txtNotesScroller.setBounds(166, 173, 254, 60);
+		contentPane.add(txtNotesScroller);
 		
 		// Button that closes the pane and returns to the previous one
 		JButton btnReturn = new JButton("Return");
+		btnReturn.setBounds(166, 237, 254, 25);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				dispose();
 			}
 		});
-		contentPane.add(btnReturn, "cell 1 5,growx");
+		contentPane.add(btnReturn);
 	}
 
 	/**

@@ -18,7 +18,6 @@ import javax.swing.border.EmptyBorder;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.border.BevelBorder;
@@ -48,7 +47,6 @@ public class DoctorPatientsMedicationsView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(new Color(135, 206, 235));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[grow]", "[30][10][grow][]"));
 		
 		// get the list of patient's medications
 		List<String> medications = getPatientsMedications(patientIndex);
@@ -57,19 +55,23 @@ public class DoctorPatientsMedicationsView extends JFrame {
 			String numbered = (i) + ". " + medications.get(i);
 			medications.set(i, numbered);
 		}
+		contentPane.setLayout(null);
 		
 		// Title label
 		JLabel lblCurrentMedications = new JLabel("Current Medications");
-		contentPane.add(lblCurrentMedications, "cell 0 0,alignx center");
+		lblCurrentMedications.setBounds(159, 19, 114, 16);
+		contentPane.add(lblCurrentMedications);
 		
 		// JList showing the patient's current medications
 		JList<Object> medicationList = new JList<>(medications.toArray(new String[medications.size()]));
 		medicationList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		JScrollPane medicationListScroller = new JScrollPane(medicationList);
-		contentPane.add(medicationListScroller, "cell 0 2,grow");
+		medicationListScroller.setBounds(12, 60, 408, 152);
+		contentPane.add(medicationListScroller);
 		
 		// Button that will put the user to the pane where they can add current medication to the patient
 		JButton btnEdit = new JButton("Add");
+		btnEdit.setBounds(110, 216, 55, 25);
 		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -78,20 +80,22 @@ public class DoctorPatientsMedicationsView extends JFrame {
 				dispose();
 			}
 		});
-		contentPane.add(btnEdit, "flowx,cell 0 3,alignx center");
+		contentPane.add(btnEdit);
 		
 		// Button allowing the user to close this pane and return to the previous one
 		JButton btnReturn = new JButton("Return");
+		btnReturn.setBounds(169, 216, 71, 25);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				dispose();
 			}
 		});
-		contentPane.add(btnReturn, "cell 0 3,alignx center");
+		contentPane.add(btnReturn);
 		
 		JButton btnRemove = new JButton("Remove");
-		contentPane.add(btnRemove, "cell 0 3,alignx center");
+		btnRemove.setBounds(244, 216, 79, 25);
+		contentPane.add(btnRemove);
 			
 	}
 	

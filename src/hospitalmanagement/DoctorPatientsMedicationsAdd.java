@@ -56,8 +56,8 @@ public class DoctorPatientsMedicationsAdd extends JFrame {
 		
 		// Textfield where user can input the medication name
 		txtMedicationName = new JTextField();
-		txtMedicationName.setText(null);
 		txtMedicationName.setBounds(119, 56, 301, 40);
+		txtMedicationName.setText(null);
 		txtMedicationName.setHorizontalAlignment(SwingConstants.LEFT);
 		contentPane.add(txtMedicationName);
 		txtMedicationName.setColumns(10);
@@ -69,13 +69,14 @@ public class DoctorPatientsMedicationsAdd extends JFrame {
 		
 		// Textfield where user can input the amount
 		txtAmount = new JTextField();
-		txtAmount.setText(null);
 		txtAmount.setBounds(119, 129, 301, 40);
+		txtAmount.setText(null);
 		contentPane.add(txtAmount);
 		txtAmount.setColumns(10);
 		
 		// Button that will add medication to patient's current medications list
 		btnAdd = new JButton("Add");
+		btnAdd.setBounds(119, 202, 55, 25);
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -96,11 +97,11 @@ public class DoctorPatientsMedicationsAdd extends JFrame {
 				}
 			}
 		});
-		btnAdd.setBounds(119, 202, 55, 25);
 		contentPane.add(btnAdd);
 		
 		// Button to cancel the action of adding a medication
 		btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(349, 202, 71, 25);
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -109,7 +110,6 @@ public class DoctorPatientsMedicationsAdd extends JFrame {
 				dispose();
 			}
 		});
-		btnCancel.setBounds(349, 202, 71, 25);
 		contentPane.add(btnCancel);
 		
 	}

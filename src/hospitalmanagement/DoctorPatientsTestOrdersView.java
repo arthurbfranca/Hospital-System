@@ -16,7 +16,6 @@ import javax.swing.border.EmptyBorder;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -47,7 +46,6 @@ public class DoctorPatientsTestOrdersView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(new Color(135, 206, 235));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[grow]", "[30][10][grow][30]"));
 
 		// get list of tests for the patient
 		JsonArray testsList = getPatientsTestOrders(patientIndex);
@@ -67,14 +65,17 @@ public class DoctorPatientsTestOrdersView extends JFrame {
 			testInfos = new ArrayList<>();
 			testInfos.add("No Test Orders For The Patient.");
 		}
+		contentPane.setLayout(null);
 		
 		JLabel lblTestOrders = new JLabel("Test Orders");
-		contentPane.add(lblTestOrders, "cell 0 0,alignx center");
+		lblTestOrders.setBounds(182, 19, 68, 16);
+		contentPane.add(lblTestOrders);
 		
 		JList<Object> testList = new JList<>(testInfos.toArray(new String [testInfos.size()]));
 		testList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		JScrollPane testListScroller = new JScrollPane(testList);
-		contentPane.add(testListScroller, "cell 0 2,grow");
+		testListScroller.setBounds(12, 60, 408, 147);
+		contentPane.add(testListScroller);
 		
 		// Check if there are tests before adding "View" button
 		if (hasTest) {
@@ -104,13 +105,14 @@ public class DoctorPatientsTestOrdersView extends JFrame {
 		}
 		
 		JButton btnReturn = new JButton("Return");
+		btnReturn.setBounds(181, 214, 71, 25);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				dispose();
 			}
 		});
-		contentPane.add(btnReturn, "cell 0 3,alignx center");
+		contentPane.add(btnReturn);
 		
 	}
 
