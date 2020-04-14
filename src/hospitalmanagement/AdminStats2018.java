@@ -29,7 +29,7 @@ public class AdminStats2018 extends JFrame {
 	 */
 	public AdminStats2018(String email) {
 		setBackground(new Color(135, 206, 235));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 626, 436);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(135, 206, 235));
