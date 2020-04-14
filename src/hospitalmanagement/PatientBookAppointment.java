@@ -301,7 +301,7 @@ public class PatientBookAppointment extends JFrame {
 				
 				String docUsername = doctorArr.getString(i);
 				// get the JsonObject of the doctor with that username
-				JsonObject doc = Account.getAccountJSONObj(1, docUsername);
+				JsonObject doc = Account.getAccountJSONObjUsername(1, docUsername);
 				// get the last name of that doctor
 				String docLastName = (String) doc.get("last_name");
 				// add that last name to the arraylist

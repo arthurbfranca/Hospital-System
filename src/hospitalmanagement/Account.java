@@ -249,7 +249,7 @@ public class Account {
 	 * @param username: the user's username
 	 * @return account: the JsonObject of the account with the specified account type and username
 	 */
-	public static JsonObject getAccountJSONObj(int accountIndex, String username) {
+	public static JsonObject getAccountJSONObjUsername(int accountIndex, String username) {
 		try {
 			//reader to read accounts2.json
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));

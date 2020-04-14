@@ -114,7 +114,7 @@ public class NursePerspective extends JFrame {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				NurseViewSchedulePerspective seeSched = new NurseViewSchedulePerspective(email);
+				NurseViewSchedulePerspective seeSched = new NurseViewSchedulePerspective(email, 2);
 				seeSched.setVisible(true);
 			}
 		});
