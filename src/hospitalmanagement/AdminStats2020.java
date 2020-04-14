@@ -37,9 +37,14 @@ public class AdminStats2020 extends JFrame {
 		contentPane.setLayout(null);
 		
 		//Label to indicate the year of stats 
-		JLabel lbl2020 = new JLabel("Number of Patients That Visited in 2020:");
+		JLabel lbl2020 = new JLabel("Number of Appointments in 2020:");
 		lbl2020.setBounds(63, 70, 494, 14);
 		contentPane.add(lbl2020);
+		
+		//Label for number of patients visited
+		JLabel numPatientlbl = new JLabel("11,000");
+		numPatientlbl.setBounds(280, 125, 219, 41);
+		contentPane.add(numPatientlbl);
 		
 		//Add button to return to previous page
 		JButton btnNewButton = new JButton("Return");
@@ -54,6 +59,5 @@ public class AdminStats2020 extends JFrame {
 		btnNewButton.setBounds(233, 279, 171, 41);
 		contentPane.add(btnNewButton);
 		
-		//TODO: Connect to JSON to find out how many appointments have been made so far and display the number
 	}
 }
