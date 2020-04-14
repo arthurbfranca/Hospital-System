@@ -79,7 +79,7 @@ public class DoctorPerspective extends JFrame {
 		JButton ViewAvailabilityButton = new JButton("View Availability");
 		ViewAvailabilityButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 			}
 		});
 		ViewAvailabilityButton.setBounds(115, 137, 148, 53);
@@ -92,7 +92,10 @@ public class DoctorPerspective extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//Switch to panel where the doctor can book an appointment
-				DoctorBookPatient patientsPane = new DoctorBookPatient(email);
+				// ORIGINAL !!!!!!!!!!!1
+				//DoctorBookPatient patientsPane = new DoctorBookPatient(email);
+				// Sydney experiment panel
+				DoctorBookAppointment patientsPane = new DoctorBookAppointment(email);
 				patientsPane.setVisible(true);
 			}
 		});
@@ -103,7 +106,7 @@ public class DoctorPerspective extends JFrame {
 		JButton SetAvailabilityButton = new JButton("Set Availability");
 		SetAvailabilityButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				SetAvailability availabilityPane = new SetAvailability(email, 1);
 				availabilityPane.setVisible(true);
 			}
@@ -116,7 +119,7 @@ public class DoctorPerspective extends JFrame {
 		//Add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Return back to the login home page after clicking return button
 				Login loginPane = new Login();
 				loginPane.setVisible(true);
@@ -144,7 +147,7 @@ public class DoctorPerspective extends JFrame {
 		JButton btnAddPatients = new JButton("Add Patients");
 		btnAddPatients.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				DoctorPatientsAdd addPatientsPane = new DoctorPatientsAdd(email);
 				addPatientsPane.setVisible(true);
 			}

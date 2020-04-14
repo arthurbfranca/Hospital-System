@@ -24,6 +24,8 @@ import javax.swing.border.EtchedBorder;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * Class that displays the selected patient's information.
@@ -40,6 +42,7 @@ public class DoctorPatientsViewInformation extends JFrame {
 	 * The Doctor will be shown information about the specific patient that was chosen in the previous pane.
 	 * @param email The email of the doctor (used as an identifier for reading/writing to JSON).
 	 * @param patientIndex The index of the patient chosen by the Doctor that was passed from the previous pane.
+	 * @author ggdizon
 	 */
 	public DoctorPatientsViewInformation(String email, int patientIndex) {
 		
@@ -86,6 +89,10 @@ public class DoctorPatientsViewInformation extends JFrame {
 		
 		// Button that will close the current pane and return to the previous pane.
 		JButton btnReturn = new JButton("Return");
+		btnReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -161,16 +168,15 @@ public class DoctorPatientsViewInformation extends JFrame {
 		JButton btnMedicalRecord = new JButton("Medical Record");
 		btnMedicalRecord.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				DoctorPatientsMedicalRecord medicalRecordPane = new DoctorPatientsMedicalRecord(email, patient);
 				medicalRecordPane.setVisible(true);
+				dispose();
 			}
 		});
-		
-		JButton btnTests = new JButton("Tests Info");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(75)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -182,13 +188,9 @@ public class DoctorPatientsViewInformation extends JFrame {
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addComponent(btnMedicalRecord)
 									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnTests, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
+									.addComponent(btnReturn, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
 								.addComponent(Patient, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
 							.addContainerGap(67, Short.MAX_VALUE))))
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(168, Short.MAX_VALUE)
-					.addComponent(btnReturn, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
-					.addGap(161))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -200,10 +202,8 @@ public class DoctorPatientsViewInformation extends JFrame {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnMedicalRecord)
-						.addComponent(btnTests))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnReturn)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(btnReturn))
+					.addContainerGap(41, Short.MAX_VALUE))
 		);
 		
 		// JList of patient's prescriptions.

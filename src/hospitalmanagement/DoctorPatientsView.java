@@ -39,6 +39,7 @@ public class DoctorPatientsView extends JFrame {
 	 * button. Here, the Doctor will be able to see a list of patients they have an
 	 * appointment with.
 	 * @param email The email of the doctor. Used to uniquely identify the user so we can easily access their info.
+	 * @author ggdizon
 	 */
 	public DoctorPatientsView(String email) {
 
@@ -91,7 +92,7 @@ public class DoctorPatientsView extends JFrame {
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				int selectedIndex = patientList.getSelectedIndex();
 				if (selectedIndex < 0) {
 					JOptionPane.showMessageDialog(contentPane, "Please select a patient.");
@@ -109,7 +110,7 @@ public class DoctorPatientsView extends JFrame {
 		JButton btnCancel = new JButton("Return");
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				dispose();
 			}
 		});
