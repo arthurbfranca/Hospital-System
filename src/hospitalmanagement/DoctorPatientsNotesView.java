@@ -77,12 +77,12 @@ public class DoctorPatientsNotesView extends JFrame {
 		
 		// Button to add another note for the patient
 		JButton btnNewButton = new JButton("Add Notes");
-		btnNewButton.setBounds(133, 216, 91, 25);
+		btnNewButton.setBounds(127, 216, 100, 25);
 		contentPane.add(btnNewButton);
 		
 		// Button to leave the window and return to the previous one
 		JButton btnReturn = new JButton("Return");
-		btnReturn.setBounds(228, 216, 71, 25);
+		btnReturn.setBounds(228, 216, 93, 25);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

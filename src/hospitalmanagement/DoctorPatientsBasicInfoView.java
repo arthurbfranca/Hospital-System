@@ -134,7 +134,7 @@ public class DoctorPatientsBasicInfoView extends JFrame {
 		
 		// Button to close the window and return to the previous one
 		JButton btnReturn = new JButton("Return");
-		btnReturn.setBounds(399, 344, 71, 25);
+		btnReturn.setBounds(377, 344, 93, 25);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

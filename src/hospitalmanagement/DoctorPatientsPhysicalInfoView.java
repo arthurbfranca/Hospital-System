@@ -227,7 +227,7 @@ public class DoctorPatientsPhysicalInfoView extends JFrame {
 		
 		// Button that closes the pane and returns to the previous one
 		JButton btnReturn = new JButton("Return");
-		btnReturn.setBounds(89, 616, 71, 25);
+		btnReturn.setBounds(85, 616, 80, 25);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -238,7 +238,7 @@ public class DoctorPatientsPhysicalInfoView extends JFrame {
 		
 		// Button that brings user to a pane that allows them to update patient's physical information
 		JButton btnUpdate = new JButton("Update");
-		btnUpdate.setBounds(392, 616, 73, 25);
+		btnUpdate.setBounds(375, 616, 103, 25);
 		btnUpdate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

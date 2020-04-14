@@ -64,7 +64,7 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 		contentPane.add(lblBaasicInformation);
 		
 		JButton btnViewBI = new JButton("View Basic Info");
-		btnViewBI.setBounds(252, 88, 119, 25);
+		btnViewBI.setBounds(244, 88, 135, 25);
 		btnViewBI.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -80,7 +80,7 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 		contentPane.add(lblNotes);
 		
 		JButton btnViewNotes = new JButton("View Notes");
-		btnViewNotes.setBounds(263, 124, 97, 25);
+		btnViewNotes.setBounds(254, 124, 113, 25);
 		btnViewNotes.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -96,7 +96,7 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 		contentPane.add(lblPhysicalInformation);
 		
 		JButton btnViewPhysicalInfo = new JButton("View Physical Info");
-		btnViewPhysicalInfo.setBounds(244, 160, 135, 25);
+		btnViewPhysicalInfo.setBounds(222, 160, 179, 25);
 		btnViewPhysicalInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -112,7 +112,7 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 		contentPane.add(lblMedications);
 		
 		JButton btnViewCurrentMedications = new JButton("View Current Medications");
-		btnViewCurrentMedications.setBounds(222, 196, 179, 25);
+		btnViewCurrentMedications.setBounds(213, 196, 197, 25);
 		btnViewCurrentMedications.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -134,7 +134,7 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 		contentPane.add(lblMedicalRecord);
 		
 		JButton btnViewTestOrders = new JButton("View Test Orders");
-		btnViewTestOrders.setBounds(245, 232, 133, 25);
+		btnViewTestOrders.setBounds(233, 232, 158, 25);
 		btnViewTestOrders.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -146,7 +146,7 @@ public class DoctorPatientsMedicalRecord extends JFrame {
 		
 		// Button allowing the user to close the pane and return to the previous one
 		JButton btnNewButton = new JButton("Return");
-		btnNewButton.setBounds(276, 272, 71, 25);
+		btnNewButton.setBounds(244, 272, 135, 25);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

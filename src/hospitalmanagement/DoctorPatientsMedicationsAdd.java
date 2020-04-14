@@ -76,7 +76,7 @@ public class DoctorPatientsMedicationsAdd extends JFrame {
 		
 		// Button that will add medication to patient's current medications list
 		btnAdd = new JButton("Add");
-		btnAdd.setBounds(119, 202, 55, 25);
+		btnAdd.setBounds(119, 202, 71, 25);
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -101,7 +101,7 @@ public class DoctorPatientsMedicationsAdd extends JFrame {
 		
 		// Button to cancel the action of adding a medication
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(349, 202, 71, 25);
+		btnCancel.setBounds(335, 202, 85, 25);
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

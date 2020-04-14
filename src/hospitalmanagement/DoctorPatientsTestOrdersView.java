@@ -81,6 +81,7 @@ public class DoctorPatientsTestOrdersView extends JFrame {
 		if (hasTest) {
 			// Button for viewing more test information for the selected test
 			JButton btnView = new JButton("View");
+			btnView.setBounds(12, 216, 78, 23);
 			btnView.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				}
@@ -101,11 +102,11 @@ public class DoctorPatientsTestOrdersView extends JFrame {
 					}
 				}
 			});
-			contentPane.add(btnView, "flowx,cell 0 3,alignx center");
+			contentPane.add(btnView);
 		}
 		
 		JButton btnReturn = new JButton("Return");
-		btnReturn.setBounds(181, 214, 71, 25);
+		btnReturn.setBounds(342, 215, 78, 25);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

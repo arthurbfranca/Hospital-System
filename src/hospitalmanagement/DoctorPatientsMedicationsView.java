@@ -71,7 +71,7 @@ public class DoctorPatientsMedicationsView extends JFrame {
 		
 		// Button that will put the user to the pane where they can add current medication to the patient
 		JButton btnEdit = new JButton("Add");
-		btnEdit.setBounds(110, 216, 55, 25);
+		btnEdit.setBounds(94, 216, 71, 25);
 		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -84,7 +84,7 @@ public class DoctorPatientsMedicationsView extends JFrame {
 		
 		// Button allowing the user to close this pane and return to the previous one
 		JButton btnReturn = new JButton("Return");
-		btnReturn.setBounds(169, 216, 71, 25);
+		btnReturn.setBounds(169, 216, 79, 25);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -94,7 +94,7 @@ public class DoctorPatientsMedicationsView extends JFrame {
 		contentPane.add(btnReturn);
 		
 		JButton btnRemove = new JButton("Remove");
-		btnRemove.setBounds(244, 216, 79, 25);
+		btnRemove.setBounds(252, 216, 90, 25);
 		contentPane.add(btnRemove);
 			
 	}
