@@ -690,6 +690,165 @@ public class WriteToJSON {
 	}
 	
 	/**
+	 * This method adds a new medication to a patient's medical records
+	 * @param patientIndex The index of patient according to their position on the accounts2.json
+	 * @param medicationName Name of the medication
+	 * @param docName Name of the doctor prescribing the medication
+	 * @param amount Amount of medication prescribed
+	 * @param date Date of refill
+	 * @author ggdizon
+	 */
+	public static void addNewMedication(String patientIndex, String medicationName, String docName, String amount, String date) {
+		try {	
+			// create reader
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/medical_records.json")));
+			
+			// create parser
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+			
+			// read medicalrecords array from json
+			JsonArray medicalRecords = (JsonArray) parser.get("medicalrecords");
+			
+			reader.close();
+			
+			// JsonObject representation of the specified patient's medical records
+			JsonObject record = (JsonObject) medicalRecords.get(Integer.parseInt(patientIndex));
+			
+			// get the JsonArray representation of the patient's medications
+			JsonArray medications = (JsonArray) record.get("medications");
+			
+			// String of the medication info in the proper format
+			String medicationInfo = medicationName + " / " + docName + " / " + amount + " / " + date;
+			
+			// Add the medication information into the JsonArray of the medications
+			medications.add(medicationInfo);
+			
+			// set the new medications JsonArray as the new one in the JsonObject
+			// of the patient's medical record
+			record.put("medications", medications);
+			
+			// set the JsonObject of the patient's medical record as the new one
+			// in the array of all JsonObjects of all patients' medical records
+			medicalRecords.set(Integer.parseInt(patientIndex), record);
+			
+			// update the entire json of medical records to the new one by putting
+			// the updated JsonArray
+			parser.put("medicalrecords", medicalRecords);
+			
+			// create a writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/medical_records.json"));
+			
+			// updates the json file
+			Jsoner.serialize(parser, writer);
+			
+			// close the writer
+			writer.close();
+			
+			// create reader
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+
+			// create parser
+		    parser = (JsonObject) Jsoner.deserialize(reader);
+
+		    // read accounts array from json
+		    JsonArray accounts = (JsonArray) parser.get("accounts");
+		    
+		    // extract the object representation of the patients section of the accounts array
+		    // then get the array representation of that object
+		    JsonObject patients = (JsonObject) accounts.get(0);
+	    	JsonArray patientsArr = (JsonArray) patients.get("patient");
+	    	
+			// close reader
+			reader.close();
+			
+			// get the JsonObject representation of the patient's account in the json
+			JsonObject patient = (JsonObject) patientsArr.get(Integer.parseInt(patientIndex));
+			
+			// get the JsonArray representation of the patient's prescriptions
+			JsonArray prescriptions = (JsonArray) patient.get("prescriptions");
+			
+			// add the newly prescribed medication to the array of prescriptions of the patient
+			prescriptions.add(medicationName);
+			
+			// update the patient's account
+			patient.put("prescriptions", prescriptions);
+			
+			// update the patients list
+			patientsArr.set(Integer.parseInt(patientIndex), patient);
+			
+			// update the Object representation of the patients list
+			patients.put("patient", patientsArr);
+			
+			// update the JsonArray of accounts
+			accounts.set(0, patients);
+			
+			// update the parser
+			parser.put("accounts", accounts);
+			
+			// open writer
+			writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/accounts2.json"));
+			
+			// update the json file
+			Jsoner.serialize(parser, writer);
+			
+			// close the writer
+			writer.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	/**
+	 * This method updated a patient's physical information in their medical records json
+	 * @param patientIndex Index of the patient according to their position in the accounts2.json
+	 * @param newPhysicalInfo JsonObject containing the new physical informations
+	 */
+	public static void setNewPhysicalInfo(String patientIndex, JsonObject newPhysicalInfo) {
+		try {
+			// create reader
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/medical_records.json")));
+			
+			// create parser
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+			
+			// read medicalrecords array from json
+			JsonArray medicalRecords = (JsonArray) parser.get("medicalrecords");
+			
+			reader.close();
+			
+			// JsonObject representation of the specified patient's medical records
+			JsonObject record = (JsonObject) medicalRecords.get(Integer.parseInt(patientIndex));
+			
+			// get the JsonArray representation of the patient's physical information
+			JsonArray physical = (JsonArray) record.get("physical");
+			
+			// update the physical information JsonArray's with the newPhysicalInfo JsonObject
+			physical.set(0, newPhysicalInfo);
+			
+			// update the JsonObject of the patient's physical medical record
+			record.put("physical", physical);
+			
+			// update the JsonArray of all patient's medical record
+			medicalRecords.set(Integer.parseInt(patientIndex), record);
+			
+			// update the parser
+			parser.put("medicalrecords", medicalRecords);
+			
+			// open writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/medical_records.json"));
+			
+			// update the json file
+			Jsoner.serialize(parser, writer);
+			
+			// close the writer
+			writer.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+   /**
 	 * Writes the appointment to the appropriate json files.
 	 * 
 	 * @param accountType The account type of the user confirming the appointment.
@@ -946,7 +1105,6 @@ public class WriteToJSON {
 		} catch (Exception ex) {
 		    ex.printStackTrace();
 		}
-		
 	}
 	
 }
