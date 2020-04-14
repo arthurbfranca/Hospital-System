@@ -48,7 +48,7 @@ public class AssistantPerspective extends JFrame {
 		//Add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Return back to the login page after clicking return button
 				Login loginPane = new Login();
 				loginPane.setVisible(true);
@@ -63,7 +63,7 @@ public class AssistantPerspective extends JFrame {
 		//Add event handler for approve appointment button
 		approveBtn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Switch to panel that displays the page for approving appointments
 				AssistantApproveAppointment approveAppointPanel = new AssistantApproveAppointment(email); 
 				approveAppointPanel.setVisible(true);

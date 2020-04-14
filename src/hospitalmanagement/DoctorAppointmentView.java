@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 
 //libraries necessary to work with out JSON:
 import com.github.cliftonlabs.json_simple.JsonArray;
@@ -19,11 +20,12 @@ import com.github.cliftonlabs.json_simple.Jsoner;
 import java.util.Iterator;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.Iterator;
 /**
 * Class that displays the panel for the doctor's appointments
-* @author arthurbfranca, ggdizon, sydneykwok
+* @code author arthurbfranca, ggdizon, sydneykwok
 */
 public class DoctorAppointmentView extends JFrame {
 	
@@ -56,8 +58,9 @@ public class DoctorAppointmentView extends JFrame {
 	//the NextButton is pressed for the first time., viewAppointment(counter += 1), viewAppointment(counter += 1)
 	//appointments of index 1 and 2 are now displayed
 	private int counter = 1;
-	
-	
+	//the index of the doctor's account in the "doctor" array in accounts2.json
+	private int docIndex = -1;
+		
 	
 	//This method parses through account2.json and looks for the doctor whose email corresponds to the email passed in the class constructor
 	//If no such doctor is found, this method will not throw an exception or notify the user, this should be checked in calling code.
@@ -80,6 +83,7 @@ public class DoctorAppointmentView extends JFrame {
 			//json format we are going with, which simplifies the syntax. This is a tradeoff in terms of writing code more easily, but we have lesser efficiency
 			//had we more time to troubleshoot, we'd opt for the optimal setup.
 			while(i.hasNext() && flag == 0) {
+				docIndex += 1;
 				doctor = (JsonObject) i.next();
 				String currentEmail = (String) doctor.get("email");
 				if(currentEmail.equals(email)) {
@@ -91,6 +95,41 @@ public class DoctorAppointmentView extends JFrame {
 		}
 		catch(Exception e) {
 			System.out.println("Something went wrong, presumably file couldn't be opened");
+			return null;
+		}
+	}
+	
+	//like getDoctor, this method takes in an email, and looks for the account with that email in accounts2.json of type "Patient"
+	public JsonObject getPatient(String email) {
+		try {
+			//reader to read accounts2.json
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+			//parser to parse the reader
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+		   //we look for the JsonArray within accounts2.json, for that is where the JsonObject of our doctor is
+			JsonArray accounts = (JsonArray) parser.get("accounts");
+			JsonObject patientsObj = (JsonObject) accounts.get(0);	//this is the object that has the list of all doctors
+			JsonArray patientArr = (JsonArray) patientsObj.get("patient");
+			Iterator i;
+			//Now we find the JsonObject for the doctor in particular we are dealing with, whom is identified by the passed email
+			i = patientArr.iterator(); 
+			int flag = 0; //flag used to stop the iteration when we've found the correct object
+			JsonObject patient = null;
+			//go through all doctors to find the one we're dealing with. A constant time search could be implemented, but that would conflict with the 
+			//json format we are going with, which simplifies the syntax. This is a tradeoff in terms of writing code more easily, but we have lesser efficiency
+			//had we more time to troubleshoot, we'd opt for the optimal setup.
+			while(i.hasNext() && flag == 0) {
+				patient = (JsonObject) i.next();
+				String currentEmail = (String) patient.get("email");
+				if(currentEmail.equals(email)) {
+					flag = 1;
+				}
+			}
+			reader.close();
+			return patient;
+		}
+		catch(Exception e) {
+			System.out.println("Something went wrong during execution of getPatient()");
 			return null;
 		}
 	}
@@ -110,17 +149,10 @@ public class DoctorAppointmentView extends JFrame {
 				
 				//FIXME Potential Error: the entries of a JsonArray are JsonObjects, and since we don't have a label for the number, the line below doesnt run
 				//get the id of the appointment to be displayed from doctor's object
-				//System.out.println(" ");
 				//String aptID = (String) appointmentIDs.get(q); REMOVEME
 				//String aptID = (String) appointmentIDs.getString(q); REMOVEME
-				
-				///// Arthur this is what you originally had
-				/*JsonObject d = (JsonObject) appointmentIDs.get(q);
-				String aptID = (String) d.get("ID");*/
-				
-				// I replaced what you had with this next line
-				String aptID = (String) appointmentIDs.get(q);
-				
+				JsonObject d = (JsonObject) appointmentIDs.get(q);
+				String aptID = (String) d.get("ID");
 				//find the appointment information within the appointments2.json
 				Iterator i = appointments.iterator();
 				//flag used to signal the loop below should stop iterating
@@ -170,11 +202,54 @@ public class DoctorAppointmentView extends JFrame {
 		else {
 			//we have found the appointment in the json
 			//we now take the information from either account
-			name.setText("CHANGEME");
-			date.setText((String) apt.get("CHANGEME"));
+			JsonObject patient = getPatient((String)apt.get("patient"));
+			name.setText(patient.get("first_name") + " " + patient.get("last_name"));
+			date.setText((String) apt.get("date"));
 			time.setText((String) apt.get("time"));
 			department.setText((String) apt.get("department"));
-			type.setText("CHANGEME");
+			type.setText((String)apt.get("type"));
+		}
+	}
+	
+	//appointments: the JsonArray that contains the numerical ID to the user's appointments
+	//doctor: the JsonObject corresponding to the user's account
+	//This method takes in the user's list of appointments, save one entry has been removed, and writes the change to accounts2.json
+	private void updateAppointments(JsonArray appointments, JsonObject doctor) {
+		
+
+		try {
+			//reader to read accounts2.json
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+			//parser to parse the reader
+			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+		   //we look for the JsonArray within accounts2.json, for that is where the JsonObject of our doctor is
+			JsonArray accounts = (JsonArray) parser.get("accounts");
+			JsonObject doctorsObj = (JsonObject) accounts.get(1);	//this is the object that has the list of all doctors
+			JsonArray doctorsArr = (JsonArray) doctorsObj.get("doctor");			
+			reader.close();
+			
+			//update the doctor's appointments
+			doctor.put("appointments",appointments);
+			//update the array of doctors
+			doctorsArr.set(docIndex,doctor);
+			//put this updated array of doctors as the "doctor" object
+			doctorsObj.put("doctor", doctorsArr);
+			//update the object with all accounts to have this updated doctor object
+			accounts.set(1, doctorsObj);
+			//put the updated accounts array as the account entry in the JSON
+			parser.put("accounts", accounts);
+			
+			// Create a writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/accounts2.json"));
+			// Write updates to JSON file
+			Jsoner.serialize(parser, writer);
+			// Close the writer
+			writer.close();
+			
+		}
+		catch(Exception e) {
+			System.out.println("Something went wrong when updating the doctors appointment's");
+			System.out.println(e.getMessage());
 		}
 	}
    
@@ -306,14 +381,6 @@ public class DoctorAppointmentView extends JFrame {
 			gbc_AppointmentType.gridy = 5;
 			Appointment1.add(AppointmentType, gbc_AppointmentType);
 			
-			// Button for canceling the appointment (no event handlers yet)
-			JButton CancelButton = new JButton("Cancel");
-			GridBagConstraints gbc_CancelButton = new GridBagConstraints();
-			gbc_CancelButton.insets = new Insets(0, 0, 0, 5);
-			gbc_CancelButton.gridx = 3;
-			gbc_CancelButton.gridy = 6;
-			Appointment1.add(CancelButton, gbc_CancelButton);
-			
 			// create another panel for another appointment
 			JPanel Appointment2 = new JPanel();
 			Appointment2.setBounds(123, 219, 347, 172);
@@ -324,6 +391,7 @@ public class DoctorAppointmentView extends JFrame {
 			gbl_Appointment2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			gbl_Appointment2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			Appointment2.setLayout(gbl_Appointment2);
+			
 			
 			// Label showing where patient's name is on GUI
 			JLabel PatientNameLabel2 = new JLabel("Patient:");
@@ -407,13 +475,87 @@ public class DoctorAppointmentView extends JFrame {
 			
 			// Button to cancel the appointment
 			JButton CancelButton2 = new JButton("Cancel");
+			CancelButton2.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					if(appointmentIDs.size() == 1) {
+						//Next was pressed after multiple appointments were canceled up until a single one was left.
+						//Appointment 2 now has non-sense information. Prevent the user from seeing it
+						Appointment2.setVisible(false);
+						
+					}
+					else if(appointmentIDs.size() == 2) {
+						//there are two appointments on display, and no others
+						Appointment2.setVisible(false);
+						appointmentIDs.remove(1);
+						counter = 0;	//may create some problems, but the actions shouldn't be possible to begin with
+						updateAppointments(appointmentIDs, doctor);
+					}
+					else {
+						//there more than three appointments
+						if(appointmentIDs.size() == counter+1) {
+							//this is the last appointment in the list
+							Appointment2.setVisible(false);
+							appointmentIDs.remove(counter);
+							//counter -= 1;
+						}else {
+							//this is not the last appointment in the list
+							viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter+1);
+							appointmentIDs.remove(counter);
+						}
+						updateAppointments(appointmentIDs, doctor);
+					}
+
+					
+					
+				}
+		});
 			GridBagConstraints gbc_CancelButton2 = new GridBagConstraints();
 			gbc_CancelButton2.insets = new Insets(0, 0, 0, 5);
 			gbc_CancelButton2.gridx = 3;
 			gbc_CancelButton2.gridy = 6;
 			Appointment2.add(CancelButton2, gbc_CancelButton2);
 			
-			//TODO: messed up
+			
+			
+			// Button for canceling the appointment
+			JButton CancelButton = new JButton("Cancel");
+			CancelButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent e) {
+						if(appointmentIDs.size() == 1) {
+							//there is only one appointment on display
+							appointmentIDs.remove(0);
+							Appointment1.setVisible(false);
+							updateAppointments(appointmentIDs, doctor);
+							
+						}
+						else if(appointmentIDs.size() == 2) {
+							//there are two appointments on display, and no others
+							viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, 1);
+							Appointment2.setVisible(false);
+							appointmentIDs.remove(0);
+							updateAppointments(appointmentIDs, doctor);
+						}
+						else {
+							//there more than three appointments
+							viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter);
+							viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter+1);
+							appointmentIDs.remove(counter-1);
+							updateAppointments(appointmentIDs, doctor);
+						}
+
+						
+						
+					}
+			});
+			GridBagConstraints gbc_CancelButton = new GridBagConstraints();
+			gbc_CancelButton.insets = new Insets(0, 0, 0, 5);
+			gbc_CancelButton.gridx = 3;
+			gbc_CancelButton.gridy = 6;
+			Appointment1.add(CancelButton, gbc_CancelButton);
+			
+			
 			// Button that goes to previous page (if there's more than 1 page of appointments)
 			JButton PreviousButton = new JButton("Previous");
 			PreviousButton.addMouseListener(new MouseAdapter() {
@@ -424,11 +566,11 @@ public class DoctorAppointmentView extends JFrame {
 					//to check for a negative index.
 					//Currently: appointment by appointment.
 					Appointment2.setVisible(true);	//this is necessary when the last page is reached
-					viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter-2);
-					viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter-=1);
-					if(counter-1 == 0){
+					if(counter > 1){
 					//counter is the leftmost index in the doctor's list of appointments
-						PreviousButton.setVisible(false);	//assures this method will not produce an IndexOutOfBounds exception
+						//PreviousButton.setVisible(false);	//assures this method will not produce an IndexOutOfBounds exception
+						viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter-2);
+						viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter-=1);
 					}
 				}
 			});
@@ -447,15 +589,11 @@ public class DoctorAppointmentView extends JFrame {
 					if(counter < appointmentIDs.size() - 1){
 						//there is at least one more appointment to be shown
 						PreviousButton.setVisible(true);	//redundant if already enabled, I expect no harm out of that FIXME: possible bug if it toggles
-						viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter);
-						viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter+=1);
-						if(counter == appointmentIDs.size() - 1){
-						//counter is the last index in the doctor's list of appointments
-							NextButton.setVisible(false);	//assures this method will not produce an IndexOutOfBounds exception
-						}
-					} else{
-						System.out.println("NextButton was pressed when it should never be accessible");
+						//counter is not the last index in the doctor's list of appointments, show the next one in the list
+							viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter);
+							viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter+=1);
 					}
+					
 				}
 			});
 			NextButton.setBounds(472, 441, 89, 23);
@@ -485,7 +623,7 @@ public class DoctorAppointmentView extends JFrame {
 			}
 			else if(appointmentIDs.size() == 1){
 				//a single appointment has been booked
-				Appointment2.setVisible(false);;
+				Appointment2.setVisible(false);
 				NextButton.setVisible(false);
 				PreviousButton.setVisible(false);
 				
@@ -510,7 +648,23 @@ public class DoctorAppointmentView extends JFrame {
 
 
 
-/* This here is an artifact, leave it should changes need to be made
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* THis here is an artifact, leave it should changes need to be made
   	//reader to read accounts2.json
 	BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
 	//parser to parse the reader
@@ -538,4 +692,28 @@ public class DoctorAppointmentView extends JFrame {
 			flag = 1;
 		}
 	}
+	
+	
+	
+	public void mousePressed(MouseEvent e) {
+					//Event Handler for NextButton
+					//If NextButton is enabled, then when this line is reached there are two appointments in display, and there is at least one more appointment
+					//to be shown. TODO: decide whether or not we're moving forward appointment by appointment or page by page
+					//Currently: appointment by appointment.
+					if(counter < appointmentIDs.size() - 1){
+						//there is at least one more appointment to be shown
+						PreviousButton.setVisible(true);	//redundant if already enabled, I expect no harm out of that FIXME: possible bug if it toggles
+						viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter);
+						viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter+=1);
+						if(counter == appointmentIDs.size() - 1){
+						//counter is the last index in the doctor's list of appointments
+							NextButton.setVisible(false);	//assures this method will not produce an IndexOutOfBounds exception
+						}
+					} else{
+						System.out.println("NextButton was pressed when it should never be accessible");
+					}
+				}
+			});
+	
+	
  */

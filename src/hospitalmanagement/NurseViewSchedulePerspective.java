@@ -24,7 +24,7 @@ public class NurseViewSchedulePerspective extends JFrame {
 	 */
 	public NurseViewSchedulePerspective(String email) {
 		// set frame properties
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 626, 436);
 		setLocationRelativeTo(null);
 		
@@ -65,7 +65,7 @@ public class NurseViewSchedulePerspective extends JFrame {
 		//Add event handler for next button
 		btnNext.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 			}
 		});
 		btnNext.setBounds(413, 354, 136, 22);
@@ -75,7 +75,7 @@ public class NurseViewSchedulePerspective extends JFrame {
 		//Add event handler for previous button
 		btnPrevious.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 
 			}
 		});
@@ -88,7 +88,7 @@ public class NurseViewSchedulePerspective extends JFrame {
 		//Add event handler for return button
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				//Return back to the main page after clicking return button
 				NursePerspective previousPane = new NursePerspective(email);
 				previousPane.setVisible(true);

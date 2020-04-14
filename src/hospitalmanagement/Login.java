@@ -170,7 +170,7 @@ public class Login extends JFrame {
 			 * if the user presses the register button,
 			 * show the register pane.
 			 */
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				Register registerPage = new Register();
 				registerPage.setVisible(true);
 				contentPane.revalidate();

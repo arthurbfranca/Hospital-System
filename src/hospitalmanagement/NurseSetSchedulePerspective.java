@@ -20,7 +20,8 @@ public class NurseSetSchedulePerspective extends JFrame {
 	 */
 	public NurseSetSchedulePerspective(String email, String name) {
 		// set frame properties
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 626, 436);
 		setLocationRelativeTo(null);
 		

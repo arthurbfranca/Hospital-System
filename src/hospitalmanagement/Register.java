@@ -157,7 +157,7 @@ public class Register extends JFrame {
 		JButton btnNewButton = new JButton("Sign Up");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 
 				// get inputs from fields
 				String accountType = accountTypeCombo.getSelectedItem().toString();
@@ -225,10 +225,10 @@ public class Register extends JFrame {
 					}
 					
 					if (registrationSuccess) {
-					// show the welcome view
-					NewAccountWelcome welcome = new NewAccountWelcome(contentPane, email);
-					welcome.setVisible(true);
-					dispose();
+						// show the welcome view
+						NewAccountWelcome welcome = new NewAccountWelcome(contentPane, email);
+						welcome.setVisible(true);
+						dispose();
 					}
 				}
 			}
@@ -240,7 +240,7 @@ public class Register extends JFrame {
 		JButton btnNewButton_1 = new JButton("Cancel");
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				dispose();
 			}
 		});

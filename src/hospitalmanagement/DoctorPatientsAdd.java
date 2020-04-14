@@ -25,8 +25,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
  * This frame displays the list of patients the doctor has an appointment with.
@@ -41,7 +39,6 @@ public class DoctorPatientsAdd extends JFrame {
 	 * button. Here, the Doctor will be able to see a list of patients they have an
 	 * appointment with.
 	 * @param email The email of the doctor. Used to uniquely identify the user so we can easily access their info.
-	 * @author ggdizon
 	 */
 	public DoctorPatientsAdd(String email) {
 
@@ -92,10 +89,6 @@ public class DoctorPatientsAdd extends JFrame {
 
 		// add a button to the panel to allow the user to confirm their actions
 		JButton btnConfirm = new JButton("Confirm");
-		btnConfirm.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -122,5 +115,7 @@ public class DoctorPatientsAdd extends JFrame {
 		});
 		btnCancel.setBounds(236, 215, 97, 25);
 		contentPane.add(btnCancel);
+		// String[] patients = {"LastName, Alice", "LastName, Bob", "LastName, COVID19",
+		// "LastName, Dad", "LastName, Eckhardt"};
 	}
 }

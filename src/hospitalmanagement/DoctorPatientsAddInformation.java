@@ -232,26 +232,12 @@ public class DoctorPatientsAddInformation extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	/**
-	 * This method checks if the patient is already is the doctor's list of patients, and adds the patient's
-	 * ID to the doctor's list of patients if the patient is not already in the list.
-	 * @param patient JsonObject of the patient that the doctor wants to be added
-	 * @param doctorEmail Email string of the doctor
-	 * @return Boolean value. If the patient is already in the list, return true. If not, then return false
-	 * @author ggdizon
-	 */
 	private boolean checkAddPatient(JsonObject patient, String doctorEmail) {
 		boolean alreadyInList = false;
 		
-		// get patient's ID
 		String patientID = (String) patient.get("id");
 		
-		// get JsonObject representation of the doctor's account
 		JsonObject doctor = Account.getAccountJSONObj("Doctor", doctorEmail);
-		
-		// get the JsonArray representation of the doctor's list of patients
-		// and iterate through it with an iterator, checking if the patient's
-		// ID is already in the list
 		JsonArray patientList = (JsonArray) doctor.get("patients");
 		Iterator i = patientList.iterator();
 		
@@ -263,7 +249,7 @@ public class DoctorPatientsAddInformation extends JFrame {
 			}
 		}
 		
-		if (!alreadyInList) {	// if the patient is NOT in the list, then add the patient's ID to the doctor's list
+		if (!alreadyInList) {
 			WriteToJSON.addPatientToDoc(patientID, doctorEmail);
 		}
 		

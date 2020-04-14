@@ -86,7 +86,7 @@ public class PatientTestResultView extends JFrame {
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				int selectedIndex = testList.getSelectedIndex();
 				// if the user has not made a selection, give them a pop-up
 				if (selectedIndex < 0) {
@@ -107,7 +107,7 @@ public class PatientTestResultView extends JFrame {
 		JButton btnCancel = new JButton("Return");
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				dispose();
 			}
 		});

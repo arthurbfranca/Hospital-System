@@ -40,10 +40,7 @@
         },
         {
           "password": "password12345",
-          "appointments": [
-            "5",
-            "6"
-          ],
+          "appointments": [],
           "gender": "Female",
           "last_name": "Bea",
           "id": "3",
@@ -58,9 +55,7 @@
         },
         {
           "password": "password12345",
-          "appointments": [
-            "7"
-          ],
+          "appointments": [],
           "gender": "Male",
           "last_name": "Valek",
           "id": "4",
@@ -75,12 +70,23 @@
         },
         {
           "password": "passw0rd",
-          "appointments": [],
+          "appointments": [
+            "5",
+            "6"
+          ],
           "gender": "Female",
           "last_name": "Kwok",
           "id": "5",
           "first_name": "Sydney",
-          "prescriptions": [],
+          "prescriptions": [
+            "drug1",
+            "drug2",
+            "drug3",
+            "drug4",
+            "drug5",
+            "drug6",
+            "drug7"
+          ],
           "age": "19",
           "email": "sydney.kwok@ucalgary.ca",
           "username": "sydney.kwok"
@@ -90,69 +96,104 @@
     {
       "doctor": [
         {
+          "schedule": {
+            "04/12": "8/16",
+            "04/13": "12/18",
+            "04/14": "12/18",
+            "04/15": "12/18",
+            "04/16": "12/18"
+          },
           "password": "docPassword",
           "appointments": [
-            "1",
-            "2"
+            {
+              "ID": "2"
+            },
+            {
+              "ID": "4"
+            },
+            {
+              "ID": "6"
+            }
           ],
           "gender": "Male",
+          "patients": [
+            "1",
+            "2",
+            "5"
+          ],
           "last_name": "Sohaib",
           "id": "1",
           "first_name": "Dr",
           "email": "bajwa@ucalgary.ca",
-          "username": "bajwa",
-          "patients": [
-          "1",
-          "2"
-          ]
+          "username": "bajwa"
         },
         {
+          "schedule": {},
           "password": "iamadoc",
           "appointments": [],
           "gender": "Male",
+          "patients": [
+            "3",
+            "4"
+          ],
           "last_name": "Martens",
           "id": "2",
           "first_name": "Doc",
           "email": "doc.martens@doctor.ca",
-          "username": "doc.martens",
-          "patients": [
-          "3",
-          "4"
-          ]
+          "username": "doc.martens"
         },
         {
+          "schedule": {},
           "password": "iamdoc",
           "appointments": [],
           "gender": "Male",
+          "patients": [
+            "5"
+          ],
           "last_name": "Doc",
           "id": "3",
           "first_name": "Doctor",
           "email": "doc@doc.com",
-          "username": "doc",
-          "patients": [
-          "5"
-          ]
+          "username": "doc"
         },
-        {"schedule":
-        	{
-        	"07":"10\/20","04\/09":"8\/10","02\/05":"10\/12","02\/04":"10\/12","04\/05":"10\/12","04\/06":"8\/10","08\/09":"10\/21","04\/07":"8\/10","04\/08":"8\/10","08\/08":"10\/21","02\/02":"10\/11","04\/20":"10\/12","02\/01":"55\/88","04\/21":"10\/12","4\/2":"33\/20","01\/31":"55\/88","5\/4":"10\/20","6\/5":"10\/20","a":"10:00","b":"10:00","c":"10:00","01\/03":"10\/12","01\/02":"10\/12","05\/07":"10\/20","05\/06":"10\/20","05\/09":"10\/20","05\/08":"10\/20","03\/20":"1\/2","01\/20":"10\/12"},
-    	"password":"ba",
-    	"appointments":[
-    	{"ID":"1"},
-    	{"ID":"2"},
-    	{"ID":"3"}],
-    	"gender":"Male",
-    	"last_name":"doc",
-    	"id":"4",
-    	"first_name":"doc",
-    	"email":"boogie@",
-    	"username":"boogie"
-    	}
+        {
+          "schedule": {
+            "04/20": "10/12",
+            "04/21": "10/12"
+          },
+          "password": "ba",
+          "appointments": [
+            {
+              "ID": "1"
+            },
+            {
+              "ID": "3"
+            },
+            {
+              "ID": "5"
+            }
+          ],
+          "gender": "Male",
+          "patients": [
+            "5"
+          ],
+          "last_name": "Boogy",
+          "id": "4",
+          "first_name": "Boogie",
+          "email": "boogie@",
+          "username": "boogie"
+        }
       ]
     },
     {
       "nurse": [
         {
+          "schedule": {
+            "06/25": "10/18",
+            "04/15": "9/15",
+            "04/16": "9/15",
+            "04/17": "9/15"
+          },
           "password": "nursePassword",
           "gender": "Female",
           "last_name": "Jacky",

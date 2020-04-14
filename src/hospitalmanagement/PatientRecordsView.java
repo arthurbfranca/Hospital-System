@@ -62,7 +62,7 @@ public class PatientRecordsView extends JFrame {
 		JButton btnAppts = new JButton("My Appointments");
 		btnAppts.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				// switch to the panel that shows all of the patient's appointments
 				PatientAppointmentView appts = new PatientAppointmentView(email);
 				appts.setVisible(true);
@@ -76,7 +76,7 @@ public class PatientRecordsView extends JFrame {
 		JButton btnPresciptions = new JButton("My Prescriptions");
 		btnPresciptions.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				// switch to the panel that shows all of the patient's prescriptions
 				PatientPrescriptionView p = new PatientPrescriptionView(email);
 				p.setVisible(true);
