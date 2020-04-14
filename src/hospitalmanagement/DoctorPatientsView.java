@@ -39,6 +39,7 @@ public class DoctorPatientsView extends JFrame {
 	 * button. Here, the Doctor will be able to see a list of patients they have an
 	 * appointment with.
 	 * @param email The email of the doctor. Used to uniquely identify the user so we can easily access their info.
+	 * @author ggdizon
 	 */
 	public DoctorPatientsView(String email) {
 

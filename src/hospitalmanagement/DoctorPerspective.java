@@ -52,7 +52,7 @@ public class DoctorPerspective extends JFrame {
 		//Add event handler for view appointment button
 		ViewAppointmentsButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				//Switch to panel that displays the appointments to view
 				DoctorAppointmentView appointmentPane = new DoctorAppointmentView(email);
 				appointmentPane.setVisible(true);
@@ -66,7 +66,7 @@ public class DoctorPerspective extends JFrame {
 		//Add event handler for view patient button
 		ViewPatientsButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseReleased(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent arg0) {
 				//Switch to panel that displays the patients that the doctor can view 
 				DoctorPatientsView viewPatientsPane = new DoctorPatientsView(email);
 				viewPatientsPane.setVisible(true);
@@ -90,7 +90,7 @@ public class DoctorPerspective extends JFrame {
 		//Add event handler for book appointment button
 		BookAppointmentButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				//Switch to panel where the doctor can book an appointment
 				// ORIGINAL !!!!!!!!!!!1
 				//DoctorBookPatient patientsPane = new DoctorBookPatient(email);
