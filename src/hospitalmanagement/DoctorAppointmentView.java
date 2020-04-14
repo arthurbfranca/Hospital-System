@@ -202,7 +202,7 @@ public class DoctorAppointmentView extends JFrame {
 		else {
 			//we have found the appointment in the json
 			//we now take the information from either account
-			JsonObject patient = getPatient((String)apt.get("patient"));
+			JsonObject patient = getPatient((String)apt.get("patient_email"));
 			name.setText(patient.get("first_name") + " " + patient.get("last_name"));
 			date.setText((String) apt.get("date"));
 			time.setText((String) apt.get("time"));
