@@ -206,7 +206,7 @@ public class SetAvailability extends JFrame {
 	 *          accounts2 json
 	 * @return the String of the account type
 	 */
-	private String findType(int i) {
+	public static String findType(int i) {
 		if (i == 0) {
 			return "patient";
 		} else if (i == 1) {
@@ -230,7 +230,7 @@ public class SetAvailability extends JFrame {
 	 * @param i The integer representation of the month
 	 * @return the String representation of the month
 	 */
-	private String getMonthString(int i) {
+	public static String getMonthString(int i) {
 		if (i == 1) {
 			return "january";
 		} else if (i == 2) {
