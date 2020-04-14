@@ -39,7 +39,7 @@ public class NurseViewSchedulePerspective extends JFrame {
 	/**
 	 * Create the frame for the nurse to view their appointments. 
 	 */
-	public NurseViewSchedulePerspective(String email, int accountType) {
+	public NurseViewSchedulePerspective(String email, int accountType, String today) {
 		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 626, 436);
@@ -60,12 +60,9 @@ public class NurseViewSchedulePerspective extends JFrame {
 		contentPane.add(MainLabel);
 		
 	
-		/*
-		 * // Add next button JButton btnNext = new JButton("Next"); //Add event handler
-		 * for next button btnNext.addMouseListener(new MouseAdapter() {
-		 * 
-		 * @Override public void mouseReleased(MouseEvent e) { } });
-		 * btnNext.setBounds(413, 354, 136, 22); contentPane.add(btnNext); // Add
+
+		 /*
+		  // Add
 		 * previous button JButton btnPrevious = new JButton("Previous"); //Add event
 		 * handler for previous button btnPrevious.addMouseListener(new MouseAdapter() {
 		 * 
@@ -103,8 +100,8 @@ public class NurseViewSchedulePerspective extends JFrame {
 		lblNewLabel_1.setBounds(227, 6, 61, 16);
 		firstDay.add(lblNewLabel_1);
 		
-		String dayOne = getSched(email, accountType, getToday());
-		String dateOne = getToday();
+		String dayOne = getSched(email, accountType, today);
+		String dateOne = today;
 		String timeOne;
 		if (dayOne == null) {
 			timeOne = "No Scheduled Time";
@@ -171,6 +168,7 @@ public class NurseViewSchedulePerspective extends JFrame {
 		thirdDay.add(label_5);
 		
 		String dayThree = getSched(email, accountType, nextDay2);
+		String dateThree = nextDay2;
 		String timeThree;
 		if (dayThree == null) {
 			timeThree = "No Scheduled Time";
@@ -178,6 +176,8 @@ public class NurseViewSchedulePerspective extends JFrame {
 		else {
 			timeThree = convertTime(dayThree); 
 		}
+		String nextScreenDay = getNextDate(dateThree);
+		
 		JLabel label_6 = new JLabel(nextDay2);
 		label_6.setBounds(6, 34, 61, 16);
 		thirdDay.add(label_6);
@@ -186,22 +186,19 @@ public class NurseViewSchedulePerspective extends JFrame {
 		label_7.setBounds(227, 34, 209, 16);
 		thirdDay.add(label_7);
 	
+		// Add next button 
+		JButton btnNext = new JButton("Next"); 
+		//Add event handler for next button 
+		btnNext.addMouseListener(new MouseAdapter() {
+			@Override public void mouseReleased(MouseEvent e) {
+				NurseViewSchedulePerspective nextPane = new NurseViewSchedulePerspective(email, accountType, nextScreenDay);
+				nextPane.setVisible(true);
+				dispose();
+			} 
+		});
+				btnNext.setBounds(413, 354, 136, 22); contentPane.add(btnNext); 
 	}
 	
-
-	/**
-	 * @return the current date in the same format used in the JSON
-	 * @author erinpaslawski
-	 * 
-	 * This method gets the current date using the System clock, and returns it
-	 * as a string in the same format used in the JSONs
-	 */
-	private String getToday() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd");
-		LocalDateTime now = LocalDateTime.now();
-		String today;
-		return(today = dtf.format(now)); 
-	}
 	
 	/**
 	 * @param email account email
