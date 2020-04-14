@@ -49,7 +49,6 @@ public class SetAvailability extends JFrame {
 	private JTextField finishField;
 	private JCheckBox consecutiveCheckbox;
 	private JTextField dayCount;
-	//TODO: add a checking mechanism to see if a schedule was already set for a day
 	
 	 /* Launch the application.
 	 
@@ -129,7 +128,6 @@ public class SetAvailability extends JFrame {
 			//go through all doctors to find the one we're dealing with. A constant time search could be implemented, but that would conflict with the 
 			//json format we are going with, which simplifies the syntax. This is a tradeoff in terms of writing code more easily, but we have lesser efficiency
 			//had we more time to troubleshoot, we'd opt for the optimal setup.
-			//FIXME: this may or not be skipping the first item in the list
 			while(i.hasNext() && flag == 0) {
 				index += 1;
 				goal = (JsonObject) i.next();
@@ -193,7 +191,6 @@ public class SetAvailability extends JFrame {
 	//This method is used by getDays() 
 	//To check whether a month has passed in the range from starting to starting + q, it will refer to dates.json to see the number
 	//of days the month has.
-	//TODO: make it so 2020 is corresponding to the current year.
 	private Boolean dayExists(int day, int month) {
 		try {
 			//reader to read dates.json
@@ -238,7 +235,6 @@ public class SetAvailability extends JFrame {
 			String s = "";
 			if(month < 10) {
 				//if month has a single digit, add a 0 prefix
-				//FIXME
 				s += "0";
 			}
 			s += month + "/";
@@ -279,7 +275,7 @@ public class SetAvailability extends JFrame {
 				schedule.put(days[i],time);
 			}
 
-			account.put("schedule",schedule);	//update account's schedule
+			account.put("schedule",schedule);		//update account's schedule
 			accountsArr.set(index,account);			//add the updated account into array of accounts of its type
 			//put this updated patient array as the patient object
 			accountsObj.put(type, accountsArr);
@@ -295,7 +291,6 @@ public class SetAvailability extends JFrame {
 			// Close the writer
 			writer.close();
 			System.out.println("Account's schedule is now: " + schedule);
-			System.out.println(schedule.get("08/08"));
 		}catch(Exception e) {
 			System.out.println("Something went wrong in set()");
 		}		
@@ -466,45 +461,4 @@ public class SetAvailability extends JFrame {
 	}
 
 }
-
-/*
-
-
-private String[] getDays(int m, int d, int q) {
-	String[] arr = new String[q+1];
-	arr[0] = String.valueOf(d) + "/" + m;
-	
-	int day = d;
-	int month = m;
-	for(int i = 1; i <= q; i++) {
-		//i should be 0 if no extra days are to be set, keep this in mind when looking at range.
-		//for the entire range of days, not including the first, which has already been added to the array, add their numerical date to the string array
-		//to be returned in the model mm/dd
-		day += 1;
-		
-		System.out.println(dayExists(day,month));
-		if(!dayExists(day, month)) {
-			//we have crossed the latest day of the given month
-			//move to the first day of the next month
-			month += 1;
-			day = 1;
-		}
-		String s = "";
-		if(month < 10) {
-			//if month has a single digit, add a 0 prefix
-			//FIXME
-			s += "0";
-		}
-		s += month + "/";
-		if(day < 10) {
-			//if day has a single digit, add a 0 prefix
-			s += "0";
-		}
-		s += day;
-		System.out.println("finally s is: " + s);
-		arr[i] = s;
-		
-	}
-	return arr;
-} */
 
