@@ -396,10 +396,14 @@ public class SetAvailability extends JFrame {
 			// Close the writer
 			writer.close();
 			System.out.println("Account's schedule is now: " + schedule);
+			Login lframe = new Login();
+			JOptionPane.showMessageDialog(lframe, "Successful.");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Something went wrong in set()");
+			Login lframe = new Login();
+			JOptionPane.showMessageDialog(lframe, "Not successful.");
 		}
 	}
 
