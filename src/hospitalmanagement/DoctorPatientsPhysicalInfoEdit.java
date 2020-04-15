@@ -20,11 +20,12 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.awt.Font;
 
+/**
+* Pane for editing the patient's physical info.
+*
+*/
 public class DoctorPatientsPhysicalInfoEdit extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
