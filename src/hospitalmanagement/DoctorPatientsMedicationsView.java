@@ -92,6 +92,11 @@ public class DoctorPatientsMedicationsView extends JFrame {
 			}
 		});
 		contentPane.add(btnReturn);
+
+		JButton btnRemove = new JButton("Remove");
+		btnRemove.setBounds(252, 216, 90, 25);
+		contentPane.add(btnRemove);
+
 	}
 	
 	/**
