@@ -28,6 +28,10 @@ import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 
+/**
+* Class to upload test results.
+*
+*/
 public class UploadTestsView extends JFrame {
 
 	private JPanel contentPane;
