@@ -108,10 +108,6 @@ public class AdminAssignDocDepView extends JFrame {
 		// add the "assign" button for the admin to confirm their assignment
 		JButton assignButton = new JButton("Assign");
 		assignButton.addMouseListener(new MouseAdapter() {
-			/************ TO DO: when the admin goes through with the assignment,
-			 * add the selected doctor to the selected department in the departments.json file
-			 * write the selected department as the doctor's department? (if we want the doctor to store a department attribute)
-			 ****************/
 			public void mouseReleased(MouseEvent e) {
 				String selectedDoc = docUsername.get(docDropdown.getSelectedIndex());
 				String selectedDep = departmentDropdown.getSelectedItem().toString();
