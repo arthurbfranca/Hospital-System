@@ -25,11 +25,12 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+* Pane that allows the doctor to view notes about a patient.
+*
+*/
 public class DoctorPatientsNotesView extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
