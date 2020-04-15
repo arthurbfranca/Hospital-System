@@ -12,9 +12,7 @@ import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 
 /**
- * This class is used in registration. When the user registers themself into the
- * system, a new account will be made for them and then this class will write
- * all their account info to our "accounts2" JSON file.
+ * This class is used in many instances when writing to the JSON files.
  * 
  * @author erinpaslawski, sydneykwok
  *
@@ -871,7 +869,6 @@ public class WriteToJSON {
 			 * 		(2) add the appointment ID to the patient's appointment array in ACCOUNT json
 			 * 		(3) add the appointment ID to the doctor's appointment array in ACCOUNT json
 			 * 		(4) add the appointment ID to the department's appointment array in DEPARTMENT json
-			 * TODO:(5) some how update the doctor's availability???????????? in ACCOUNT json
 			 ****************/
 			try {
 				/******* (1) APPOINTMENT ADDED TO APPOINTMENTS JSON *********/
