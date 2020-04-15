@@ -36,8 +36,6 @@ import java.awt.event.MouseEvent;
  */
 public class SetAvailability extends JFrame {
 
-	// TODO: add a checking mechanism to see if a schedule was already set for a day
-
 	private JPanel contentPane;
 	private JTextField dateField;
 	private JTextField startField;
@@ -261,7 +259,7 @@ public class SetAvailability extends JFrame {
 		}
 	}
 
-	/** TODO: make it so 2020 is corresponding to the current year. ****
+	/** 
 	 * This method is used by getDays().
 	 * Checks whether a month has passed in the range from starting to starting + q.
 	 * It refers to the dates.json to see the number of days the month has.
@@ -408,47 +406,3 @@ public class SetAvailability extends JFrame {
 	}
 
 } // end of class
-
-// Below is just old code we want to keep just in case?
-
-//takes in the index that corresponds to the account type's position in
-// accounts2.json and returns the array with the list of all accounts of
-// said type.
-/*
- * private JsonArray findArrayOfAccounts(int accountType) { try { //reader to
- * read accounts2.json BufferedReader reader = new BufferedReader(new
- * InputStreamReader(new
- * FileInputStream("src/hospitalmanagement/accounts2.json"))); //parser to parse
- * the reader JsonObject parser = (JsonObject) Jsoner.deserialize(reader); //we
- * look for the JsonArray within accounts2.json, for that is where the
- * JsonObject of our account is JsonArray accounts = (JsonArray)
- * parser.get("accounts"); JsonObject accountsObj = (JsonObject)
- * accounts.get(accountType); //this is the object that has the list of all
- * accounts of the given type String type = findType(accountType); JsonArray
- * accountsArr = (JsonArray) accountsObj.get(type); reader.close(); return
- * accountsArr; }catch(Exception e) {
- * System.out.println("Something went wront in findArrayOfAccounts()"); return
- * null; } }
- */
-
-/*
- * 
- * 
- * private String[] getDays(int m, int d, int q) { String[] arr = new
- * String[q+1]; arr[0] = String.valueOf(d) + "/" + m;
- * 
- * int day = d; int month = m; for(int i = 1; i <= q; i++) { //i should be 0 if
- * no extra days are to be set, keep this in mind when looking at range. //for
- * the entire range of days, not including the first, which has already been
- * added to the array, add their numerical date to the string array //to be
- * returned in the model mm/dd day += 1;
- * 
- * System.out.println(dayExists(day,month)); if(!dayExists(day, month)) { //we
- * have crossed the latest day of the given month //move to the first day of the
- * next month month += 1; day = 1; } String s = ""; if(month < 10) { //if month
- * has a single digit, add a 0 prefix //FIXME s += "0"; } s += month + "/";
- * if(day < 10) { //if day has a single digit, add a 0 prefix s += "0"; } s +=
- * day; System.out.println("finally s is: " + s); arr[i] = s;
- * 
- * } return arr; }
- */
