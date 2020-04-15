@@ -21,6 +21,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.SwingConstants;
 
 public class DoctorPatientsTestOrdersInfo extends JFrame {
 
@@ -56,7 +57,8 @@ public class DoctorPatientsTestOrdersInfo extends JFrame {
 		contentPane.add(lblTestOrderFor);
 		
 		JLabel lblPatientname = new JLabel(getPatientName(patientIndex));
-		lblPatientname.setBounds(255, 47, 76, 19);
+		lblPatientname.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPatientname.setBounds(223, 47, 140, 19);
 		lblPatientname.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		contentPane.add(lblPatientname);
 		
@@ -76,7 +78,7 @@ public class DoctorPatientsTestOrdersInfo extends JFrame {
 		contentPane.add(lblTestType);
 		
 		JLabel lblTesttype = new JLabel(moreTestInfos[0]);
-		lblTesttype.setBounds(255, 137, 76, 19);
+		lblTesttype.setBounds(256, 137, 100, 19);
 		lblTesttype.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		contentPane.add(lblTesttype);
 		

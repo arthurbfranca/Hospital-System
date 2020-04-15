@@ -66,7 +66,8 @@ public class DoctorPatientsBasicInfoView extends JFrame {
 		contentPane.add(lblName);
 		
 		JLabel lblFullname = new JLabel(fullName);
-		lblFullname.setBounds(285, 19, 53, 16);
+		lblFullname.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFullname.setBounds(216, 19, 168, 16);
 		contentPane.add(lblFullname);
 		
 		JLabel lblAge = new JLabel("Age:");
@@ -75,7 +76,8 @@ public class DoctorPatientsBasicInfoView extends JFrame {
 		contentPane.add(lblAge);
 		
 		JLabel lblShownAge = new JLabel(age);
-		lblShownAge.setBounds(312, 61, 0, 0);
+		lblShownAge.setHorizontalAlignment(SwingConstants.CENTER);
+		lblShownAge.setBounds(226, 56, 158, 13);
 		contentPane.add(lblShownAge);
 		
 		JLabel lblGender = new JLabel("Gender:");
@@ -83,7 +85,8 @@ public class DoctorPatientsBasicInfoView extends JFrame {
 		contentPane.add(lblGender);
 		
 		JLabel lblShowngender = new JLabel(gender);
-		lblShowngender.setBounds(312, 95, 0, 0);
+		lblShowngender.setHorizontalAlignment(SwingConstants.CENTER);
+		lblShowngender.setBounds(250, 88, 100, 15);
 		contentPane.add(lblShowngender);
 		
 		JLabel lblMaritalStatus = new JLabel("Marital Status:");
@@ -91,7 +94,8 @@ public class DoctorPatientsBasicInfoView extends JFrame {
 		contentPane.add(lblMaritalStatus);
 		
 		JLabel lblShownmarital = new JLabel(maritalstatus);
-		lblShownmarital.setBounds(312, 129, 0, 0);
+		lblShownmarital.setHorizontalAlignment(SwingConstants.CENTER);
+		lblShownmarital.setBounds(250, 120, 100, 15);
 		contentPane.add(lblShownmarital);
 		
 		JLabel lblRace = new JLabel("Race:");
@@ -100,7 +104,8 @@ public class DoctorPatientsBasicInfoView extends JFrame {
 		contentPane.add(lblRace);
 		
 		JLabel lblShownrace = new JLabel(race);
-		lblShownrace.setBounds(312, 163, 0, 0);
+		lblShownrace.setHorizontalAlignment(SwingConstants.CENTER);
+		lblShownrace.setBounds(240, 155, 120, 15);
 		contentPane.add(lblShownrace);
 		
 		JLabel lblProblems = new JLabel("Problems:");
@@ -129,7 +134,8 @@ public class DoctorPatientsBasicInfoView extends JFrame {
 		contentPane.add(lblClinicLocation);
 		
 		JLabel lblShownlocation = new JLabel(location);
-		lblShownlocation.setBounds(312, 325, 0, 0);
+		lblShownlocation.setHorizontalAlignment(SwingConstants.CENTER);
+		lblShownlocation.setBounds(210, 320, 200, 15);
 		contentPane.add(lblShownlocation);
 		
 		// Button to close the window and return to the previous one
