@@ -94,9 +94,9 @@ public class DoctorPatientsNotesAdd extends JFrame {
 	}
 	
 	/**
-	 * This method gets the paitent's notes data as a String ArrayList
+	 * This method adds notes to patient's list of notes in the json
 	 * @param patientIndex The index of the patient according to the accounts2.json
-	 * @return ArrayList<String> of patient's notes
+	 * @param notes The notes that needs to be added
 	 * @author ggdizon
 	 */
 	private void setPatientsNotes(String patientIndex, String notes) {
@@ -124,7 +124,7 @@ public class DoctorPatientsNotesAdd extends JFrame {
 			// get JsonArray representation of the "notes" section of the records
 			JsonArray notesArr = (JsonArray) record.get("notes");
 			
-			// update the notes array
+			// update the notes array by adding the new note
 			notesArr.add(notes);
 			
 			// update the medical records of the patient
