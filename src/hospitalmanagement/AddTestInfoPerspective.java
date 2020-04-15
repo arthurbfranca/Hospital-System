@@ -27,7 +27,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 /**
- * 
+ * This class allows nurses to add test info for patients. 
+ *
  * @author erinpaslawski
  *
  */
@@ -109,7 +110,6 @@ public class AddTestInfoPerspective extends JFrame {
 		lblNewLabel.setBounds(159, 121, 99, 16);
 		contentPane.add(lblNewLabel);
 		
-		
 		// Submit button, which is an action handler that will write to the JSON with the written info
 		JButton btnNewButton = new JButton("Submit");
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -143,7 +143,6 @@ public class AddTestInfoPerspective extends JFrame {
 		btnNewButton.setBounds(227, 346, 136, 29);
 		contentPane.add(btnNewButton);
 		
-		
 		//Adding button to return to nurse perspective home page
 		JButton btnReturn = new JButton("Return");
 		//Add event handler for return button
@@ -158,6 +157,5 @@ public class AddTestInfoPerspective extends JFrame {
 		});
 		btnReturn.setBounds(227, 383, 136, 14);
 		contentPane.add(btnReturn);
-
 	}
 }
