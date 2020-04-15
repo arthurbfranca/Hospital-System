@@ -1,17 +1,40 @@
 {
   "departments": [
-    {"name": "Neurology",
-      "doctors":[1,2,3],
-      "nurses":[1,2,3],
-      "appointments":[1,2]
-    },    {"name": "Cardiology",
-      "doctors":[1,2,3],
-      "nurses":[1,2,3],
-      "appointments":[1,2]
-    },    {"name": "Nephrology",
-      "doctors":[1,2,3],
-      "nurses":[1,2,3],
-      "appointments":[1,2]
+    {
+      "appointments": [
+        "2",
+        "5"
+      ],
+      "doctors": [
+        "bajwa",
+        "boogie"
+      ],
+      "type": "Neurology",
+      "nurses": []
+    },
+    {
+      "appointments": [
+        "1",
+        "4",
+        "6"
+      ],
+      "doctors": [
+        "bajwa",
+        "boogie"
+      ],
+      "type": "Cardiology",
+      "nurses": []
+    },
+    {
+      "appointments": [
+        "3"
+      ],
+      "doctors": [
+        "bajwa",
+        "boogie"
+      ],
+      "type": "Nephrology",
+      "nurses": []
     }
-    ]
+  ]
 }

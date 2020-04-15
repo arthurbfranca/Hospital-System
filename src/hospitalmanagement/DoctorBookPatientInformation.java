@@ -15,12 +15,15 @@ import java.awt.Insets;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JList;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
 * Class that displays the panel for patient/appointment booking information 
@@ -36,10 +39,11 @@ public class DoctorBookPatientInformation extends JFrame {
 	* This frame is the frame for when the Doctor selects the patient in the DoctorBookPatient pane.
 	* This frame will show important information about the patient as well as give options for the 
 	* appointments, such as time and date.
+	* @param email The email of the doctor (used as an identifier for the user so we can get patients of this doctor only).
 	* @param name Name of patient passed from previous window.
 	* @param ID ID of patients passed from previous window.
 	*/
-	public DoctorBookPatientInformation(String name, int ID) {
+	public DoctorBookPatientInformation(String email, String name, int ID) {
 		
 		// set frame properties
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -47,6 +51,7 @@ public class DoctorBookPatientInformation extends JFrame {
 		
 		// create panel for the frame
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(135, 206, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
@@ -61,16 +66,20 @@ public class DoctorBookPatientInformation extends JFrame {
 		
 		// Button for completing the appointment booking process.
 		JButton btnBookAppointment = new JButton("Book Appointment");
+		btnBookAppointment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		
 		// Button for cancelling the appointment booking process.
 		JButton btnCancel = new JButton("Cancel");
 		// If Cancel button is clicked, it will show a dialog, then close the pane and return to previous pane
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				JOptionPane.showMessageDialog(contentPane, "Patient has NOT been added.");
 				dispose();
-				DoctorBookPatient addPatientPane = new DoctorBookPatient();
+				DoctorBookPatient addPatientPane = new DoctorBookPatient(email);
 				addPatientPane.setVisible(true);
 			}
 		});
@@ -300,21 +309,26 @@ public class DoctorBookPatientInformation extends JFrame {
 		// If "Book Appointment" button was clicked, a confirmation dialogue will be shown.
 		btnBookAppointment.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				int add = JOptionPane.showConfirmDialog(contentPane, "Add " + name + "?");		//Confirmation dialogue shown to doctor
-				if (add == 0) {		//If "YES" was clicked, make new appointment and add patient to it, and give a dialogue saying so.
-					String timeSelected = time[timeList.getSelectedIndex()];
-					/******** TODO: Add selected patient to doctor's lists of patients in the accounts JSON. 
-					 * The time for appointment is a string called timeSelected, defined above.
-					 * Also need to create an appointment ID.
-					 */
-					JOptionPane.showMessageDialog(contentPane, name + "has been added to your patients.\n" + 
-					 "Time of appointment: " + timeSelected);
-					dispose();
-					DoctorBookPatient addPatientPane = new DoctorBookPatient();
-					addPatientPane.setVisible(true);
-				} else {		//If "NO" or "CANCEL" was clicked, don't make appointment and give a dialogue saying so.
-					JOptionPane.showMessageDialog(contentPane, "Patient has NOT been added.");
+			public void mouseReleased(MouseEvent arg0) {
+				int timeListIndex = timeList.getSelectedIndex();
+				if (timeListIndex < 0) {  //If no timeslot was chosen, give a message saying so and don't book appointment
+					JOptionPane.showMessageDialog(contentPane, "Please select a timeslot.");
+				} else {
+					int add = JOptionPane.showConfirmDialog(contentPane, "Add " + name + "?");		//Confirmation dialogue shown to doctor
+					if (add == 0) {		//If "YES" was clicked, make new appointment and add patient to it, and give a dialogue saying so.
+						String timeSelected = time[timeListIndex];
+						/******** TODO: Add selected patient to doctor's lists of patients in the accounts JSON. 
+						 * The time for appointment is a string called timeSelected, defined above.
+						 * Also need to create an appointment ID.
+						 */
+						JOptionPane.showMessageDialog(contentPane, name + " has been added to your patients.\n" + 
+						 "Time of appointment: " + timeSelected);
+						dispose();
+						DoctorBookPatient addPatientPane = new DoctorBookPatient(email);
+						addPatientPane.setVisible(true);
+					} else {		//If "NO" or "CANCEL" was clicked, don't make appointment and give a dialogue saying so.
+						JOptionPane.showMessageDialog(contentPane, "Patient has NOT been added.");
+					}
 				}
 			}
 		});

@@ -1,3 +1,4 @@
+  
 package hospitalmanagement;
 
 import javax.swing.JFrame;
@@ -156,7 +157,7 @@ public class Register extends JFrame {
 		JButton btnNewButton = new JButton("Sign Up");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 
 				// get inputs from fields
 				String accountType = accountTypeCombo.getSelectedItem().toString();
@@ -167,6 +168,7 @@ public class Register extends JFrame {
 				String gender;
 				String password;
 				String confirm;
+				boolean registrationSuccess = false;
 
 				try {	// error checking that age input is an integer
 					age = Integer.parseInt(enterAge.getText());
@@ -200,27 +202,34 @@ public class Register extends JFrame {
 					JOptionPane.showMessageDialog(lframe1, "Please make sure to fill in all fields.");
 					
 				} else {
-
+					
 					if (accountType.equals("Patient")) {	// if the user is a patient
 						try {	// create a new patient account for them
-							registrationJSON.addNewAccount(new Account(accountType, firstName, lastName, age, email, gender, password));
+							WriteToJSON.addNewAccount(new Account(accountType, firstName, lastName, age, email, gender, password));
+							registrationSuccess = true;
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
+							System.out.println(e1.getMessage());
 							e1.printStackTrace();
+							
 						}
 					} else {
 						try {	// otherwise, they are a staff member and we will add them as a staff
-							registrationJSON.addNewAccount(new Account(accountType, firstName, lastName, email, gender, password));
+							WriteToJSON.addNewAccount(new Account(accountType, firstName, lastName, email, gender, password));
+							registrationSuccess = true;
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
+							System.out.println(e1.getMessage());
 							e1.printStackTrace();
 						}
 					}
-
-					// show the welcome view
-					NewAccountWelcome welcome = new NewAccountWelcome(contentPane);
-					welcome.setVisible(true);
-					dispose();
+					
+					if (registrationSuccess) {
+						// show the welcome view
+						NewAccountWelcome welcome = new NewAccountWelcome(contentPane, email);
+						welcome.setVisible(true);
+						dispose();
+					}
 				}
 			}
 		});
@@ -231,7 +240,7 @@ public class Register extends JFrame {
 		JButton btnNewButton_1 = new JButton("Cancel");
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				dispose();
 			}
 		});
