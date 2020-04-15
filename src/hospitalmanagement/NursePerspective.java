@@ -137,11 +137,11 @@ public class NursePerspective extends JFrame {
 	}
 	
 	/**
-	 * This method gets the current date using the System clock, and returns it
-	 * as a string in the same format used in the JSONs
-	 * 
 	 * @return the current date in the same format used in the JSON
 	 * @author erinpaslawski
+	 * 
+	 * This method gets the current date using the System clock, and returns it
+	 * as a string in the same format used in the JSONs
 	 */
 	private String getToday() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd");
