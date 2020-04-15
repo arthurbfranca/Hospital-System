@@ -17,11 +17,12 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+* Creates the pane for adding a new medication for a patient.
+*
+*/
 public class DoctorPatientsMedicationsAdd extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtMedicationName;
