@@ -23,11 +23,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
 
+/**
+* Pane for the doctor to view additional info about a chosen test.
+*/
 public class DoctorPatientsTestOrdersInfo extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
