@@ -59,26 +59,6 @@ public class DoctorBookPatient extends JFrame {
 		lblPleaseSelectPatient.setBounds(146, 13, 125, 16);
 		contentPane.add(lblPleaseSelectPatient);
 
-		/********
-		 * TODO: List patient names here that the doctor can add using the accounts
-		 * JSON. I suggest having a different string array containing their ID (or some
-		 * way to get their information once the doctor selects the patient). This
-		 * string is only a list for the patient names that will be shown, so yeah,
-		 * can't put ID here. Note: do we need to have departments for the patients as
-		 * well? Like what departments they need to be in (like are they getting a
-		 * kidney surgery, and will be placed in the nephrology department, and so
-		 * doctors in the nephrology department will be the ones that will be able to
-		 * add them? And they will be in multiple departments if they have more than 1
-		 * type, like kidney appointment and heart surgery?) ASK THEM
-		 */
-		// String[] names = new String[] {"LastName, FirstName Patient1", "LastName,
-		// FirstName Patient2", "LastName, FirstName Patient3",
-		// "LastName, FirstName Patient4", "LastName, FirstName Patient5", "LastName,
-		// FirstName Patient6", "LastName, FirstName Patient7",
-		// "LastName, FirstName Patient8", "LastName, FirstName Patient9", "LastName,
-		// FirstName Patient10", "LastName, FirstName Patient11",
-		// "LastName, FirstName Patient12"};
-
 		ArrayList<String> names = new ArrayList<String>();
 		try {
 			// create reader
@@ -115,13 +95,6 @@ public class DoctorBookPatient extends JFrame {
 			ex.printStackTrace();
 		}
 
-		/********
-		 * TODO: Make string array that lists patient ID using accounts JSON. Below is a
-		 * placeholder for now. If you have a different idea, let me (Gerard) know so I
-		 * can properly adjust. For now, there will be 2 different Strings: first (the
-		 * one above) containing the names; second (the one below) containing the IDs
-		 * (must be same indices)
-		 */
 		String[] patientIDs = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
 
 		// List of names of patients
@@ -170,7 +143,5 @@ public class DoctorBookPatient extends JFrame {
 		});
 		btnCancel.setBounds(236, 215, 97, 25);
 		contentPane.add(btnCancel);
-		// String[] patients = {"LastName, Alice", "LastName, Bob", "LastName, COVID19",
-		// "LastName, Dad", "LastName, Eckhardt"};
 	}
 }
