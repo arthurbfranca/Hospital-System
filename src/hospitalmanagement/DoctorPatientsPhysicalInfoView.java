@@ -24,11 +24,12 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.awt.Font;
 
+/**
+* Pane for viewing the patient's physical info.
+*
+*/
 public class DoctorPatientsPhysicalInfoView extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
