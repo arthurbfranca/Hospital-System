@@ -13,11 +13,12 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+* Pane that gives the doctor the ability to view the medical records of the patient.
+*
+*/
 public class DoctorPatientsMedicalRecord extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
