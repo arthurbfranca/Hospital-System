@@ -32,9 +32,6 @@ import javax.swing.ButtonGroup;
 
 /**
  * Class that displays the panel for patients to book an appointment.
- * !!!!!!!!!Note: scheduling only has one year right now so everything here is 
- * based off of the current 2020 doctor scheduling. We can just take out bookings
- * past 2020 but I have implemented booking for 2020-2025 for now. !!!!!!!!1
  * 
  * @author sydneykwok
  */
