@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,8 +26,9 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextArea;
 
-public class DoctorPatientsNotesView extends JFrame {
+public class DoctorPatientsNotesAdd extends JFrame {
 
 	/**
 	 * 
@@ -39,21 +42,13 @@ public class DoctorPatientsNotesView extends JFrame {
 	 * @param patientIndex The index of the patient according to the accounts2.json
 	 * @author ggdizon
 	 */
-	public DoctorPatientsNotesView(String email, String patientIndex) {
+	public DoctorPatientsNotesAdd(String email, String patientIndex) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(new Color(135, 206, 235));
 		setContentPane(contentPane);
-		
-		// Get list of notes for the patient in the medical records json
-		List<String> notes = getPatientsNotes(patientIndex);
-		// Number the list of notes
-		for (int i = 0; i < notes.size(); i++) {
-			String numberedList = (i+1) + ". " + notes.get(i);
-			notes.set(i, numberedList);
-		}
 		contentPane.setLayout(null);
 		
 		// Title Label
@@ -61,27 +56,21 @@ public class DoctorPatientsNotesView extends JFrame {
 		lblNewLabel.setBounds(124, 19, 184, 16);
 		contentPane.add(lblNewLabel);
 		
-		// JList of the notes about the patients
-		JList<Object> notesList = new JList<>(notes.toArray(new String[notes.size()]));
-		notesList.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				//TODO: possibly check for details if it's an appt note?
-			}
-		});
-		notesList.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.GRAY));
-		JScrollPane notesListScroller = new JScrollPane();
-		notesListScroller.setBounds(12, 60, 408, 152);
-		notesListScroller.setViewportView(notesList);
-		contentPane.add(notesListScroller);
+		// Text area to put notes into
+		JTextArea newNotes = new JTextArea();
+		newNotes.setLineWrap(true);
+		newNotes.setBounds(12, 45, 408, 158);
+		contentPane.add(newNotes);
 		
 		// Button to add another note for the patient
 		JButton btnNewButton = new JButton("Add Notes");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				DoctorPatientsNotesAdd addNotesPane = new DoctorPatientsNotesAdd(email, patientIndex);
-				addNotesPane.setVisible(true);
+			public void mouseReleased(MouseEvent e) {
+				String note = newNotes.getText();
+				setPatientsNotes(patientIndex, note);
+				DoctorPatientsNotesView notesViewPane = new DoctorPatientsNotesView(email, patientIndex);
+				notesViewPane.setVisible(true);
 				dispose();
 			}
 		});
@@ -89,15 +78,18 @@ public class DoctorPatientsNotesView extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		// Button to leave the window and return to the previous one
-		JButton btnReturn = new JButton("Return");
+		JButton btnReturn = new JButton("Cancel");
 		btnReturn.setBounds(228, 216, 93, 25);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				DoctorPatientsNotesView notesViewPane = new DoctorPatientsNotesView(email, patientIndex);
+				notesViewPane.setVisible(true);
 				dispose();
 			}
 		});
 		contentPane.add(btnReturn);
+
 		
 	}
 	
@@ -107,7 +99,7 @@ public class DoctorPatientsNotesView extends JFrame {
 	 * @return ArrayList<String> of patient's notes
 	 * @author ggdizon
 	 */
-	private ArrayList<String> getPatientsNotes(String patientIndex) {
+	private void setPatientsNotes(String patientIndex, String notes) {
 		try {
 			// create reader
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/medical_records.json")));
@@ -132,28 +124,31 @@ public class DoctorPatientsNotesView extends JFrame {
 			// get JsonArray representation of the "notes" section of the records
 			JsonArray notesArr = (JsonArray) record.get("notes");
 			
-			// Make an String ArrayList containing the notes
-			ArrayList<String> notes = new ArrayList<>();
+			// update the notes array
+			notesArr.add(notes);
 			
-			// use iterator to iterate through the notes in the json
-			// and then add it to the ArrayList
-			Iterator i = notesArr.iterator();
-			int index = 0;
+			// update the medical records of the patient
+			record.put("notes", notesArr);
 			
-			while (i.hasNext()) {
-				i.next();
-				notes.add((String) notesArr.getString(index));
-				index++;
-			}
+			// update the array of medical records
+			medicalrecords.set(Integer.parseInt(patientIndex), record);
 			
-			return notes;
+			// update the entire json
+			parser.put("medicalrecords", medicalrecords);
+			
+			// Create a writer
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/medical_records.json"));
+
+			// Write updates to JSON file
+			Jsoner.serialize(parser, writer);
+
+			// Close the writer
+			writer.close();
+			
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-		
-		return null;
 	}
-
 }
