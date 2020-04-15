@@ -28,11 +28,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextArea;
 
+/*
+* Class that allows the doctor to add notes about a patient.
+*/
 public class DoctorPatientsNotesAdd extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
