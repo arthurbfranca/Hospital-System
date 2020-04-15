@@ -9,7 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,12 +38,16 @@ import com.github.cliftonlabs.json_simple.Jsoner;
 
 /**
  * This class displays the stored information of the specified appointment.
- * @author sydneykwok
+ * @author sydneykwok, arthurfranca
  *
  */
 public class PatientAppointmentInfoView extends JFrame {
 
 	private JPanel contentPane;
+	
+	
+
+
 
 	/**
 	 * Create the frame. The patient will be shown information about
@@ -184,12 +190,12 @@ public class PatientAppointmentInfoView extends JFrame {
 		ApptInfo.add(lblDoctorEmail, gbc_lblDoctorEmail);
 
 		// appointment id number
-		JLabel lblApptIDNum = new JLabel(apptID);
-		GridBagConstraints gbc_lblApptIDNum = new GridBagConstraints();
-		gbc_lblApptIDNum.insets = new Insets(0, 0, 5, 0);
-		gbc_lblApptIDNum.gridx = 1;
-		gbc_lblApptIDNum.gridy = 0;
-		ApptInfo.add(lblApptIDNum, gbc_lblApptIDNum);
+		JLabel ApptNum = new JLabel(apptID);
+		GridBagConstraints gbc_ApptNum = new GridBagConstraints();
+		gbc_ApptNum.insets = new Insets(0, 0, 5, 0);
+		gbc_ApptNum.gridx = 1;
+		gbc_ApptNum.gridy = 0;
+		ApptInfo.add(ApptNum, gbc_ApptNum);
 
 		// add the appointment date label
 		GridBagConstraints gbc_ApptDate = new GridBagConstraints();
@@ -217,26 +223,123 @@ public class PatientAppointmentInfoView extends JFrame {
 				dispose();
 			}
 		});
+		
+		//Event Handler that signals the patient wishes to cancel the appointment in display
+		//this is done by finding the patient's JsonObject, getting its JsonArray of appointments, and removing the appointment with the ID in display
+		JButton CancelButton = new JButton("Cancel");
+		CancelButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				String aptID = ApptNum.getText();
+				try {
+					//reader to read accounts2.json
+					BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
+					//parser to parse the reader
+					JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
+					//we look for the JsonArray within accounts2.json, for that is where the JsonObject of our doctor is
+					JsonArray accounts = (JsonArray) parser.get("accounts");
+					JsonObject patientsObj = (JsonObject) accounts.get(0);	//this is the object that has the list of all patients
+					JsonArray patientArr = (JsonArray) patientsObj.get("patient");
+					
+					Iterator i;
+					//Now we find the JsonObject for the doctor in particular we are dealing with, whom is identified by the passed email
+					i = patientArr.iterator(); 
+					int flag = 0; //flag used to stop the iteration when we've found the correct object
+					JsonObject patient = null;
+					//go through all doctors to find the one we're dealing with. A constant time search could be implemented, but that would conflict with the 
+					//json format we are going with, which simplifies the syntax. This is a tradeoff in terms of writing code more easily, but we have lesser efficiency
+					//had we more time to troubleshoot, we'd opt for the optimal setup.
+					//keeps track of the patient's account in the array of patients
+					int k = 0;
+					while(i.hasNext() && flag == 0) {
+						patient = (JsonObject) i.next();
+						String currentEmail = (String) patient.get("email");
+						if(currentEmail.equals(email)) {
+							flag = 1;
+						}else {
+							k += 1;
+						}
+					}
+					reader.close();
+					
+					//get the patients appointments
+					JsonArray aptArray = (JsonArray) patient.get("appointments");
+					// iterate through the array of appointments until we find the one in display
+					//keeps track of the index
+					int j = 0;
+					//tracks whether we've found the appointment index
+					int success = 0; //determines whether we've
+					while (j < aptArray.size()) {
+					    if(aptID.equals(aptArray.getString(j))) {
+					    	success += 1;
+					    	break;
+					    }
+					    j += 1;
+					}
+					if(success != 0) {
+						//remove the appointment from the patient's array of appointments
+						aptArray.remove(j);
+						//update the doctor's appointments
+						patient.put("appointments",aptArray);
+						//update the array of doctors
+						patientArr.set(k,patient);
+						//put this updated array of doctors as the "doctor" object
+						patientsObj.put("patient", patientArr);
+						//update the object with all accounts to have this updated doctor object
+						accounts.set(0, patientsObj);
+						//put the updated accounts array as the account entry in the JSON
+						parser.put("accounts", accounts);
+						
+						// Create a writer
+						BufferedWriter writer = new BufferedWriter(new FileWriter("src/hospitalmanagement/accounts2.json"));
+						// Write updates to JSON file
+						Jsoner.serialize(parser, writer);
+						// Close the writer
+						writer.close();
+						dispose();
+					}
+				} catch(Exception exception) {
+					System.out.println("Something went with the cancellation");
+				}
+			}
+			
+		});
 
 		// implement the group layout
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane
-				.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(169).addComponent(btnReturn)
-								.addContainerGap(182, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING,
-								gl_contentPane.createSequentialGroup().addContainerGap(70, Short.MAX_VALUE)
-										.addComponent(ApptInfo, GroupLayout.PREFERRED_SIZE, 284,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(68))
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(137).addComponent(lblApptInformation)
-								.addContainerGap(143, Short.MAX_VALUE)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap().addComponent(lblApptInformation)
-						.addGap(18).addComponent(ApptInfo, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnReturn).addGap(15)));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(72, Short.MAX_VALUE)
+					.addComponent(ApptInfo, GroupLayout.PREFERRED_SIZE, 284, GroupLayout.PREFERRED_SIZE)
+					.addGap(68))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(137)
+					.addComponent(lblApptInformation)
+					.addContainerGap(163, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(96, Short.MAX_VALUE)
+					.addComponent(CancelButton, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+					.addGap(71)
+					.addComponent(btnReturn, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+					.addGap(109))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblApptInformation)
+					.addGap(18)
+					.addComponent(ApptInfo, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(CancelButton)
+						.addComponent(btnReturn))
+					.addGap(15))
+		);
 
 		// add the grouplayout content pane to the main content pane
 		contentPane.setLayout(gl_contentPane);
 	}
 }
+

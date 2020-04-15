@@ -13,7 +13,6 @@ import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
@@ -23,12 +22,7 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class DoctorPatientsPhysicalInfoView extends JFrame {
 
@@ -51,7 +45,6 @@ public class DoctorPatientsPhysicalInfoView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(new Color(135, 206, 235));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[225][225,grow]", "[25][25][25][25][25][25][25][45,grow][45,grow][45,grow][45,grow][45,grow][45,grow][45,grow][45,grow][25][25][grow]"));
 		
 		// Get patient's physical information
 		JsonObject physicalInfo = getPatientsPhysicalInfo(patientIndex);
@@ -71,145 +64,181 @@ public class DoctorPatientsPhysicalInfoView extends JFrame {
 		String impression = (String) physicalInfo.get("impression");
 		String lastupdated = (String) physicalInfo.get("lastupdated");
 		String updatedby = (String) physicalInfo.get("updatedby");
+		contentPane.setLayout(null);
 		
 		// Add the labels for the physical information (and scroll bar if needed)
 		JLabel lblPhysical = new JLabel("Physical Information");
+		lblPhysical.setBounds(54, 15, 142, 17);
 		lblPhysical.setFont(new Font("Tahoma", Font.BOLD, 14));
-		contentPane.add(lblPhysical, "cell 0 0,alignx center");
+		contentPane.add(lblPhysical);
 		
 		JLabel lblTemp = new JLabel("Temperature:");
+		lblTemp.setBounds(85, 41, 80, 16);
 		lblTemp.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblTemp, "cell 0 1,alignx center");
+		contentPane.add(lblTemp);
 		
 		JTextArea txtTemp = new JTextArea(temp);
+		txtTemp.setBounds(241, 38, 374, 22);
 		txtTemp.setEditable(false);
-		contentPane.add(txtTemp, "cell 1 1,grow");
+		contentPane.add(txtTemp);
 		
 		JLabel lblPulse = new JLabel("Pulse:");
-		contentPane.add(lblPulse, "cell 0 2,alignx center");
+		lblPulse.setBounds(107, 67, 35, 16);
+		contentPane.add(lblPulse);
 		
 		JTextArea txtPulse = new JTextArea(pulse);
+		txtPulse.setBounds(241, 64, 374, 22);
 		txtPulse.setEditable(false);
-		contentPane.add(txtPulse, "cell 1 2,grow");
+		contentPane.add(txtPulse);
 		
 		JLabel lblRhythm = new JLabel("Rhythm:");
-		contentPane.add(lblRhythm, "cell 0 3,alignx center");
+		lblRhythm.setBounds(101, 93, 48, 16);
+		contentPane.add(lblRhythm);
 		
 		JTextArea txtRhythm = new JTextArea(rhythm);
+		txtRhythm.setBounds(241, 90, 374, 22);
 		txtRhythm.setEditable(false);
-		contentPane.add(txtRhythm, "cell 1 3,grow");
+		contentPane.add(txtRhythm);
 		
 		JLabel lblBloodPressure = new JLabel("Blood Pressure:");
-		contentPane.add(lblBloodPressure, "cell 0 4,alignx center");
+		lblBloodPressure.setBounds(80, 120, 90, 16);
+		contentPane.add(lblBloodPressure);
 		
 		JTextArea txtBP = new JTextArea(bp);
+		txtBP.setBounds(241, 116, 374, 23);
 		txtBP.setEditable(false);
-		contentPane.add(txtBP, "cell 1 4,grow");
+		contentPane.add(txtBP);
 		
 		JLabel lblHeight = new JLabel("Height:");
-		contentPane.add(lblHeight, "cell 0 5,alignx center");
+		lblHeight.setBounds(104, 146, 41, 16);
+		contentPane.add(lblHeight);
 		
 		JTextArea txtHeight = new JTextArea(height);
+		txtHeight.setBounds(241, 143, 374, 22);
 		txtHeight.setEditable(false);
-		contentPane.add(txtHeight, "cell 1 5,grow");
+		contentPane.add(txtHeight);
 		
 		JLabel lblWeight = new JLabel("Weight:");
-		contentPane.add(lblWeight, "cell 0 6,alignx center");
+		lblWeight.setBounds(102, 172, 45, 16);
+		contentPane.add(lblWeight);
 		
 		JTextArea txtWeight = new JTextArea(weight);
+		txtWeight.setBounds(241, 169, 374, 22);
 		txtWeight.setEditable(false);
-		contentPane.add(txtWeight, "cell 1 6,grow");
+		contentPane.add(txtWeight);
 		
 		JLabel lblAppearance = new JLabel("Appearance:");
-		contentPane.add(lblAppearance, "cell 0 7,alignx center");
+		lblAppearance.setBounds(88, 208, 73, 16);
+		contentPane.add(lblAppearance);
 		
 		JTextArea txtAppear = new JTextArea(appear);
 		txtAppear.setEditable(false);
 		JScrollPane appearanceScroller = new JScrollPane(txtAppear);
-		contentPane.add(appearanceScroller, "cell 1 7,grow");
+		appearanceScroller.setBounds(241, 195, 374, 42);
+		contentPane.add(appearanceScroller);
 		
 		JLabel lblEyes = new JLabel("Eyes:");
-		contentPane.add(lblEyes, "cell 0 8,alignx center");
+		lblEyes.setBounds(109, 254, 31, 16);
+		contentPane.add(lblEyes);
 		
 		JTextArea txtEyes = new JTextArea(eyes);
 		txtEyes.setEditable(false);
 		JScrollPane eyesScroller = new JScrollPane(txtEyes);
-		contentPane.add(eyesScroller, "cell 1 8,grow");
+		eyesScroller.setBounds(241, 241, 374, 42);
+		contentPane.add(eyesScroller);
 		
 		JLabel lblEarnosemouththroat = new JLabel("Ear/Nose/Mouth/Throat:");
-		contentPane.add(lblEarnosemouththroat, "cell 0 9,alignx center");
+		lblEarnosemouththroat.setBounds(55, 300, 140, 16);
+		contentPane.add(lblEarnosemouththroat);
 		
 		JTextArea txtENMT = new JTextArea(enmt);
 		txtENMT.setEditable(false);
 		JScrollPane enmtScroller = new JScrollPane(txtENMT);
-		contentPane.add(enmtScroller, "cell 1 9,grow");
+		enmtScroller.setBounds(241, 287, 374, 42);
+		contentPane.add(enmtScroller);
 		
 		JLabel lblRespiratory = new JLabel("Respiratory:");
-		contentPane.add(lblRespiratory, "cell 0 10,alignx center");
+		lblRespiratory.setBounds(90, 346, 70, 16);
+		contentPane.add(lblRespiratory);
 		
 		JTextArea txtResp = new JTextArea(resp);
 		txtResp.setEditable(false);
 		JScrollPane respScroller = new JScrollPane(txtResp);
-		contentPane.add(respScroller, "cell 1 10,grow");
+		respScroller.setBounds(241, 333, 374, 42);
+		contentPane.add(respScroller);
 		
 		JLabel lblCardiovascular = new JLabel("Cardiovascular:");
-		contentPane.add(lblCardiovascular, "cell 0 11,alignx center");
+		lblCardiovascular.setBounds(80, 392, 89, 16);
+		contentPane.add(lblCardiovascular);
 		
 		JTextArea txtCardio = new JTextArea(cardio);
 		txtCardio.setEditable(false);
 		JScrollPane cardioScroller = new JScrollPane(txtCardio);
-		contentPane.add(cardioScroller, "cell 1 11,grow");
+		cardioScroller.setBounds(241, 379, 374, 42);
+		contentPane.add(cardioScroller);
 		
 		JLabel lblSkin = new JLabel("Skin:");
-		contentPane.add(lblSkin, "cell 0 12,alignx center");
+		lblSkin.setBounds(110, 439, 29, 16);
+		contentPane.add(lblSkin);
 		
 		JTextArea txtSkin = new JTextArea(skin);
 		txtSkin.setEditable(false);
 		JScrollPane skinScroller = new JScrollPane(txtSkin);
-		contentPane.add(skinScroller, "cell 1 12,grow");
+		skinScroller.setBounds(241, 425, 374, 43);
+		contentPane.add(skinScroller);
 		
 		JLabel lblProblems = new JLabel("Problems:");
-		contentPane.add(lblProblems, "cell 0 13,alignx center");
+		lblProblems.setBounds(96, 485, 58, 16);
+		contentPane.add(lblProblems);
 		
 		JTextArea txtProblems = new JTextArea(problems);
 		txtProblems.setEditable(false);
 		JScrollPane problemsScroller = new JScrollPane(txtProblems);
-		contentPane.add(problemsScroller, "cell 1 13,grow");
+		problemsScroller.setBounds(241, 472, 374, 42);
+		contentPane.add(problemsScroller);
 		
 		JLabel lblImpression = new JLabel("Impression:");
-		contentPane.add(lblImpression, "cell 0 14,alignx center");
+		lblImpression.setBounds(91, 531, 68, 16);
+		contentPane.add(lblImpression);
 		
 		JTextArea txtImpression = new JTextArea(impression);
 		txtImpression.setEditable(false);
 		JScrollPane impressionScroller = new JScrollPane(txtImpression);
-		contentPane.add(impressionScroller, "cell 1 14,grow");
+		impressionScroller.setBounds(241, 518, 374, 42);
+		contentPane.add(impressionScroller);
 		
 		JLabel lblLastUpdated = new JLabel("Last Updated:");
-		contentPane.add(lblLastUpdated, "cell 0 15,alignx center");
+		lblLastUpdated.setBounds(85, 567, 79, 16);
+		contentPane.add(lblLastUpdated);
 		
 		JTextArea txtLastUpdated = new JTextArea(lastupdated);
+		txtLastUpdated.setBounds(241, 564, 374, 22);
 		txtLastUpdated.setEditable(false);
-		contentPane.add(txtLastUpdated, "cell 1 15,grow");
+		contentPane.add(txtLastUpdated);
 		
 		JLabel lblUpdatedLastBy = new JLabel("Updated Last By:");
-		contentPane.add(lblUpdatedLastBy, "cell 0 16,alignx center");
+		lblUpdatedLastBy.setBounds(77, 593, 96, 16);
+		contentPane.add(lblUpdatedLastBy);
 		
 		JTextArea txtUpdatedBy = new JTextArea(updatedby);
+		txtUpdatedBy.setBounds(241, 590, 374, 22);
 		txtUpdatedBy.setEditable(false);
-		contentPane.add(txtUpdatedBy, "cell 1 16,grow");
+		contentPane.add(txtUpdatedBy);
 		
 		// Button that closes the pane and returns to the previous one
 		JButton btnReturn = new JButton("Return");
+		btnReturn.setBounds(85, 616, 80, 25);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				dispose();
 			}
 		});
-		contentPane.add(btnReturn, "cell 0 17,alignx center");
+		contentPane.add(btnReturn);
 		
 		// Button that brings user to a pane that allows them to update patient's physical information
 		JButton btnUpdate = new JButton("Update");
+		btnUpdate.setBounds(375, 616, 103, 25);
 		btnUpdate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -218,7 +247,7 @@ public class DoctorPatientsPhysicalInfoView extends JFrame {
 				dispose();
 			}
 		});
-		contentPane.add(btnUpdate, "cell 1 17,alignx center");
+		contentPane.add(btnUpdate);
 		
 	}
 	

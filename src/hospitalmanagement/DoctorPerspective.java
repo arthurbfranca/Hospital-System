@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -80,6 +82,8 @@ public class DoctorPerspective extends JFrame {
 		ViewAvailabilityButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				ViewSchedulePerspective seeSched = new ViewSchedulePerspective(email, 1, getToday());
+				seeSched.setVisible(true);
 			}
 		});
 		ViewAvailabilityButton.setBounds(115, 137, 148, 53);
@@ -154,5 +158,20 @@ public class DoctorPerspective extends JFrame {
 		});
 		btnAddPatients.setBounds(289, 204, 148, 53);
 		contentPane.add(btnAddPatients);
+	}
+	
+	/**
+	 * This method gets the current date using the System clock, and returns it
+	 * as a string in the same format used in the JSONs
+	 * 
+	 * @return the current date in the same format used in the JSON
+	 * @author erinpaslawski
+	 *
+	 */
+	private String getToday() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd");
+		LocalDateTime now = LocalDateTime.now();
+		String today;
+		return(today = dtf.format(now)); 
 	}
 }
