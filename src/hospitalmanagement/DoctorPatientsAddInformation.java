@@ -39,8 +39,7 @@ public class DoctorPatientsAddInformation extends JFrame {
 	 * This frame is the frame for when the Doctor selects the patient in the View Patient pane.
 	 * The Doctor will be shown information about the specific patient that was chosen in the previous pane.
 	 * @param email The email of the doctor (used as an identifier for reading/writing to JSON).
-	 * @param name Name of the patient chosen by the Doctor that was passed from the previous pane.
-	 * @param ID ID of the patient chosen by the Doctor that was passed from the previous pane.
+	 * @param patientIndex The index of the patient chosen by the Doctor that was passed from the previous pane.
 	 */
 	public DoctorPatientsAddInformation(String email, int patientIndex) {
 		
