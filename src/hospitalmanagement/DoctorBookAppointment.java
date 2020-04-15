@@ -21,14 +21,7 @@ import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 
 /**
- * We already have one but I have made an alternative option based off of the
- * one I made for patient appointment booking !!!!!!!!!!!!!!!!!!!!!!!!!!
- * 
  * Class that displays the panel for doctors to book an appointment.
- * !!!!!!!!!Note: scheduling only has one year right now so everything here is
- * based off of the current 2020 doctor scheduling. We can just take out
- * bookings past 2020 but I have implemented booking for 2020-2025 for now.
- * !!!!!!!!1
  * 
  * @author sydneykwok
  */
@@ -100,9 +93,7 @@ public class DoctorBookAppointment extends JFrame {
 		yearLabel.setBounds(87, 190, 75, 14);
 		contentPane.add(yearLabel);
 
-		// TODO: decide how many years in advance we will allow bookings.
-		// for now i have made the executive decision to allow bookings 5 years in
-		// advance.
+		// add year values
 		JComboBox<String> yearDropdown = new JComboBox<String>();
 		yearDropdown.setBounds(203, 186, 171, 22);
 		yearDropdown.addItem("2020");
@@ -252,6 +243,11 @@ public class DoctorBookAppointment extends JFrame {
 		}
 	}
 
+	/**
+	* This method add's the doctor's patients to the patient JComboBox.
+	*
+	* @param email The email of the doctor
+	*/
 	private void addDocPatients(String email) {
 		// get the array of the doctor's patients from the account json
 		JsonObject doc = Account.getAccountJSONObj("Doctor", email);
@@ -300,9 +296,7 @@ public class DoctorBookAppointment extends JFrame {
 	}
 
 	/**
-	 * TODO: Get current date and only show today and days after today. Updates the
-	 * values of the day JComboBox. It refers to the dates.json to see the number of
-	 * days the month has and adds the days accordingly.
+	 * This method sets the values of the day JComboBox.
 	 * 
 	 * @param year  The currently selected month.
 	 * @param month The currently selected month.
@@ -336,9 +330,7 @@ public class DoctorBookAppointment extends JFrame {
 	}
 
 	/**
-	 * TODO: get current time and only show future hours. Goes into the doctor's
-	 * schedule and displays all available booking times for that doctor on that
-	 * day.
+	 * This method sets the values for the time JComboBox.
 	 * 
 	 * @param email The email of this doctor.
 	 * @param year  The currently selected year. (MAY NOT NEED since scheduling
