@@ -55,15 +55,6 @@ public class DoctorBookPatientInformation extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		/******** TODO: This is just a suggestion: using the ID, find the patient information
-		 * and then make a new object of Patient class. once that's done, I will take any needed
-		 * information and list it. I'm open to suggestions about what information must be shown
-		 * when a doctor wants to add a patient, since I'm not too sure. So far, I'm only putting
-		 * the Name, Age, Gender, and Department they're specified in. The JSONs doesn't have any
-		 * department(s) assigned to the patients, but we will need to so that the doctor in the
-		 * right department is choosing.
-		 */
-		
 		// Button for completing the appointment booking process.
 		JButton btnBookAppointment = new JButton("Book Appointment");
 		btnBookAppointment.addActionListener(new ActionListener() {
@@ -141,9 +132,7 @@ public class DoctorBookPatientInformation extends JFrame {
 		gbc_lblMale.gridy = 2;
 		PatientInfo.add(lblMale, gbc_lblMale);
 		
-		
 		JLabel lblPatientInformation = new JLabel("Patient Information");
-		
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -185,9 +174,6 @@ public class DoctorBookPatientInformation extends JFrame {
 		gbc_lblPrescriptions.gridy = 3;
 		PatientInfo.add(lblPrescriptions, gbc_lblPrescriptions);
 		
-		/******** TODO: Get list of prescriptions prescribed to the patient.
-		 * Below is  placeholder for prescriptions.
-		 */
 		String[] prescriptions = new String[] {"Vicodin", "Atorvastatin", "Simvastatin", "IDK Something Else"};
 		
 		// List of patient's prescription
@@ -256,10 +242,6 @@ public class DoctorBookPatientInformation extends JFrame {
 		gbc_lblDate.gridy = 6;
 		PatientInfo.add(lblDate, gbc_lblDate);
 		
-		
-		/******** TODO: We need to implement a way to know the dates and set appointments
-		 * not only on time of day but the date as well.
-		 */
 		// Drop down list showing the Dates possible for the appointment
 		JComboBox<Object> ApptDate = new JComboBox<Object>();
 		GridBagConstraints gbc_ApptDate = new GridBagConstraints();
@@ -277,13 +259,6 @@ public class DoctorBookPatientInformation extends JFrame {
 		gbc_lblTime.gridy = 7;
 		PatientInfo.add(lblTime, gbc_lblTime);
 		
-		
-		/******** TODO: Going to need to find a way to see doctor availability and be able to add
-		 * the time stamps into a list of strings. like "10:00-10:25am", "10:30-10:55", etc.
-		 * are in a string or something. If we find a way to determine how availability is
-		 * going to be stored and read from, it should be easy to implement them.
-		 * For now, below is a placeholder for the doctor's time availability.
-		 */
 		String[] time = new String[] {"10:00-10:25am", "10:30-10:55am", "11:00-11:25am", "11:30-11:55am", "12:00-12:25pm", "12:30-12:55pm"};
 		
 		// List of available times for the Doctor
@@ -317,10 +292,7 @@ public class DoctorBookPatientInformation extends JFrame {
 					int add = JOptionPane.showConfirmDialog(contentPane, "Add " + name + "?");		//Confirmation dialogue shown to doctor
 					if (add == 0) {		//If "YES" was clicked, make new appointment and add patient to it, and give a dialogue saying so.
 						String timeSelected = time[timeListIndex];
-						/******** TODO: Add selected patient to doctor's lists of patients in the accounts JSON. 
-						 * The time for appointment is a string called timeSelected, defined above.
-						 * Also need to create an appointment ID.
-						 */
+						
 						JOptionPane.showMessageDialog(contentPane, name + " has been added to your patients.\n" + 
 						 "Time of appointment: " + timeSelected);
 						dispose();
