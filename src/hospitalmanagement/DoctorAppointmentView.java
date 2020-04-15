@@ -23,33 +23,12 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.Iterator;
+
 /**
 * Class that displays the panel for the doctor's appointments
 * @code author arthurbfranca, ggdizon, sydneykwok
 */
 public class DoctorAppointmentView extends JFrame {
-	
-		/*
-		 
-		 //I believe this check here is uncessary given that we're cycling, and not going page by page.
-		 //if we have only one appointment to display, hide Appointment2
-		 if((counter & 1) == 1 && counter == apartmentIDs.size() - 1){
-		 	Appointment2.setVisible(false);
-		 }
-		
-		//TODO: TENTATIVE event handler for CancelButton
-		if(counter <= appointmentIDs.size()-1){
-			//it could be that coutner is the first appointment and last entry, so this check is wrong
-			//if there is another appointment that is on display, display that in the first position
-			viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter);
-			if(counter + 1 <= appointmentIDs.size()-1){
-			
-			}
-		}
-		//write the next entry, if there is any, over in the index in the array, then write the array to the json in this form?
-		deleteJsonArrayEntry(appointmentIDs, counter - 1);
-*/
-	
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -61,9 +40,10 @@ public class DoctorAppointmentView extends JFrame {
 	//the index of the doctor's account in the "doctor" array in accounts2.json
 	private int docIndex = -1;
 		
-	
-	//This method parses through account2.json and looks for the doctor whose email corresponds to the email passed in the class constructor
-	//If no such doctor is found, this method will not throw an exception or notify the user, this should be checked in calling code.
+	/**
+	* Method returns the JsonObject of the doctor with the given email.
+	* @param email The email of the doctor.
+	*/
 	public JsonObject getDoctor(String email) {
 		try {
 			//reader to read accounts2.json
@@ -99,7 +79,10 @@ public class DoctorAppointmentView extends JFrame {
 		}
 	}
 	
-	//like getDoctor, this method takes in an email, and looks for the account with that email in accounts2.json of type "Patient"
+	/**
+	* Like getDoctor, this method takes in an email, and looks for the account with that email in accounts2.json of type "Patient".
+	* @param email The email of the patient.
+	*/
 	public JsonObject getPatient(String email) {
 		try {
 			//reader to read accounts2.json
@@ -134,8 +117,13 @@ public class DoctorAppointmentView extends JFrame {
 		}
 	}
 	
-	//this method takes the doctor's JsonObject and returns the qth appointment in the doctor's list of appointments, where q is an index (a valid q: 0 <=q < arraySize)
-	//this method may return an null object, this should be checked in the calling code
+	/**
+	* This method takes the doctor's JsonObject and returns the qth appointment in the doctor's list of appointments,
+	* where q is an index (a valid q: 0 <=q < arraySize)
+	*
+	* @param doctor The JsonObject of the doctor
+	* @param q The index of the appointment in the doctor's appointments list.
+	*/
 	public JsonObject getAppointment(JsonObject doctor, int q) {
 		JsonArray appointmentIDs = (JsonArray) doctor.get("appointments");
 		if(q < appointmentIDs.size()) {	//if the index is valid
@@ -146,11 +134,6 @@ public class DoctorAppointmentView extends JFrame {
 				//the array of appointments
 				JsonArray appointments = (JsonArray) parser.get("appointments");
 				
-				
-				//FIXME Potential Error: the entries of a JsonArray are JsonObjects, and since we don't have a label for the number, the line below doesnt run
-				//get the id of the appointment to be displayed from doctor's object
-				//String aptID = (String) appointmentIDs.get(q); REMOVEME
-				//String aptID = (String) appointmentIDs.getString(q); REMOVEME
 				JsonObject d = (JsonObject) appointmentIDs.get(q);
 				String aptID = (String) d.get("ID");
 				//find the appointment information within the appointments2.json
@@ -182,17 +165,17 @@ public class DoctorAppointmentView extends JFrame {
 		}
 	}	
 	
-	//Arguments:
-	//name: label corresponding to the patient's name
-	//date: label corresponding to date of appointment
-	//time: label corresponding to the time of appointment
-	//department: label corresponding to the department the appointment is under
-	//type: label corresponding to the type of appointment (followup, etc)
-	//doctor: a json object corresponding to the doctor we are dealing with
-	//q: corresponds to the index in the list of a doctor's appointments that we will look at in the database
-	//This method takes in all the labels to be changed, looks into the desired appointment's information and updates the labels to be up to date
-	//Note: there is some unnecessary recursion across the this method and the two above, in fact, they are not needed as individual methods, however,
-	//this increases maintainability, and the code is much more legible this way.
+	/**
+	* This method takes in all the labels to be changed, looks into the desired appointment's information and updates the labels to be up to date
+	*
+	* @param name: label corresponding to the patient's name
+	* @param date: label corresponding to date of appointment
+	* @param time: label corresponding to the time of appointment
+	* @param department: label corresponding to the department the appointment is under
+	* @param type: label corresponding to the type of appointment (followup, etc)
+	* @param doctor: a json object corresponding to the doctor we are dealing with
+	* @param q: corresponds to the index in the list of a doctor's appointments that we will look at in the database
+	*/
 	public void viewAppointment(JLabel name, JLabel date, JLabel time, JLabel department, JLabel type, JsonObject doctor, int q) {
 		JsonObject apt = getAppointment(doctor, q);
 		//if a null appointment was returned by getAppointment, notify the tester in console.
@@ -211,18 +194,20 @@ public class DoctorAppointmentView extends JFrame {
 		}
 	}
 	
-	//appointments: the JsonArray that contains the numerical ID to the user's appointments
-	//doctor: the JsonObject corresponding to the user's account
-	//This method takes in the user's list of appointments, save one entry has been removed, and writes the change to accounts2.json
+	/**
+	* This method takes in the user's list of appointments, save one entry has been removed, and writes the change to accounts2.json
+	*
+	* @param appointments: the JsonArray that contains the numerical ID to the user's appointments
+	* @param doctor: the JsonObject corresponding to the user's account
+	*/
 	private void updateAppointments(JsonArray appointments, JsonObject doctor) {
 		
-
 		try {
 			//reader to read accounts2.json
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
 			//parser to parse the reader
 			JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
-		   //we look for the JsonArray within accounts2.json, for that is where the JsonObject of our doctor is
+		   	//we look for the JsonArray within accounts2.json, for that is where the JsonObject of our doctor is
 			JsonArray accounts = (JsonArray) parser.get("accounts");
 			JsonObject doctorsObj = (JsonObject) accounts.get(1);	//this is the object that has the list of all doctors
 			JsonArray doctorsArr = (JsonArray) doctorsObj.get("doctor");			
@@ -611,8 +596,6 @@ public class DoctorAppointmentView extends JFrame {
 			ReturnToMainButton.setBounds(252, 441, 89, 23);
 			contentPane.add(ReturnToMainButton);
 			
-			
-			
 			//Below we initialize the appointments on display, if there are any to display.	
 			if(appointmentIDs.size() == 0) {
 				//no appointments have been booked, display nothing
@@ -643,77 +626,3 @@ public class DoctorAppointmentView extends JFrame {
 	}//end of constructor
 	
 } //end of class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* THis here is an artifact, leave it should changes need to be made
-  	//reader to read accounts2.json
-	BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/accounts2.json")));
-	//parser to parse the reader
-	JsonObject parser = (JsonObject) Jsoner.deserialize(reader);
-   //we look for the JsonArray within accounts2.json, for that is where the JsonObject of our doctor is
-	JsonArray accounts = (JsonArray) parser.get("accounts")
-	JsonObject doctorsObj = (JsonObject) accounts.get(1);
-	JsonArray doctorsArr = (JsonArray) doctorsObj.get("doctor");
-   //we repeat the above process to obtain the appointments in a JsonArray form from the appointments.json file
-	BufferedReader reader2 = new BufferedReader(new InputStreamReader(new FileInputStream("src/hospitalmanagement/appointments.json")));
-	parser = (JsonObject) Jsoner.deserialize(reader2);
-	JsonArray appointments = (JsonArray) parser.get("appointments");		
-	//create an iterator to go through JsonArrays
-	Iterator i;
-	//Now we find the JsonObject for the doctor in particular we are dealing with, whom is identified by the passed email
-	i = doctorsArr.iterator(); int flag = 0; //flag used to stop the iteration when we've found the correct object
-	JsonObject doctor;
-	//go through all doctors to find the one we're dealing with. A constant time search could be implemented, but that would conflict with the 
-	//json format we are going with, which simplifies the syntax. This is a tradeoff in terms of writing code more easily, but we have lesser efficiency
-	//had we more time to troubleshoot, we'd opt for the optimal setup.
-	while(i.hasNext() && flag == 0) {
-		doctor = (JsonObject) i.next();
-		String currentEmail = (String) doctor.get("email");
-		if(currentEmail.equals(email)) {
-			flag = 1;
-		}
-	}
-	
-	
-	
-	public void mousePressed(MouseEvent e) {
-					//Event Handler for NextButton
-					//If NextButton is enabled, then when this line is reached there are two appointments in display, and there is at least one more appointment
-					//to be shown. TODO: decide whether or not we're moving forward appointment by appointment or page by page
-					//Currently: appointment by appointment.
-					if(counter < appointmentIDs.size() - 1){
-						//there is at least one more appointment to be shown
-						PreviousButton.setVisible(true);	//redundant if already enabled, I expect no harm out of that FIXME: possible bug if it toggles
-						viewAppointment(PatientName, AppointmentDate, AppointmentTime, Department, AppointmentType, doctor, counter);
-						viewAppointment(PatientName2, AppointmentDate2, AppointmentTime2, Department2, AppointmentType2, doctor, counter+=1);
-						if(counter == appointmentIDs.size() - 1){
-						//counter is the last index in the doctor's list of appointments
-							NextButton.setVisible(false);	//assures this method will not produce an IndexOutOfBounds exception
-						}
-					} else{
-						System.out.println("NextButton was pressed when it should never be accessible");
-					}
-				}
-			});
-	
-	
- */
